@@ -13,9 +13,14 @@ int main()
 	oldImage.readFromFile("in.png");	
 	size_t vertical = oldImage.height();
 	size_t horizontal = oldImage.width();
-
+/*
+* have initialized newImage just so that the pixels are accessable 
+*/
 	PNG newImage;
 	newImage.readFromFile("in.png");
+/*
+ * we will flip the image horizontally and vertically to rotate it by 180 degrees
+*/
 	for (size_t x = 0; x < oldImage.width(); x++)
 	{	
 		for (size_t y = 0; y < oldImage.height(); y++)
