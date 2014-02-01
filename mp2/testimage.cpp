@@ -15,7 +15,7 @@
 int main()
 {
 	Image* myImage = new Image();
-	myImage->readFromFile("in_01.png");
+	myImage->readFromFile("in_02.png");
 	myImage->invertcolors();
 	myImage->writeToFile("inverted.png");
 

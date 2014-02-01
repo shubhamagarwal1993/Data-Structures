@@ -15,7 +15,8 @@ void Image::flipleft()
 	{
 		for (int y = 0; y < height_temp; y++)
 		{
-			temp = (*(*this)(x,y));								//have 
+			temp = (*(*this)(x,y));								//have a doubt about the pointers
+			
 			(*(*this)(x,y)) = (*(*this)(width_temp-x-1,y));
 			(*(*this)(width_temp-x-1,y)) = temp;
 		}	
