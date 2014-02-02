@@ -5,13 +5,16 @@ using namespace std;
 
 RGBAPixel::RGBAPixel()
 {
-	RGBAPixel::alpha = 225;
+red = 255;
+blue = 255;
+green = 255;
+alpha = 255;
 }
 
-RGBAPixel::RGBAPixel(unsigned char red, unsigned char green, unsigned char blue)
+RGBAPixel::RGBAPixel(unsigned char red_temp, unsigned char green_temp, unsigned char blue_temp)
 {
-	RGBAPixel::red = red;
-	RGBAPixel::blue = blue;
-	RGBAPixel::green = green;
-	RGBAPixel::alpha = 225;
+	red = red_temp;
+	blue = blue_temp;
+	green = green_temp;
+	alpha = 255;
 }
