@@ -1,7 +1,23 @@
 Monad Autograder
-Testing lab_debug at 2014-02-03 22:34:17
+Testing lab_debug at 2014-02-04 00:21:57
 
-"I think there is a world market for maybe five computers." ~ Thomas Watson, IBM, 1943
+"There's no real reason for a lot of the things that I say." ~ Urvashi Khandelwal
 
 Setting up test environment...
-Error: /dev/shm/geigle1/monad/sp14-cs225/sagarwl4/lab_debug/main.cpp does not exist.
+Compiling...
+================================================================
+
+
+Running tests...
+================================================================
+no_segfaults . . . [20 pts] - passed
+produces_out_png . [10 pts] - passed
+similar_sketch . . [30 pts] - passed
+complete_in_01_bmp [20 pts] - passed
+complete_in_02_bmp [20 pts] - passed
+
+
+Total score...
+================================================================
+TOTAL SCORE: 100
+
