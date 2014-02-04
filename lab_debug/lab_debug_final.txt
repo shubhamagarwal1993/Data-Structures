@@ -1,0 +1,7 @@
+Monad Autograder
+Testing lab_debug at 2014-02-03 22:34:17
+
+"I think there is a world market for maybe five computers." ~ Thomas Watson, IBM, 1943
+
+Setting up test environment...
+Error: /dev/shm/geigle1/monad/sp14-cs225/sagarwl4/lab_debug/main.cpp does not exist.
