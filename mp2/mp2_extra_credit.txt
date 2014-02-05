@@ -1,0 +1,24 @@
+Monad Autograder
+Testing mp2.1 at 2014-02-05 00:55:08
+
+"Rejoice!" ~ Kotomine Kirei
+
+Setting up test environment...
+Compiling...
+================================================================
+
+
+Running tests...
+================================================================
+InvertColorsEven  . . [33 pts] - passed
+FlipLeftEven  . . . . [17 pts] - passed
+FlipLeftOdd . . . . . [17 pts] - passed
+AdjustBrightnessEven  [11 pts] - passed
+AdjustBrightnessEven2 [11 pts] - passed
+AdjustBrightnessEven3 [11 pts] - passed
+
+
+Total score...
+================================================================
+TOTAL SCORE: 100
+
