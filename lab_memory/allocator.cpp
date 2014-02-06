@@ -153,3 +153,25 @@ Room * Allocator::largestOpening()
 	}
 	return &rooms[index];
 }
+
+Allocator::~Allocator()
+{
+	clear();
+}
+
+
+void Allocator::clear()
+{
+	if (alpha != NULL)
+	{
+		delete[] alpha;
+		alpha = NULL;
+	}
+	
+	if (rooms != NULL)
+	{
+		delete[] rooms;
+		rooms = NULL;
+	}
+	
+}
