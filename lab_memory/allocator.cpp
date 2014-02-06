@@ -55,16 +55,20 @@ void Allocator::loadRooms(const string & file)
 {
 	// Read in rooms
 	fileio::loadRooms(file);
+	roomCount = fileio::getNumRooms();
 	rooms = new Room[roomCount];
 
 	totalCapacity = 0;
 	int i = 0;
 	while (fileio::areMoreRooms())
 	{
-		i++;
 		rooms[i] = fileio::nextRoom();
 		totalCapacity += rooms[i].capacity;
+		i++;
 	}
+//	delete[] rooms;					//can be deleted onyl if it is not used anymore 
+//	rooms = NULL;					//changed	
+
 }
 
 void Allocator::printStudents()

@@ -83,7 +83,10 @@ void Room::print()
 void Room::clear()
 {
 	if (letters != NULL)
-		delete letters;
+	{
+		delete[] letters;
+		letters = NULL;
+	}
 }
 
 /**
