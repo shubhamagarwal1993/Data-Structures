@@ -1,0 +1,259 @@
+Monad Autograder
+Testing mp2 at 2014-02-06 00:50:29
+
+"There are two ways of constructing a software design. One way is to make it so simple that there are obviously no deficiencies. And the other way is to make it so complicated that there are no obvious deficiencies." ~ C.A.R. Hoare
+
+Setting up test environment...
+Compiling...
+================================================================
+make: warning: undefined variable `CXXFLAGS'
+make: warning: undefined variable `CPPFLAGS'
+make: warning: undefined variable `LDFLAGS'
+make: warning: undefined variable `TARGET_ARCH'
+make: warning: undefined variable `LOADLIBES'
+make: warning: undefined variable `LDLIBS'
+In file included from testscene.cpp:64:
+scene.h:3:12: error: empty filename in #include
+In file included from testscene.cpp:64:
+scene.h:11: error: expected ';' before '~' token
+scene.h:32: error: expected ';' before '}' token
+testscene.cpp: In function 'void proxy_test::AddPictureValidIndex(util::pipestream&)':
+testscene.cpp:81: error: no matching function for call to 'Scene::Scene(int)'
+scene.h:7: note: candidates are: Scene::Scene()
+scene.h:7: note:                 Scene::Scene(const Scene&)
+testscene.cpp:82: error: 'class Scene' has no member named 'addpicture'
+testscene.cpp:83: error: 'class Scene' has no member named 'getpicture'
+testscene.cpp: In function 'void proxy_test::AddPictureInvalidIndex(util::pipestream&)':
+testscene.cpp:91: error: no matching function for call to 'Scene::Scene(int)'
+scene.h:7: note: candidates are: Scene::Scene()
+scene.h:7: note:                 Scene::Scene(const Scene&)
+testscene.cpp:93: error: 'class Scene' has no member named 'addpicture'
+testscene.cpp:94: error: 'class Scene' has no member named 'addpicture'
+testscene.cpp:95: error: 'class Scene' has no member named 'addpicture'
+testscene.cpp:96: error: 'class Scene' has no member named 'addpicture'
+testscene.cpp: In function 'void proxy_test::ImageAssignmentOperator(util::pipestream&)':
+testscene.cpp:104: error: no matching function for call to 'Scene::Scene(int)'
+scene.h:7: note: candidates are: Scene::Scene()
+scene.h:7: note:                 Scene::Scene(const Scene&)
+testscene.cpp:105: error: 'class Scene' has no member named 'addpicture'
+testscene.cpp:106: error: 'class Scene' has no member named 'getpicture'
+testscene.cpp: In function 'void proxy_test::SceneGetPictureInvalidIndex(util::pipestream&)':
+testscene.cpp:116: error: no matching function for call to 'Scene::Scene(int)'
+scene.h:7: note: candidates are: Scene::Scene()
+scene.h:7: note:                 Scene::Scene(const Scene&)
+testscene.cpp:117: error: 'class Scene' has no member named 'addpicture'
+testscene.cpp:119: error: 'class Scene' has no member named 'getpicture'
+testscene.cpp:121: error: 'class Scene' has no member named 'getpicture'
+testscene.cpp: In function 'void proxy_test::SceneChangeMaxLayersLarger(util::pipestream&)':
+testscene.cpp:136: error: no matching function for call to 'Scene::Scene(int)'
+scene.h:7: note: candidates are: Scene::Scene()
+scene.h:7: note:                 Scene::Scene(const Scene&)
+testscene.cpp:137: error: 'class Scene' has no member named 'changemaxlayers'
+testscene.cpp:138: error: 'class Scene' has no member named 'addpicture'
+testscene.cpp:139: error: 'class Scene' has no member named 'getpicture'
+testscene.cpp: In function 'void proxy_test::SceneChangeMaxLayersSmaller(util::pipestream&)':
+testscene.cpp:148: error: no matching function for call to 'Scene::Scene(int)'
+scene.h:7: note: candidates are: Scene::Scene()
+scene.h:7: note:                 Scene::Scene(const Scene&)
+testscene.cpp:149: error: 'class Scene' has no member named 'changemaxlayers'
+testscene.cpp:151: error: 'class Scene' has no member named 'addpicture'
+testscene.cpp: In function 'void proxy_test::SceneChangeMaxLayersInvalidChange(util::pipestream&)':
+testscene.cpp:158: error: no matching function for call to 'Scene::Scene(int)'
+scene.h:7: note: candidates are: Scene::Scene()
+scene.h:7: note:                 Scene::Scene(const Scene&)
+testscene.cpp:159: error: 'class Scene' has no member named 'addpicture'
+testscene.cpp:160: error: 'class Scene' has no member named 'changemaxlayers'
+testscene.cpp:161: error: 'class Scene' has no member named 'getpicture'
+testscene.cpp: In function 'void proxy_test::SceneCopyCtor(util::pipestream&)':
+testscene.cpp:176: error: no matching function for call to 'Scene::Scene(int)'
+scene.h:7: note: candidates are: Scene::Scene()
+scene.h:7: note:                 Scene::Scene(const Scene&)
+testscene.cpp:177: error: 'class Scene' has no member named 'addpicture'
+testscene.cpp:179: error: 'class Scene' has no member named 'getpicture'
+testscene.cpp: In function 'void proxy_test::SceneCopyCtor2(util::pipestream&)':
+testscene.cpp:189: error: no matching function for call to 'Scene::Scene(int)'
+scene.h:7: note: candidates are: Scene::Scene()
+scene.h:7: note:                 Scene::Scene(const Scene&)
+testscene.cpp:190: error: 'class Scene' has no member named 'addpicture'
+testscene.cpp:192: error: 'class Scene' has no member named 'getpicture'
+testscene.cpp:194: error: 'class Scene' has no member named 'getpicture'
+testscene.cpp: In function 'void proxy_test::SceneAssignmentOperator(util::pipestream&)':
+testscene.cpp:204: error: no matching function for call to 'Scene::Scene(int)'
+scene.h:7: note: candidates are: Scene::Scene()
+scene.h:7: note:                 Scene::Scene(const Scene&)
+testscene.cpp:205: error: no matching function for call to 'Scene::Scene(int)'
+scene.h:7: note: candidates are: Scene::Scene()
+scene.h:7: note:                 Scene::Scene(const Scene&)
+testscene.cpp:206: error: 'class Scene' has no member named 'addpicture'
+testscene.cpp:208: error: 'class Scene' has no member named 'getpicture'
+testscene.cpp: In function 'void proxy_test::SceneAssignmentOperator2(util::pipestream&)':
+testscene.cpp:218: error: no matching function for call to 'Scene::Scene(int)'
+scene.h:7: note: candidates are: Scene::Scene()
+scene.h:7: note:                 Scene::Scene(const Scene&)
+testscene.cpp:219: error: no matching function for call to 'Scene::Scene(int)'
+scene.h:7: note: candidates are: Scene::Scene()
+scene.h:7: note:                 Scene::Scene(const Scene&)
+testscene.cpp:220: error: 'class Scene' has no member named 'addpicture'
+testscene.cpp:222: error: 'class Scene' has no member named 'getpicture'
+testscene.cpp:224: error: 'class Scene' has no member named 'getpicture'
+testscene.cpp: In function 'void proxy_test::SceneChangeLayer(util::pipestream&)':
+testscene.cpp:234: error: no matching function for call to 'Scene::Scene(int)'
+scene.h:7: note: candidates are: Scene::Scene()
+scene.h:7: note:                 Scene::Scene(const Scene&)
+testscene.cpp:235: error: 'class Scene' has no member named 'addpicture'
+testscene.cpp:236: error: 'class Scene' has no member named 'addpicture'
+testscene.cpp:237: error: 'class Scene' has no member named 'changelayer'
+testscene.cpp:238: error: 'class Scene' has no member named 'getpicture'
+testscene.cpp: In function 'void proxy_test::SceneChangeLayerInvalid(util::pipestream&)':
+testscene.cpp:247: error: no matching function for call to 'Scene::Scene(int)'
+scene.h:7: note: candidates are: Scene::Scene()
+scene.h:7: note:                 Scene::Scene(const Scene&)
+testscene.cpp:248: error: 'class Scene' has no member named 'addpicture'
+testscene.cpp:249: error: 'class Scene' has no member named 'changelayer'
+testscene.cpp:250: error: 'class Scene' has no member named 'changelayer'
+testscene.cpp:251: error: 'class Scene' has no member named 'getpicture'
+testscene.cpp: In function 'void proxy_test::SceneDrawScene(util::pipestream&)':
+testscene.cpp:260: error: no matching function for call to 'Scene::Scene(int)'
+scene.h:7: note: candidates are: Scene::Scene()
+scene.h:7: note:                 Scene::Scene(const Scene&)
+testscene.cpp:261: error: 'class Scene' has no member named 'addpicture'
+testscene.cpp:262: error: 'class Scene' has no member named 'addpicture'
+testscene.cpp:263: error: 'class Scene' has no member named 'addpicture'
+testscene.cpp:264: error: 'class Scene' has no member named 'addpicture'
+testscene.cpp:265: error: 'class Scene' has no member named 'addpicture'
+testscene.cpp:267: error: 'class Scene' has no member named 'drawscene'
+testscene.cpp: In function 'void proxy_test::SceneDrawScene2(util::pipestream&)':
+testscene.cpp:275: error: no matching function for call to 'Scene::Scene(int)'
+scene.h:7: note: candidates are: Scene::Scene()
+scene.h:7: note:                 Scene::Scene(const Scene&)
+testscene.cpp:276: error: 'class Scene' has no member named 'addpicture'
+testscene.cpp:277: error: 'class Scene' has no member named 'addpicture'
+testscene.cpp:278: error: 'class Scene' has no member named 'addpicture'
+testscene.cpp:279: error: 'class Scene' has no member named 'addpicture'
+testscene.cpp:280: error: 'class Scene' has no member named 'addpicture'
+testscene.cpp:282: error: 'class Scene' has no member named 'drawscene'
+testscene.cpp: In function 'void proxy_test::SceneDrawScene3(util::pipestream&)':
+testscene.cpp:290: error: no matching function for call to 'Scene::Scene(int)'
+scene.h:7: note: candidates are: Scene::Scene()
+scene.h:7: note:                 Scene::Scene(const Scene&)
+testscene.cpp:291: error: 'class Scene' has no member named 'addpicture'
+testscene.cpp:292: error: 'class Scene' has no member named 'addpicture'
+testscene.cpp:293: error: 'class Scene' has no member named 'addpicture'
+testscene.cpp:294: error: 'class Scene' has no member named 'addpicture'
+testscene.cpp:296: error: 'class Scene' has no member named 'addpicture'
+testscene.cpp:298: error: 'class Scene' has no member named 'drawscene'
+testscene.cpp: In function 'void proxy_test::SceneDrawScene4(util::pipestream&)':
+testscene.cpp:306: error: no matching function for call to 'Scene::Scene(int)'
+scene.h:7: note: candidates are: Scene::Scene()
+scene.h:7: note:                 Scene::Scene(const Scene&)
+testscene.cpp:307: error: 'class Scene' has no member named 'addpicture'
+testscene.cpp:308: error: 'class Scene' has no member named 'addpicture'
+testscene.cpp:309: error: 'class Scene' has no member named 'addpicture'
+testscene.cpp:310: error: 'class Scene' has no member named 'addpicture'
+testscene.cpp:311: error: 'class Scene' has no member named 'addpicture'
+testscene.cpp:313: error: 'class Scene' has no member named 'drawscene'
+testscene.cpp: In function 'void proxy_test::SceneDrawSceneChangeLayer(util::pipestream&)':
+testscene.cpp:321: error: no matching function for call to 'Scene::Scene(int)'
+scene.h:7: note: candidates are: Scene::Scene()
+scene.h:7: note:                 Scene::Scene(const Scene&)
+testscene.cpp:322: error: 'class Scene' has no member named 'addpicture'
+testscene.cpp:323: error: 'class Scene' has no member named 'addpicture'
+testscene.cpp:324: error: 'class Scene' has no member named 'addpicture'
+testscene.cpp:325: error: 'class Scene' has no member named 'changelayer'
+testscene.cpp:327: error: 'class Scene' has no member named 'drawscene'
+testscene.cpp: In function 'void proxy_test::SceneDrawSceneDeletePicture(util::pipestream&)':
+testscene.cpp:335: error: no matching function for call to 'Scene::Scene(int)'
+scene.h:7: note: candidates are: Scene::Scene()
+scene.h:7: note:                 Scene::Scene(const Scene&)
+testscene.cpp:336: error: 'class Scene' has no member named 'addpicture'
+testscene.cpp:337: error: 'class Scene' has no member named 'addpicture'
+testscene.cpp:338: error: 'class Scene' has no member named 'addpicture'
+testscene.cpp:339: error: 'class Scene' has no member named 'deletepicture'
+testscene.cpp:341: error: 'class Scene' has no member named 'drawscene'
+testscene.cpp: In function 'void proxy_test::SceneDrawSceneTranslate(util::pipestream&)':
+testscene.cpp:349: error: no matching function for call to 'Scene::Scene(int)'
+scene.h:7: note: candidates are: Scene::Scene()
+scene.h:7: note:                 Scene::Scene(const Scene&)
+testscene.cpp:350: error: 'class Scene' has no member named 'addpicture'
+testscene.cpp:351: error: 'class Scene' has no member named 'addpicture'
+testscene.cpp:352: error: 'class Scene' has no member named 'translate'
+testscene.cpp:354: error: 'class Scene' has no member named 'drawscene'
+testscene.cpp: In function 'void proxy_test::SceneDrawSceneTranslate2(util::pipestream&)':
+testscene.cpp:362: error: no matching function for call to 'Scene::Scene(int)'
+scene.h:7: note: candidates are: Scene::Scene()
+scene.h:7: note:                 Scene::Scene(const Scene&)
+testscene.cpp:363: error: 'class Scene' has no member named 'addpicture'
+testscene.cpp:364: error: 'class Scene' has no member named 'addpicture'
+testscene.cpp:365: error: 'class Scene' has no member named 'translate'
+testscene.cpp:366: error: 'class Scene' has no member named 'translate'
+testscene.cpp:368: error: 'class Scene' has no member named 'drawscene'
+testscene.cpp: In function 'void proxy_test::SceneTranslateInvalid(util::pipestream&)':
+testscene.cpp:376: error: no matching function for call to 'Scene::Scene(int)'
+scene.h:7: note: candidates are: Scene::Scene()
+scene.h:7: note:                 Scene::Scene(const Scene&)
+testscene.cpp:377: error: 'class Scene' has no member named 'addpicture'
+testscene.cpp:378: error: 'class Scene' has no member named 'addpicture'
+testscene.cpp:380: error: 'class Scene' has no member named 'translate'
+testscene.cpp:381: error: 'class Scene' has no member named 'translate'
+testscene.cpp:382: error: 'class Scene' has no member named 'translate'
+testscene.cpp: In function 'void proxy_test::SceneTranslateInvalid2(util::pipestream&)':
+testscene.cpp:390: error: no matching function for call to 'Scene::Scene(int)'
+scene.h:7: note: candidates are: Scene::Scene()
+scene.h:7: note:                 Scene::Scene(const Scene&)
+testscene.cpp:391: error: 'class Scene' has no member named 'addpicture'
+testscene.cpp:392: error: 'class Scene' has no member named 'addpicture'
+testscene.cpp:393: error: 'class Scene' has no member named 'deletepicture'
+testscene.cpp:395: error: 'class Scene' has no member named 'translate'
+testscene.cpp: In function 'void proxy_test::SceneDeletePictureInvalid(util::pipestream&)':
+testscene.cpp:403: error: no matching function for call to 'Scene::Scene(int)'
+scene.h:7: note: candidates are: Scene::Scene()
+scene.h:7: note:                 Scene::Scene(const Scene&)
+testscene.cpp:404: error: 'class Scene' has no member named 'addpicture'
+testscene.cpp:405: error: 'class Scene' has no member named 'addpicture'
+testscene.cpp:407: error: 'class Scene' has no member named 'deletepicture'
+testscene.cpp:408: error: 'class Scene' has no member named 'deletepicture'
+testscene.cpp:409: error: 'class Scene' has no member named 'deletepicture'
+testscene.cpp: In function 'void proxy_test::Valgrind2(util::pipestream&)':
+testscene.cpp:417: error: no matching function for call to 'Scene::Scene(int)'
+scene.h:7: note: candidates are: Scene::Scene()
+scene.h:7: note:                 Scene::Scene(const Scene&)
+testscene.cpp:418: error: 'class Scene' has no member named 'addpicture'
+testscene.cpp:420: error: 'class Scene' has no member named 'getpicture'
+testscene.cpp:423: error: 'class Scene' has no member named 'addpicture'
+testscene.cpp:424: error: 'class Scene' has no member named 'getpicture'
+testscene.cpp:427: error: 'class Scene' has no member named 'getpicture'
+testscene.cpp: In function 'void proxy_test::Valgrind3(util::pipestream&)':
+testscene.cpp:443: error: no matching function for call to 'Scene::Scene(int)'
+scene.h:7: note: candidates are: Scene::Scene()
+scene.h:7: note:                 Scene::Scene(const Scene&)
+testscene.cpp:444: error: 'class Scene' has no member named 'addpicture'
+testscene.cpp:445: error: 'class Scene' has no member named 'addpicture'
+testscene.cpp:446: error: 'class Scene' has no member named 'translate'
+testscene.cpp:447: error: 'class Scene' has no member named 'getpicture'
+testscene.cpp:449: error: 'class Scene' has no member named 'changemaxlayers'
+testscene.cpp:450: error: 'class Scene' has no member named 'addpicture'
+testscene.cpp:451: error: 'class Scene' has no member named 'changelayer'
+testscene.cpp:452: error: 'class Scene' has no member named 'deletepicture'
+testscene.cpp:453: error: 'class Scene' has no member named 'drawscene'
+make: *** [testscene] Error 1
+../source/cc-monad g++ -c -g -O0 -Wall -Werror png.cpp
+../source/cc-monad g++ -c -g -O0 -Wall -Werror image.cpp
+../source/cc-monad g++ -c -g -O0 -Wall -Werror rgbapixel.cpp
+../source/cc-monad g++ -c -g -O0 -Wall -Werror testimage.cpp
+../source/cc-monad g++ png.o image.o rgbapixel.o testimage.o -lpng -o testimage
+
+
+Running tests...
+================================================================
+InvertColorsEven  . . [8 pts] - passed
+FlipLeftEven  . . . . [5 pts] - passed
+FlipLeftOdd . . . . . [5 pts] - passed
+AdjustBrightnessEven  [6 pts] - passed
+AdjustBrightnessEven2 [3 pts] - passed
+AdjustBrightnessEven3 [3 pts] - passed
+
+
+Total score...
+================================================================
+TOTAL SCORE: 30
+
