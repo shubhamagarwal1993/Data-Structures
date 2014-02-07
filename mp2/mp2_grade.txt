@@ -1,7 +1,7 @@
 Monad Autograder
-Testing mp2 at 2014-02-06 00:50:29
+Testing mp2 at 2014-02-07 00:46:50
 
-"There are two ways of constructing a software design. One way is to make it so simple that there are obviously no deficiencies. And the other way is to make it so complicated that there are no obvious deficiencies." ~ C.A.R. Hoare
+"A common mistake that people make when trying to design something completely foolproof is to underestimate the ingenuity of complete fools." ~ Douglas Adams
 
 Setting up test environment...
 Compiling...
