@@ -1,23 +1,19 @@
 Monad Autograder
-Testing mp1 at 2014-01-29 13:42:56
+Testing mp1 at 2014-02-07 08:14:34
 
-"A computer will do what you tell it to do, but that may be much different from what you had in mind" ~ Joseph Weizenbaum
+"I think there is a world market for maybe five computers." ~ Thomas Watson, IBM, 1943
 
 Setting up test environment...
 Compiling...
 ================================================================
-rgbapixel.cpp: In constructor 'RGBAPixel::RGBAPixel(unsigned char, unsigned char, unsigned char)':
-rgbapixel.cpp:11: warning: declaration of 'blue' shadows a member of 'this'
-rgbapixel.cpp:11: warning: declaration of 'green' shadows a member of 'this'
-rgbapixel.cpp:11: warning: declaration of 'red' shadows a member of 'this'
 g++ -c -g -O0 -Wall -Werror main.cpp
 g++ main.o png.o rgbapixel.o -lpng -o mp1
 
 
 Running tests...
 ================================================================
-RGBAPixel_default_ctor [5 pts]  - FAILED: unit_tests.cpp:19: Assertion (normal.red == 255) failed
-RGBAPixel_three_ctor . [10 pts] - FAILED: unit_tests.cpp:31: Assertion (three.alpha == 255) failed
+RGBAPixel_default_ctor [5 pts]  - passed
+RGBAPixel_three_ctor . [10 pts] - passed
 in_01_png  . . . . . . [5 pts]  - passed
 in_02_png  . . . . . . [5 pts]  - passed
 in_03_png  . . . . . . [5 pts]  - passed
@@ -39,29 +35,5 @@ in_17_png  . . . . . . [5 pts]  - passed
 
 Total score...
 ================================================================
-TOTAL SCORE: 85
-
-
-
-Detailed test output...
-================================================================
-----------------------------------------------------------------
-RGBAPixel_default_ctor [5 points]
-Result: FAILED: unit_tests.cpp:19: Assertion (normal.red == 255) failed
-Took 0ms (1000ms timeout)
-Output:
-----------------------------------------------------------------
-
-----------------------------------------------------------------
-RGBAPixel_three_ctor [10 points]
-Result: FAILED: unit_tests.cpp:31: Assertion (three.alpha == 255) failed
-Took 0ms (1000ms timeout)
-Output:
-----------------------------------------------------------------
-
-
-----------------------------------------------------------------
-Total score...
-================================================================
-TOTAL SCORE: 85
+TOTAL SCORE: 100
 
