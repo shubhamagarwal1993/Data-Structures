@@ -56,7 +56,16 @@ public:
 	 *	holds pointers of images 
 	 */
 	Image** array;
-
+	
+	/*
+	 *	new array to copy over the images
+	 */
+	 Image** size_change_array;
+	 
+	 int * size_change_x;
+	 
+	 int * size_change_y;
+	 
 	/**
 	 *	holds x coordinates of images 
 	 */

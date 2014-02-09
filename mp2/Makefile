@@ -1,33 +1,33 @@
-EXE = testimage testscene
-OBJS = png.o image.o rgbapixel.o scene.o testimage.o testscene.o 
- 
 COMPILER = g++
 COMPILER_FLAGS = -c -g -O0 -Wall -Werror
 LINKER = g++
-LINKER_OPTS = -lpng
 
-all : $(EXE)
+all : testimage testscene
 
-$(EXE) : $(OBJS)
-	$(LINKER) $(OBJS) $(LINKER_OPTS) -o $(EXE)
+testimage : testimage.o image.o png.o rgbapixel.o
+	$(LINKER) testimage.o image.o png.o rgbapixel.o -lpng -o testimage
 
-png.o : png.cpp png.h image.h rgbapixel.h
-	$(COMPILER) $(COMPILER_FLAGS) png.cpp
+testscene : testscene.o scene.o image.o png.o rgbapixel.o
+	$(LINKER) testscene.o scene.o image.o png.o rgbapixel.o -lpng -o testscene
 
-image.o : image.cpp image.h rgbapixel.cpp rgbapixel.h png.h image.h
-	$(COMPILER) $(COMPILER_FLAGS) image.cpp
-
-testimage.o : testimage.cpp rgbapixel.cpp rgbapixel.h image.h
+testimage.o: testimage.cpp image.h png.h rgbapixel.h
 	$(COMPILER) $(COMPILER_FLAGS) testimage.cpp
 
-rgbapixel.o : rgbapixel.cpp rgbapixel.h
-	$(COMPILER) $(COMPILER_FLAGS) rgbapixel.cpp
-	
-testscene.o : testscene.cpp scene.h image.h 
+testscene.o: testscene.cpp scene.h image.h rgbapixel.h png.h
 	$(COMPILER) $(COMPILER_FLAGS) testscene.cpp
 
-scene.o : scene.cpp scene.h png.h image.h rgbapixel.h 	
-	$(COMPILER) $(COMPILER_OPTS) scene.cpp
+scene.o : scene.cpp image.h scene.h rgbapixel.h png.h
+	$(COMPILER) $(COMPILER_FLAGS) scene.cpp
 
-clean :
-	-rm -f *.o $(EXE)
+image.o :image.cpp rgbapixel.h png.h
+	$(COMPILER) $(COMPILER_FLAGS)	image.cpp
+
+png.o: png.cpp png.h rgbapixel.h
+	$(COMPILER) $(COMPILER_FLAGS)   png.cpp
+
+rgbapixel.o: rgbapixel.cpp rgbapixel.h 
+	$(COMPILER) $(COMPILER_FLAGS)   rgbapixel.cpp
+
+clean:
+	-rm -f *.o testimage testscene
+
