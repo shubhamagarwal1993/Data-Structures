@@ -1,5 +1,6 @@
 #include "scene.h"
 #include "image.h"
+#include "png.h"
 #include "rgbapixel.h"
 #include<iostream>
 
@@ -196,9 +197,10 @@ Image Scene::drawscene()const
 	{
 		if (array[m] != NULL)
 		{
-			((*this)(final_width, final_height))->red = ((x_array[m]+array[m]->width()),y_array[m]+array[m]->height())->red;
-			*final(final_width, final_height)->blue = ((x_array[m]+array[m]->width()),y_array[m]+array[m]->height())->blue;
-			*final(final_width, final_height)->green = ((x_array[m]+array[m]->width()),y_array[m]+array[m]->height())->green;
+			
+//			((*this)(final_width, final_height))->red = ((x_array[m]+array[m]->width()),y_array[m]+array[m]->height())->red;
+//		*final(final_width, final_height)->blue = ((x_array[m]+array[m]->width()),y_array[m]+array[m]->height())->blue;
+//			*final(final_width, final_height)->green = ((x_array[m]+array[m]->width()),y_array[m]+array[m]->height())->green;
 		}
 	}
 	return final;
