@@ -44,7 +44,7 @@ void Scene::changemaxlayers(int newmax)
 //1. if newmax<max 
 //2. if newmax>=max 
 
-//1. if newmax < max and is invalid
+//1. if newmax < max 
 	if (newmax < max)
 	{
 		for (int i = newmax; i < max; i++)
@@ -57,50 +57,88 @@ void Scene::changemaxlayers(int newmax)
 			
 			if(array[i] == NULL)
 			{
+				Image** size_change_array = new Image*[newmax];	//dymanic array
+				int * size_change_x = new int[newmax];
+				int * size_change_y = new int[newmax];
+		
+				for (int i = 0; i < newmax; i++)				//made new array NULL		
+				{
+					size_change_array[i] = NULL;
+					size_change_x[i] = 0;
+					size_change_y[i] = 0;
+				}
+		
+				for (int i = 0; i < newmax; i++)				//copy over all elememnts
+				{
+					size_change_x[i] = x_array[i];
+					size_change_y[i] = y_array[i];
+			
+					if (array[i] != NULL)
+					{
+						size_change_array[i] = array[i];
+						array[i] = NULL;
+					}		
+					else
+						size_change_array[i] = NULL;
+				}		
+		
+				delete []x_array;
+				delete []y_array;
+				x_array = NULL;
+				y_array = NULL;
+				delete []array;
+				array = NULL;	
+		
+				x_array = size_change_x;
+				y_array = size_change_y;
+				array = size_change_array;
+				max = newmax;
 				
 			}
 
 		}
 	}			
-//2. otherwise we will just 			
-	Image** size_change_array = new Image*[newmax];	//dymanic array
-	int * size_change_x = new int[newmax];
-	int * size_change_y = new int[newmax];
-		
-	for (int i = 0; i < newmax; i++)				//made new array NULL		
+//2. if newmax >= max 
+	if (newmax >= max)
 	{
-		size_change_array[i] = NULL;
-		size_change_x[i] = 0;
-		size_change_y[i] = 0;
-	}
+		Image** size_change_array = new Image*[newmax];	//dymanic array
+		int * size_change_x = new int[newmax];
+		int * size_change_y = new int[newmax];
 		
-	for (int i = 0; i < min(max,newmax); i++)		//copy over all elememnts
-	{
-		size_change_x[i] = x_array[i];
-		size_change_y[i] = y_array[i];
-			
-		if (array[i] != NULL)
+		for (int i = 0; i < newmax; i++)				//made new array NULL		
 		{
-			size_change_array[i] = array[i];
-			array[i] = NULL;
-		}		
-		else
 			size_change_array[i] = NULL;
-	}		
+			size_change_x[i] = 0;
+			size_change_y[i] = 0;
+		}
 		
-	delete []x_array;
-	delete []y_array;
-	x_array = NULL;
-	y_array = NULL;
-	delete []array;
-	array = NULL;	
+		for (int i = 0; i < max; i++)		//copy over all elememnts
+		{
+			size_change_x[i] = x_array[i];
+			size_change_y[i] = y_array[i];
+			
+			if (array[i] != NULL)
+			{
+				size_change_array[i] = array[i];
+				array[i] = NULL;
+			}		
+			else
+				size_change_array[i] = NULL;
+		}		
 		
-	x_array = size_change_x;
-	y_array = size_change_y;
-	array = size_change_array;
-	max = newmax;
-} 
-	
+		delete []x_array;
+		delete []y_array;
+		x_array = NULL;
+		y_array = NULL;
+		delete []array;
+		array = NULL;	
+		
+		x_array = size_change_x;
+		y_array = size_change_y;
+		array = size_change_array;
+		max = newmax;
+	} 
+}	
 //***************************************************************************
 void Scene::addpicture(const char * FileName, int index, int x1, int y1)
 {
