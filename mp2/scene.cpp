@@ -5,27 +5,27 @@
 #include<iostream>
 
 using namespace std;	
-
+//***************************************************************
 Scene::Scene(int size)
 {
-	max = size;								//'max' is a member variable
+	max = size;						//'max' is a member variable
 	
 	array = new Image*[max];		//dymanic array
 	
 	x_array = new int[max];
 	y_array  = new int[max];
 	
-	for (int i = 0; i < max; i++)			//make all NULL
+	for (int i = 0; i < max; i++)	//make all NULL
 	{
 		array[i] = NULL;
 	}
 }
-
+//*******************************************************************
 Scene::Scene(const Scene & source)	
 {
-	copy(source);
+	copy(source);					//call helper function
 }
-//**********************************************************************************
+//********************************************************************
 const Scene & Scene::operator=	(const Scene & source)	
 {
 	if (this != &source)			//check for self assignment
@@ -40,6 +40,11 @@ const Scene & Scene::operator=	(const Scene & source)
 //**********************************************************************************
 void Scene::changemaxlayers(int newmax)	
 {
+//we will have 2 conditions here
+//1. if newmax<max 
+//2. if newmax>=max 
+
+//1. if newmax < max and is invalid
 	if (newmax < max)
 	{
 		for (int i = newmax; i < max; i++)
@@ -49,9 +54,15 @@ void Scene::changemaxlayers(int newmax)
 				cout << "invalid newmax" <<endl;//more images space in newmax 
 				return;	
 			}
+			
+			if(array[i] == NULL)
+			{
+				
+			}
+
 		}
 	}			
-			
+//2. otherwise we will just 			
 	Image** size_change_array = new Image*[newmax];	//dymanic array
 	int * size_change_x = new int[newmax];
 	int * size_change_y = new int[newmax];
@@ -93,10 +104,10 @@ void Scene::changemaxlayers(int newmax)
 //***************************************************************************
 void Scene::addpicture(const char * FileName, int index, int x1, int y1)
 {
-	if(index<0||index>=max)
+	if((index<0)||(index>=max))
 	{
 		cout<<"index out of bounds"<<endl;
-	        return;
+	    return;
 	}
 	x_array[index]=x1;
 	y_array[index]=y1;
@@ -175,7 +186,7 @@ void Scene::deletepicture(int index)
 		array[index] = NULL;
 	}
 }
-
+//***********************************************************************
 Image * Scene::getpicture(int index) const
 {
 	if ((index < 0) || (index > max-1)||array[index] == NULL)
@@ -192,8 +203,8 @@ Image * Scene::getpicture(int index) const
 //**************************************************************************
 Image Scene::drawscene()const
 {
-	unsigned int final_height = 0;					//height of 1st image				
-	unsigned int final_width = 0;					//width of 1st image
+	unsigned int final_height = 0;			//height of 1st image				
+	unsigned int final_width = 0;			//width of 1st image
 
 	for (int i = 0; i < max; i++)			//finding largest width
 	{

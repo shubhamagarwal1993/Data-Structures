@@ -16,7 +16,7 @@
 int main()
 {
 	Scene* set = new Scene(5);
-	set->addpicture("in_01.png", 0, 0, 0);
+	set->addpicture("in_01.png", 0, 0, 0);										//was initially ("in_01.png", 0, 0, 0); 
 	set->addpicture("in_02.png", 1, 60, 60);
 	set->addpicture("in_03.png", 2, 150, 0);
 	Image result = set->drawscene();
