@@ -1,7 +1,7 @@
 Monad Autograder
-Testing mp2 at 2014-02-10 00:55:52
+Testing mp2 at 2014-02-11 01:09:35
 
-"A lot of the things that I say are true, but I don't actually mean them." ~ Alexey Stepanov
+"I didn't say I wanted to die in a blender! I said I wanted to be in a blender!" ~ Kyle Johnson
 
 Setting up test environment...
 Compiling...
