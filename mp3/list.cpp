@@ -18,6 +18,7 @@ template <class T>
 List<T>::~List()
 {
     /// @todo Graded in MP3.1
+    clear();
 }
 
 /**
@@ -28,7 +29,36 @@ template <class T>
 void List<T>::clear()
 {
     /// @todo Graded in MP3.1
-}
+
+	//if the linked list does not exist
+	if ((head == NULL) && (tail == NULL))
+	{
+		return;
+	}
+	
+	else 
+	{	
+		ListNode * P;
+		P = head;
+	
+		while (head->next != NULL)
+		{
+    		head = P->next;
+    		P->prev = NULL;
+    		P->next = NULL;
+    		delete P;
+    		P = NULL;
+    		P = head;
+    	}
+    
+	    head->next = NULL;
+    	head->prev = NULL;
+    	delete head;
+    	P = NULL;
+		head = NULL;
+		tail = NULL;
+	}
+}		
 
 /**
  * Inserts a new node at the front of the List.
@@ -40,6 +70,32 @@ template <class T>
 void List<T>::insertFront(T const & ndata)
 {
     /// @todo Graded in MP3.1
+    
+	if ((head == NULL) && (tail == NULL))
+    {
+    	ListNode * P;			
+    	P = new ListNode;		
+    	P->prev = NULL;
+    	P->next = NULL;
+    	P->data = ndata;
+    	head = P;			   
+    	tail = P;
+    	P = NULL;
+    }
+    
+    //if there exists a list, we will create a new node
+    else 
+    { 
+		ListNode* P;					
+		P = new ListNode;
+		P->prev = NULL;
+		P->next = NULL;
+		P->data = ndata;
+		P->next = head;
+		head->prev = P;
+		head = P;	
+		P = NULL;
+	}
 }
 
 /**
@@ -52,9 +108,33 @@ template <class T>
 void List<T>::insertBack( const T & ndata )
 {
     /// @todo Graded in MP3.1
+    
+  if ((head == NULL) && (tail == NULL))
+    {
+    	ListNode * P;			
+    	P = new ListNode;		
+    	P->prev = NULL;
+    	P->next = NULL;
+    	P->data = ndata;
+    	head = P;			   
+    	tail = P;
+    	P = NULL;
+    }
+    
+    //if there exists a list, we will create a new node
+    else 
+    {
+    	ListNode *P;
+    	P = new ListNode;
+    	P->data = ndata;
+    	P->next = NULL;
+    	P->prev = NULL;
+    	P->prev = tail;
+    	tail->next = P;
+    	P = NULL;
+	}	     
 }
-
-
+    
 /**
  * Reverses the current List.
  */
@@ -79,6 +159,49 @@ template <class T>
 void List<T>::reverse( ListNode * & startPoint, ListNode * & endPoint )
 {
     /// @todo Graded in MP3.1
+
+	ListNode * P;
+	P = startPoint->prev;
+	P->next = NULL;
+	startPoint->prev=NULL;
+	
+	ListNode *S;
+	S = endPoint->next;
+	S->prev = NULL;
+	endPoint->next = NULL;
+	
+	ListNode * temp;
+	temp = startPoint;
+	startPoint = endPoint;
+	endPoint = temp;
+	temp = startPoint->prev;
+
+	ListNode * temp1;
+	temp1 = startPoint;
+	
+	P->next = startPoint;
+	startPoint->prev = P;
+		
+	while(temp != endPoint)
+	{
+		temp1->next = temp;
+		temp->prev = temp1;
+		temp1 = temp;
+		temp = temp->prev;
+	}
+
+//at this point, temp is pointing to endpoint and temp1 is just before endpoint
+
+	temp1->next = endPoint;	
+	endPoint->prev = temp1;
+	endPoint->next = S;
+	S->prev = endPoint;
+	
+	P = NULL;
+	temp = NULL;
+	temp1 = NULL;
+	S = NULL;
+
 }
 
 
