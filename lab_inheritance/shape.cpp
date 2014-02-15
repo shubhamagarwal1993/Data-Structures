@@ -32,6 +32,8 @@ Shape::Shape(const Vector2& pcenter, const RGBAPixel& pcolor)
 }
 
 int Shape::area() const {
+	
+	
 	/* Shape's don't have an area since they cannot be made */
 	return 0;
 }
