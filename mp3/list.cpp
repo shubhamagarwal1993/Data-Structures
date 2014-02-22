@@ -173,13 +173,16 @@ void List<T>::reverse( ListNode * & startPoint, ListNode * & endPoint )
 	ListNode* temp=startPoint;
 	ListNode* tempstart=startPoint;
 	ListNode* tempend=endPoint;
-	while(temp!=NULL)
+	while(temp!=endPoint)
 	{
 		ListNode* inTemp=temp->next;
 		temp->next=temp->prev;
 		temp->prev=inTemp;
 		temp=inTemp;
 	}
+	ListNode* inTemp = temp->prev;
+	temp->next=temp->prev;
+	temp->prev=inTemp;
 	endPoint=tempstart;
 	startPoint=tempend;
 
@@ -200,7 +203,7 @@ template <class T>
 void List<T>::reverseNth( int n )
 {
     /// @todo Graded in MP3.1
-    
+    return;
 	if (n <= length)
 	{
 		ListNode * S = head;
@@ -224,8 +227,6 @@ void List<T>::reverseNth( int n )
 			
 			S->prev = NULL;
 			R->next = NULL;
-			save1->next = NULL;
-			save2->prev = NULL;
 	cout<<"calling reverse 1syt time"<<endl;
 			reverse(S, R);
 			
