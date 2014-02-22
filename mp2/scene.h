@@ -8,7 +8,8 @@
 
 class Scene{
 public:
- 	
+ 	//constructor goes in the public
+	//
  	
  	Scene(int max);
  

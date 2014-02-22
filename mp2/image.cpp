@@ -10,7 +10,9 @@ void Image::flipleft()
 //belongs to the image class
 	int width_temp = width();  		//unsigned int is the same as size_t and there is no concept of negative numbers	
 	int height_temp = height();		//unsigned int
-	
+	//largest unsigned char is 255 so 255-unsigned char will be min 0 and thus no overflow
+	//thus we dont have to worry when using unsigned char
+
 	RGBAPixel temp;
 	
 	for (int x = 0; x < width_temp/2; x++)
