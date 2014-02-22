@@ -83,19 +83,40 @@ void testInserts()
 void testReverse()
 {
 	cout << "[main]: " << __func__ << "()" << endl;
+#if 1
+	List<int> list;
+	for(int i=1; i<=20; i++)
+	{
+		list.insertBack(i);
+	}
+	cout<<list<<endl;
+	list.reverse();
+	cout<<list<<endl;
+	
+#else
 	PNG in("in_02.png");
-
 	List<RGBAPixel> list = imageToList(in);
 	list.reverse();
-
 	PNG out = listToImage(list, in.width(), in.height());
 	out.writeToFile("reverse.png");
-
 	checkSoln(__func__, out, "soln_reverse.png");
+#endif
 }
 
 void testReverseNth()
 {
+	cout << "[main]: " << __func__ << "()" << endl;
+	List<int> list;
+	for(int i=1; i<=9; i++)
+	{
+		list.insertBack(i);
+	}
+	cout<<list<<endl;
+	list.reverseNth(3);
+	cout<<list<<endl;
+	
+
+/*
 	cout << "[main]: " << __func__ << "()" << endl;
 	PNG in("in_03.png");
 	
@@ -107,6 +128,8 @@ void testReverseNth()
 
 	checkSoln(__func__, out, "soln_reverseNth_01.png");
 
+
+
 	in.readFromFile("in_04.png");
 	list = imageToList(in);
 	list.reverseNth(in.height() * 61);
@@ -114,12 +137,27 @@ void testReverseNth()
 	out.writeToFile("reverseNth_02.png");
 
 	checkSoln(__func__, out, "soln_reverseNth_02.png");
+*/
 }
 
 
 void testWaterfall()
 {
+	
 	cout << "[main]: " << __func__ << "()" << endl;
+	List<int> list;
+	for(int i=1; i<=7; i++)
+	{
+		list.insertBack(i);
+	}
+	cout<<list<<endl;
+	list.waterfall();
+	cout<<list<<endl;
+	
+	
+	
+	
+/*	cout << "[main]: " << __func__ << "()" << endl;
 	PNG in("in_05.png");
 
 	List<RGBAPixel> list = imageToList(in);
@@ -137,6 +175,7 @@ void testWaterfall()
 	out.writeToFile("waterfall_02.png");
 
 	checkSoln(__func__, out, "soln_waterfall_02.png");
+*/
 }
 
 void testSplit()
