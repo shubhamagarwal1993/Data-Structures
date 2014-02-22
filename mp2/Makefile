@@ -1,6 +1,7 @@
 COMPILER = g++
 COMPILER_FLAGS = -c -g -O0 -Wall -Werror
 LINKER = g++
+#linker_opts = -lpng
 
 all : testimage testscene
 

@@ -6,8 +6,10 @@ using namespace std;
 
 void Image::flipleft()
 {
-	int width_temp = width();  		
-	int height_temp = height();
+//:: scope resolution - resolves the scope to the image class /basically this function 
+//belongs to the image class
+	int width_temp = width();  		//unsigned int is the same as size_t and there is no concept of negative numbers	
+	int height_temp = height();		//unsigned int
 	
 	RGBAPixel temp;
 	
@@ -15,12 +17,25 @@ void Image::flipleft()
 	{
 		for (int y = 0; y < height_temp; y++)
 		{
-			temp = (*(*this)(x,y));								//have a doubt about the pointers
+			temp = (*(*this)(x,y));		//have a doubt about the pointers
 			
 			(*(*this)(x,y)) = (*(*this)(width_temp-x-1,y));
 			(*(*this)(width_temp-x-1,y)) = temp;
 		}	
 	}
+/*
+
+	for (int x = 0; x < width_temp/2; x++)
+	{
+		for (int y = 0; y < height_temp; y++)
+		{
+			RGBApixel pixel1 = (*(*this)(x,y));
+			(*(*this)(x,y)) = (*(*this)(width-x-1, y));
+			(*(*this)(widthx-1,y)) = pixel1;
+		}
+	}
+*/
+
 }	
 
 void Image::adjustbrightness(int r, int g, int b)
