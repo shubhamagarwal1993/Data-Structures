@@ -32,6 +32,33 @@ void List<T>::clear()
 {
     // @todo Graded in lab_gdb
     // Write this function based on mp3
+    
+    //if the linked list does not exist
+	if (head == NULL)
+	{
+		length = 0;
+		return;
+	}
+	
+	else 
+	{	
+		ListNode * P;
+		P = head;
+	
+		while (P->next != NULL)
+		{
+    		P = head->next;
+    		head->next = NULL;
+    		delete head;
+    		head = P;
+    	}
+    //head and P at last ListNode
+	    head->next = NULL;
+    	delete head;
+    	P = NULL;
+		head = NULL;
+		length = 0;
+	}
 }
 
 /**
@@ -45,7 +72,26 @@ void List<T>::insertFront(T const & ndata)
 {
     // @todo Graded in lab_gdb
     // Write this function based on mp3
+
+    if (head == NULL)
+    {
+    	ListNode * P = new ListNode(ndata);		
+    	P->next = NULL;
+    	head = P;			   
+    	P = NULL;
+    	length = 1;
+    }
+    
+    else 
+    { 
+		ListNode* P = new ListNode(ndata);
+		P->next = head;
+		head = P;	
+		P = NULL;
+		length++;
+	}
 }
+
 
 /**
  * Inserts a new node at the back of the List.
@@ -63,12 +109,15 @@ void List<T>::insertBack( const T & ndata )
     if (temp == NULL)
     {
         head = new ListNode(ndata);
+        length++;
     }
     else
     {
         while (temp->next != NULL)
+        {
             temp = temp->next;
-        temp = new ListNode(ndata);
+        }
+        temp->next = new ListNode(ndata);
         length++;
     }
 }
@@ -97,7 +146,7 @@ typename List<T>::ListNode* List<T>::reverse( ListNode * curr, ListNode * prev, 
 {
     // @todo Graded in lab_gdb
     ListNode * temp;
-    if (len <= 0)
+    if (len <= 1)
     {
         curr->next = prev;
         return curr;
@@ -123,27 +172,38 @@ void List<T>::shuffle()
 {
     // @todo Graded in lab_gdb
 
-    // Find the center, and split the list in half
+    // Find the center        , and split the list in half
     // one should point at the start of the first half-list
     // two should point at the start of the second half-list
-    ListNode * one, * two, * prev, * temp;
-    one = two = prev = temp = head;
-
-    for (int i = 0; i < length/2; i++)
+    
+    if (length == 0)
     {
-        prev = two;
-        two = two->next;
+    	return;
     }
-    prev->next = NULL;
-
-    // interleave
-    while (two != NULL)
+    
+    else
     {
-        temp = one->next;
-        one->next = two;
-        two = two->next;
-        one->next->next = temp;
-    }
+        ListNode * one, * two, * prev, * temp;
+    	one = two = prev = temp = head;
+
+	    for (int i = 0; i < length/2; i++)
+    	{
+    	    prev = two;
+    	    two = two->next;
+    	}
+    	prev->next = NULL;
+	
+    	// interleave
+    	
+    	while (two != NULL)
+    	{
+    	    temp = one->next;				//temp = one->next;
+    	    one->next = two;
+	        two = two->next;
+	        one->next->next = temp;
+			one = temp;
+		}
+	}
 }
 
 

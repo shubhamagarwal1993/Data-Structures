@@ -84,6 +84,14 @@ void testInsertBack()
 
 void testReverse()
 {
+
+	/*List<int> list;
+	for (int i = 1; i <= 2; i++)
+		list.insertBack(i);
+	cout << list << endl;
+	list.reverse();
+	cout << list << endl;*/
+	
 	cout << "[main]: " << __func__ << "()" << endl;
 	PNG in("in.png");
 
