@@ -83,7 +83,7 @@ void testInserts()
 void testReverse()
 {
 	cout << "[main]: " << __func__ << "()" << endl;
-#if 1
+#if 0
 	List<int> list;
 	for(int i=1; i<=20; i++)
 	{
@@ -105,6 +105,7 @@ void testReverse()
 
 void testReverseNth()
 {
+#if 0
 	cout << "[main]: " << __func__ << "()" << endl;
 	List<int> list;
 	for(int i=1; i<=9; i++)
@@ -112,11 +113,11 @@ void testReverseNth()
 		list.insertBack(i);
 	}
 	cout<<list<<endl;
-	list.reverseNth(3);
+	list.reverseNth(4);
 	cout<<list<<endl;
 	
+#else
 
-/*
 	cout << "[main]: " << __func__ << "()" << endl;
 	PNG in("in_03.png");
 	
@@ -137,7 +138,7 @@ void testReverseNth()
 	out.writeToFile("reverseNth_02.png");
 
 	checkSoln(__func__, out, "soln_reverseNth_02.png");
-*/
+#endif
 }
 
 
