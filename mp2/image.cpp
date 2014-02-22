@@ -89,5 +89,19 @@ void Image::invertcolors()
 		}
 	}
 }
-
-
+/*
+void Image::adjustLevel(unsigned char component, int offset)
+{
+	int adjusted = component + offset;
+	if (adjusted > 255)
+	{
+		return 255;
+	}
+	else if (adjusted < 0)
+	{	
+	return 0;
+	}
+	else 
+		return adjusted;
+}
+*/
