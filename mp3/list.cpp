@@ -168,6 +168,11 @@ void List<T>::reverse()
 template <class T>
 void List<T>::reverse( ListNode * & startPoint, ListNode * & endPoint )
 {
+	if (startPoint == endPoint)
+	{
+		return;
+	}
+
 	/// @todo Graded in MP3.1
 	ListNode* temp=startPoint;
 	ListNode* tempstart=startPoint;
