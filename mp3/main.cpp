@@ -94,13 +94,29 @@ void testReverse()
 	cout<<list<<endl;
 	
 #else
-	PNG in("in_02.png");
+	PNG in("new_test_case1.png");
 	List<RGBAPixel> list = imageToList(in);
 	list.reverse();
 	PNG out = listToImage(list, in.width(), in.height());
-	out.writeToFile("reverse.png");
-	checkSoln(__func__, out, "soln_reverse.png");
+	out.writeToFile("output_new_test_case1.png");
+	checkSoln(__func__, out, "soln_new_test_case1.png");
+
 #endif
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 }
 
 void testReverseNth()

@@ -327,6 +327,11 @@ void List<T>::waterfall()
 {
     /// @todo Graded in MP3.1
     
+    if (head == NULL)
+    {
+    	return;
+    }
+    
     ListNode * curr = head;
     ListNode * P = curr->next;
     
