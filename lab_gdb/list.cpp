@@ -145,6 +145,10 @@ template <class T>
 typename List<T>::ListNode* List<T>::reverse( ListNode * curr, ListNode * prev, int len )
 {
     // @todo Graded in lab_gdb
+    
+    if (length == 0)
+    	return curr;
+    	
     ListNode * temp;
     if (len <= 1)
     {
@@ -186,7 +190,18 @@ void List<T>::shuffle()
         ListNode * one, * two, * prev, * temp;
     	one = two = prev = temp = head;
 
-	    for (int i = 0; i < length/2; i++)
+		int marker = 0;
+		if (length%2 == 0)
+		{
+			marker = length/2;
+		}
+		else
+		{
+			marker = (length/2)+1;
+		}
+		
+		
+	    for (int i = 0; i < marker; i++)
     	{
     	    prev = two;
     	    two = two->next;
@@ -197,12 +212,14 @@ void List<T>::shuffle()
     	
     	while (two != NULL)
     	{
-    	    temp = one->next;				//temp = one->next;
+    	    temp = one->next;				
     	    one->next = two;
 	        two = two->next;
 	        one->next->next = temp;
 			one = temp;
 		}
+		
+		
 	}
 }
 
