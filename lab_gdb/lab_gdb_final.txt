@@ -1,0 +1,36 @@
+Monad Autograder
+Testing lab_gdb at 2014-02-24 08:46:33
+
+"Perfection is achieved, not when there is nothing more to add, but when there is nothing left to take away." ~ Antoine de Saint-Exupery
+
+Setting up test environment...
+Compiling...
+================================================================
+
+
+Running tests...
+================================================================
+testInsertFront  . . . . . . . . . [5 pts]  - passed
+testInsertBack . . . . . . . . . . [15 pts] - passed
+testDestructor10 (valgrind)  . . . [10 pts] - passed
+testDestructor37 (valgrind)  . . . [10 pts] - passed
+testReverse20_size . . . . . . . . [3 pts]  - passed
+testReverse20  . . . . . . . . . . [5 pts]  - passed
+testReverse37_size . . . . . . . . [3 pts]  - passed
+testReverse37  . . . . . . . . . . [5 pts]  - passed
+testReverse_memory (valgrind)  . . [4 pts]  - passed
+testReverseEmpty_memory (valgrind) [5 pts]  - passed
+testReverse20_memory (valgrind)  . [5 pts]  - passed
+testShuffle20_size . . . . . . . . [5 pts]  - passed
+testShuffle20  . . . . . . . . . . [4 pts]  - passed
+testShuffle37_size . . . . . . . . [5 pts]  - passed
+testShuffle37  . . . . . . . . . . [4 pts]  - passed
+testShuffle_memory (valgrind)  . . [4 pts]  - passed
+testShuffleEmpty_memory (valgrind) [3 pts]  - passed
+testShuffle20_memory (valgrind)  . [5 pts]  - passed
+
+
+Total score...
+================================================================
+TOTAL SCORE: 100
+
