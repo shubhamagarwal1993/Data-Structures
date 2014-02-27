@@ -503,36 +503,128 @@ typename List<T>::ListNode * List<T>::merge(ListNode * first, ListNode * second)
  	//first = head of first node
  	//second = head of second node
  	
+ 	if((first == NULL) && (second == NULL))
+ 	return NULL;
+ 	
+ 	if (first == NULL)
+ 	{
+ 		return second;
+ 	}
+ 	
+ 	if (second == NULL)
+ 	{
+ 		return first;
+ 	}
+ 	else
+ 		return NULL;
+	
+// if both first and second have elements
+ 	else
+ 	{
+	 	
+ 	
+ 	}
+ 	
+ 	
+ 	
+ 	
+ 	
+ 	
+ 	
+ 	
+ 	
+ 	
 	ListNode * newhead;
 	if (first->data == second->data)
 	{
 		newhead = first;
 	} 	 
- 	else if (first->data > second->data)
+ 	else if (first->data < second->data)
  	{
- 		head = first;
+ 		newhead = first;
  	}
  	else
  	{
- 		head = second;
+ 		newhead = second;
  	}
  	
- 	ListNode * temp1 = head;
+ 	ListNode * temp1 = newhead;
+ 	ListNode * curr = newhead;
  	ListNode * temp2;
- 	if (first == head)
+ 	ListNode * temp2_curr;
+ 	if (first == newhead)
  	{
  		temp2 = second;
- 		
- 	}	
- 	while(temp1->next != NULL)
- 	{
- 		while (temp)for (int j = 0; j < )
- 		if (head[i+1]->data = )
  	}
+ 	else
+ 	{
+ 		temp2 = first;
+ 	}	
+ 	
+ 	if (temp2->next != NULL)
+ 	{
+ 		temp2_curr = temp2->next;
+ 	}
+ 	
+ //we have head pointer to smallest data
+ //we have temp1,curr pointing to head
+ //we have temp2,temp2_curr pointing to other list
  
- 
-    return NULL; // change me!
-}
+ 	if (temp1->next != NULL)
+ 	{
+ 		temp1 = temp1->next;
+   	}
+   	
+	while((temp1->next != NULL) && (temp2_curr->next != NULL))
+	{ 
+		if((temp2->data) < (temp1->data)) 
+ 		{
+			curr->next = temp2;
+ 			temp2->prev = curr;
+ 			temp1->prev = NULL;
+ 			
+ 			while ((temp2_curr->data) < (temp1->data))
+ 			{
+ 				temp2 = temp2->next;
+ 				temp2_curr = temp2_curr->next;
+ 			}
+ 			
+ 			temp2->next = temp1;
+ 			temp1->prev = temp2;
+ 			temp2_curr->prev = NULL;
+ 			temp2 = temp2_curr;
+ 			
+ 			temp2_curr = temp2_curr->next;
+ 		}
+ 	}			
+ 			
+
+	
+ 		if ((temp1->data) < (temp2->data))
+ 		{
+ 			temp1 = temp1->next;
+ 			curr = curr->next;
+ 		}
+	
+//temp 1 is null
+
+	if (temp2 != NULL)
+	{
+		if (temp2->data < temp1->data)
+		{
+			curr = curr->next;
+			temp1 = temp1->next;
+		}	
+	}
+	
+	if (temp2_curr != NULL)
+	{
+		temp1->next = temp2_curr;
+		temp2_curr->prev = temp1;
+	}
+*/	
+//    return newhead; // change me!
+
 //*************************************************************************************************
 /**
  * Sorts the current list by applying the Mergesort algorithm.

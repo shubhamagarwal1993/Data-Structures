@@ -262,7 +262,35 @@ void testSplit()
 
 void testMerge()
 {
+
 	cout << "[main]: " << __func__ << "()" << endl;
+	
+	List<int> list1;
+	list1.insertBack(1);
+	list1.insertBack(3);
+	list1.insertBack(5);
+	list1.insertBack(7);
+	list1.insertBack(9);
+	list1.insertBack(11);
+	cout<<list1<<endl;
+	
+	List<int> list2;
+	list2.insertBack(2);
+	list2.insertBack(4);
+	list2.insertBack(6);
+	list2.insertBack(8);
+	list2.insertBack(10);
+	list2.insertBack(12);
+	cout<<list2<<endl;
+	
+	cout<<"================"<<endl;
+	
+	list1.mergeWith(list2);
+	cout<<list1<<endl;
+	cout<<list2<<endl;
+	
+
+/*	cout << "[main]: " << __func__ << "()" << endl;
 
 	PNG im1("in_08.png");
 	PNG im2("in_09.png");
@@ -291,6 +319,7 @@ void testMerge()
 	out.writeToFile("merge.png");
 
 	checkSoln(__func__, out, "soln_merge.png");
+*/
 }
 
 inline vector<int> buildVector(BlockPNG const & b, int d)
