@@ -197,8 +197,20 @@ void testWaterfall()
 
 void testSplit()
 {
+	/*cout << "[main]: " << __func__ << "()" << endl;
+	List<int> list;
+	for(int i=1; i<=7; i++)
+	{
+		list.insertBack(i);
+	}
+	cout<<list<<endl;
+	list.split(3);
+	cout<<list<<endl;
+*/
+	
 	cout << "[main]: " << __func__ << "()" << endl;
 
+	
 	PNG in("in_07.png");
 	List<RGBAPixel> list1;
 	for (int i = 0; i < in.width(); i++)

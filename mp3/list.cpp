@@ -358,12 +358,13 @@ void List<T>::waterfall()
  */
 
 template <class T>
-List<T> List<T>::split(int splitPoint)
+List<T> List<T>::split(int splitPoint)		
 {
-    if (splitPoint > length)
+	if (splitPoint > length)				//invalid splitpoint
         return List<T>();
 
-    if (splitPoint < 0)
+	
+    if (splitPoint < 0)						
         splitPoint = 0;
 
     ListNode * secondHead = split(head, splitPoint);
@@ -416,9 +417,43 @@ template <class T>
 typename List<T>::ListNode * List<T>::split(ListNode * start, int splitPoint)
 {
     /// @todo Graded in MP3.2
-    return NULL; // change me!
-}
+    
+    if (start == NULL)
+    {
+    	return 0;
+    }
+    
+	else
+	{
+		ListNode * temp = start;
+		
+		for (int i = 0; i < splitPoint; i++)
+		{
+			if(temp->next != NULL)
+			{
+				temp = temp->next;
+			}
+		}
+	
+		ListNode * temp_marker = temp->prev;
+		temp->prev = NULL;
+		temp_marker->next = NULL;
+		start = temp;
+		return start;
+	}    
+    
+    						//return NULL; // change me!
+/*
+	ListNode * temp = start;
+	for (int i = 0; i < splitPoint; i++)
+	{
+		temp = temp->next
+	}
+	split();
 
+*/
+}
+//*******************************************************************************************************
 /**
  * Merges the given sorted list into the current sorted list.
  *
@@ -429,7 +464,7 @@ template <class T>
 void List<T>::mergeWith(List<T> & otherList)
 {
     // set up the current list
-/*    head = merge(head, otherList.head);
+    head = merge(head, otherList.head);                            
     tail = head;
 
     // make sure there is a node in the new list
@@ -444,7 +479,7 @@ void List<T>::mergeWith(List<T> & otherList)
     otherList.head = NULL;
     otherList.tail = NULL;
     otherList.length = 0;
-*/
+
 return;
 }
 
@@ -464,9 +499,41 @@ template <class T>
 typename List<T>::ListNode * List<T>::merge(ListNode * first, ListNode * second)
 {
     /// @todo Graded in MP3.2
+ 
+ 	//first = head of first node
+ 	//second = head of second node
+ 	
+	ListNode * newhead;
+	if (first->data == second->data)
+	{
+		newhead = first;
+	} 	 
+ 	else if (first->data > second->data)
+ 	{
+ 		head = first;
+ 	}
+ 	else
+ 	{
+ 		head = second;
+ 	}
+ 	
+ 	ListNode * temp1 = head;
+ 	ListNode * temp2;
+ 	if (first == head)
+ 	{
+ 		temp2 = second;
+ 		
+ 	}	
+ 	while(temp1->next != NULL)
+ 	{
+ 		while (temp)for (int j = 0; j < )
+ 		if (head[i+1]->data = )
+ 	}
+ 
+ 
     return NULL; // change me!
 }
-
+//*************************************************************************************************
 /**
  * Sorts the current list by applying the Mergesort algorithm.
  */
