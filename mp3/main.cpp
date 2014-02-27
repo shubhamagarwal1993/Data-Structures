@@ -266,21 +266,23 @@ void testMerge()
 	cout << "[main]: " << __func__ << "()" << endl;
 	
 	List<int> list1;
-	list1.insertBack(1);
 	list1.insertBack(3);
+	list1.insertBack(4);
 	list1.insertBack(5);
-	list1.insertBack(7);
 	list1.insertBack(9);
 	list1.insertBack(11);
+//	list1.insertBack(11);
 	cout<<list1<<endl;
 	
 	List<int> list2;
+	list2.insertBack(0);
+	list2.insertBack(1);
 	list2.insertBack(2);
-	list2.insertBack(4);
 	list2.insertBack(6);
+	list2.insertBack(7);
 	list2.insertBack(8);
 	list2.insertBack(10);
-	list2.insertBack(12);
+//	list2.insertBack(12);
 	cout<<list2<<endl;
 	
 	cout<<"================"<<endl;

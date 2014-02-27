@@ -511,7 +511,7 @@ typename List<T>::ListNode * List<T>::merge(ListNode * first, ListNode * second)
  		return second;
  	}
  	
- 	if (second == NULL)
+ 	else if (second == NULL)
  	{
  		return first;
  	}
@@ -521,18 +521,32 @@ typename List<T>::ListNode * List<T>::merge(ListNode * first, ListNode * second)
 // if both first and second have elements
  	else
  	{
-	 	
- 	
+	 	//***** we will return header*****
+		ListNode * curr = first;
+		ListNode * temp1 = first->next;
+		ListNode * temp2 = second;
+		
+		while ((temp2 != NULL) || (temp1 != NULL))		
+		{
+			if (first->data < second->data)
+			{
+					
+			}	
+			if (second->data < first->data)	
+		}	
+		
+		
+/*		
+		if (second->data < first->data)
+		{
+			first = second;
+		}
+		
+		if (first->data)				 	
+ 		
  	}
  	
- 	
- 	
- 	
- 	
- 	
- 	
- 	
- 	
+  	
  	
 	ListNode * newhead;
 	if (first->data == second->data)
