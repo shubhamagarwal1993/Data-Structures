@@ -549,14 +549,13 @@ typename List<T>::ListNode * List<T>::merge(ListNode * first, ListNode * second)
 //		return marker;
 //	}
 
-	if (t1->next == NULL)		//t2 is left
+	if ((t1->next == NULL) && (t2->next != NULL))		//t2 is left
 	{
 		while ((t1->data) > (t2->data))
 		{
 			t->next = t2;
 			t2->prev = t;
-			if (t2->next != NULL)
-				t2 = split(t2,1);
+			t2 = split(t2,1);
 			t = t->next;
 			return marker;
 		}
@@ -569,14 +568,13 @@ typename List<T>::ListNode * List<T>::merge(ListNode * first, ListNode * second)
 			return marker;
 	}
 	
-	else		//t2->next == NULL
+	else if ((t2->next == NULL) && (t1->next != NULL))
 	{
 		while ((t2->data) > (t1->data))
 		{
 			t->next = t1;
 			t1->prev = t;
-			if (t1->next != NULL)
-				t1 = split(t1,1);
+			t1 = split(t1,1);
 			t = t->next;
 			return marker;
 		}
@@ -589,6 +587,28 @@ typename List<T>::ListNode * List<T>::merge(ListNode * first, ListNode * second)
 			return marker;	
 	
 	}
+	else if ((t1->next == NULL) && (t2->next == NULL))	
+	{
+		if ((t2->data) > (t1->data))
+		{
+			t->next = t1;
+			t1->prev = t;
+			t = t->next;
+			t->next = t2;
+			t2->prev = t;
+			return marker;
+		}
+		else
+		{
+			t->next = t2;
+			t2->prev = t;
+			t = t->next;
+			t->next = t1;
+			t1->prev = t;
+			return marker;
+		}
+	}
+	return marker;
 }		
 	
 		
