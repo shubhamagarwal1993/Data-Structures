@@ -526,9 +526,9 @@ typename List<T>::ListNode * List<T>::merge(ListNode * first, ListNode * second)
 	}		
 	
 		
-	while((t1 != NULL) && (t2 != NULL))
+	while((t1->next != NULL) && (t2->next != NULL))
 	{
-		if (t1->data < t2->data)
+		if ((t1->data) < (t2->data))
 		{
 			t->next = t1;
 			t1->prev = t;
