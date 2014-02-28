@@ -83,13 +83,14 @@ void testInserts()
 void testReverse()
 {
 	cout << "[main]: " << __func__ << "()" << endl;
-#if 0
+#if 1
 	List<int> list;
-	for(int i=1; i<=20; i++)
+	for(int i = 1; i <= 20; i++)
 	{
 		list.insertBack(i);
 	}
 	cout<<list<<endl;
+//	list.reverse();
 	list.reverse();
 	cout<<list<<endl;
 	
@@ -102,20 +103,6 @@ void testReverse()
 	checkSoln(__func__, out, "soln_new_test_case1.png");
 
 #endif
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 }
 
@@ -269,22 +256,23 @@ void testMerge()
 	List<int> list1;
 //	list1.insertBack(0);
 	list1.insertBack(2);
+	list1.insertBack(3);
 	list1.insertBack(4);
-	list1.insertBack(6);
-	list1.insertBack(8);
-	list1.insertBack(10);
-	list1.insertBack(13);
+	list1.insertBack(5);
+	list1.insertBack(11);
+	list1.insertBack(12);
 	cout<<list1<<endl;
 	
 	List<int> list2;
-	list2.insertBack(1);
-	list2.insertBack(3);
-	list2.insertBack(5);
+//	list2.insertBack(1);
+//	list2.insertBack(3);
+	list2.insertBack(6);
 	list2.insertBack(7);
+	list2.insertBack(8);
 	list2.insertBack(9);
-	list2.insertBack(11);
-	list2.insertBack(12);
-	list2.insertBack(14);
+	list2.insertBack(10);
+//	list2.insertBack(14);
+
 	cout<<list2<<endl;
 	
 	cout<<"================"<<endl;

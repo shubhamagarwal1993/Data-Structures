@@ -168,10 +168,51 @@ void List<T>::reverse()
 template <class T>
 void List<T>::reverse( ListNode * & startPoint, ListNode * & endPoint )
 {
+	if (startPoint == NULL)
+	{
+		return;
+	}
+	
 	if (startPoint == endPoint)
 	{
 		return;
 	}
+
+	
+
+	/// @todo Graded in MP3.1
+	ListNode* temp=startPoint;
+	ListNode* tempstart=startPoint;
+	ListNode* tempend=endPoint;
+	while(temp!=endPoint)
+	{
+		ListNode* inTemp=temp->next;
+		temp->next=temp->prev;
+		temp->prev=inTemp;
+		temp=inTemp;
+		//cout<<"infinite Loop"<<endl;
+	}
+	ListNode* inTemp = temp->prev;
+	temp->next=temp->prev;
+	temp->prev=inTemp;
+	endPoint=tempstart;
+	startPoint=tempend;
+	startPoint->prev = NULL;
+	endPoint->next = NULL;
+	//cout<<"Exit"<<endl;
+//
+}	
+
+
+//***********ORIGINAL CODE************************
+/*
+{
+	if (startPoint == endPoint)
+	{
+		return;
+	}
+
+	
 
 	/// @todo Graded in MP3.1
 	ListNode* temp=startPoint;
@@ -193,7 +234,7 @@ void List<T>::reverse( ListNode * & startPoint, ListNode * & endPoint )
 	//cout<<"Exit"<<endl;
 //
 }	
-
+*/
 
 
 
@@ -433,15 +474,24 @@ typename List<T>::ListNode * List<T>::split(ListNode * start, int splitPoint)
 			{
 				temp = temp->next;
 			}
+			else
+			{
+				temp = NULL; 
+			}
 		}
-	
-		ListNode * temp_marker = temp->prev;
-		temp->prev = NULL;
-		temp_marker->next = NULL;
-		start = temp;
-		return start;
-	}    
-    
+		if (temp != NULL)
+		{
+			ListNode * temp_marker = temp->prev;
+			temp->prev = NULL;
+			temp_marker->next = NULL;
+			return temp;
+		}    
+		else
+		{
+			return start;
+		}
+	}
+	    
     						//return NULL; // change me!
 /*
 	ListNode * temp = start;
@@ -498,121 +548,6 @@ return;
 template <class T>
 typename List<T>::ListNode * List<T>::merge(ListNode * first, ListNode * second)
 {
-/*	if ((first == NULL) && (second == NULL))
-		return NULL;
-
-	if ((first == NULL) && (second != NULL))
-		return second;
-
-	if ((first != NULL) && (second == NULL))
-		return first;
-	
-	ListNode * t;
-	ListNode * t1 = first;
-	ListNode * t2 = second;
-	ListNode * marker;
-	
-	if (t1->data < t2->data)
-	{
-		t = t1;
-		marker = t;
-		t1 = split(t1,1);
-	}
-	else
-	{
-		t = t2;
-		marker = t;
-		t2 = split(t2,1);
-	}		
-	
-		
-	while((t1->next != NULL) && (t2->next != NULL))
-	{
-		if ((t1->data) < (t2->data))
-		{
-			t->next = t1;
-			t1->prev = t;
-			t1 = split(t1,1);
-			t = t->next;
-		}
-		else
-		{
-			t->next = t2;
-			t2->prev = t;
-			t2 = split(t2,1);
-			t = t->next;
-		}
-	}
-	
-//	if ((t1 == NULL) && (t2 == NULL))
-//	{
-//		return marker;
-//	}
-
-	if ((t1->next == NULL) && (t2->next != NULL))		//t2 is left
-	{
-		while ((t1->data) > (t2->data))
-		{
-			t->next = t2;
-			t2->prev = t;
-			t2 = split(t2,1);
-			t = t->next;
-			return marker;
-		}
-		
-			t->next = t1;
-			t1->prev = t;
-			t=t->next;
-			t->next = t2;
-			t2->prev = t;
-			return marker;
-	}
-	
-	else if ((t2->next == NULL) && (t1->next != NULL))
-	{
-		while ((t2->data) > (t1->data))
-		{
-			t->next = t1;
-			t1->prev = t;
-			t1 = split(t1,1);
-			t = t->next;
-			return marker;
-		}
-		
-			t->next = t2;
-			t2->prev = t;
-			t=t->next;
-			t->next = t1;
-			t1->prev = t;
-			return marker;	
-	
-	}
-	else if ((t1->next == NULL) && (t2->next == NULL))	
-	{
-		if ((t2->data) > (t1->data))
-		{
-			t->next = t1;
-			t1->prev = t;
-			t = t->next;
-			t->next = t2;
-			t2->prev = t;
-			return marker;
-		}
-		else
-		{
-			t->next = t2;
-			t2->prev = t;
-			t = t->next;
-			t->next = t1;
-			t1->prev = t;
-			return marker;
-		}
-	}
-	return marker;
-}		
-*/	
-		
-		
 	ListNode * temp1 = first;
 	ListNode * temp2 = second;
 	ListNode * marker;
@@ -654,22 +589,105 @@ typename List<T>::ListNode * List<T>::merge(ListNode * first, ListNode * second)
         }
     }
     
-    if(temp1!=NULL)
+    if(temp2 == NULL)			//(temp1 != NULL)
     {
         marker->next=temp1;
         temp1->prev=marker;
     }
     
-    if(temp2!=NULL)
+    if(temp1 == NULL)			//(temp2 != NULL)
     {
         marker->next=temp2;
         temp2->prev=marker;
     }
-    temp1 = NULL;
-    temp2 = NULL;
-    marker = NULL;
     return newheader;
 }
+
+/*	if ((first == NULL) && (second == NULL))
+		return NULL;
+
+	if ((first == NULL) && (second != NULL))
+		return second;
+
+	if ((first != NULL) && (second == NULL))
+		return first;
+	
+	ListNode * t;
+	ListNode * t1 = first;
+	ListNode * t2 = second;
+	ListNode * marker;
+	
+	if ((t1->data) < (t2->data))
+	{
+		t = t1;
+		marker = t;
+		t1 = split(t1,1);
+	}
+	else
+	{
+		t = t2;
+		marker = t;
+		t2 = split(t2,1);
+	}		
+	
+		
+	while((t1->next != NULL) && (t2->next != NULL))
+	{
+		if ((t1->data) < (t2->data))
+		{
+			t->next = t1;
+			t1->prev = t;
+			t1 = split(t1,1);
+			t = t->next;
+		}
+		else
+		{
+			t->next = t2;
+			t2->prev = t;
+			t2 = split(t2,1);
+			t = t->next;
+		}
+	}
+
+//	if ((t1 == NULL) && (t2 == NULL))
+//	{
+//		return marker;
+//	}
+
+	if (t1->next == NULL)		//t1 has 1 node, t2 has more than 1 node
+	{
+		while((t2->data) > (t1->data))
+		{
+			t->next = t2;
+			t2->prev = t;
+			t2 = split(t2,1);
+			t = t->next;
+		}
+		
+		t->next = t1;
+		t1->prev = t;
+	}
+		
+	if (t2->next == NULL)
+	{
+		while((t1->data) > (t2->data))
+		{
+			t->next = t1;
+			t1->prev = t;
+			t1 = split(t1,1);
+			t = t->next;
+		}
+		
+		t->next = t2;
+		t2->prev = t;
+	}
+	
+	return marker;
+}		
+*/	
+		
+		
+
 
 
 /*{
