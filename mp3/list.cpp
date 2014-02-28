@@ -498,147 +498,267 @@ return;
 template <class T>
 typename List<T>::ListNode * List<T>::merge(ListNode * first, ListNode * second)
 {
+
+	
     /// @todo Graded in MP3.2
  
  	//first = head of first node
  	//second = head of second node
+ 	if ((first == NULL) && (second == NULL))
+		return NULL;
+
+	if ((first == NULL) && (second != NULL))
+		return second;
+
+	if ((first != NULL) && (second == NULL))
+		return first;
+	if(first->data < second->data){
+		ListNode * temp=first;
+		first->next=merge(first->next,second);
+		first->next->prev=first;
+		return temp;	
+	}
+ 	else{
+ 		ListNode * temp=second;
+		second->next=merge(first,second->next);
+		second->next->prev=second;
+		return temp;	
+ 	}
+}
  	
- 	if((first == NULL) && (second == NULL))
+ 	
+ 	
+ 	
+//********solving with recursion************* 
+	/*if ((first == NULL) && (second == NULL))
+		return NULL;
+
+	if ((first == NULL) && (second != NULL))
+		return second;
+
+	if ((first != NULL) && (second == NULL))
+		return first;
+
+	else
+	{
+		
+		if (second->data < first->data)
+		{
+			
+			return marker;
+		}
+		else
+		{
+			ListNode *marker = first;
+			return marker;
+			merge(first->next, second);
+			
+			
+		}
+	}*/
+
+
+
+
+
+
+
+//************************************ 	
+ 	
+ 	
+/* 	if((first == NULL) && (second == NULL))
  	return NULL;
  	
- 	if (first == NULL)
+ 	else if ((first == NULL) && (second != NULL))
  	{
  		return second;
  	}
  	
- 	else if (second == NULL)
+ 	else if ((second == NULL) && (first != NULL))
  	{
  		return first;
  	}
  	else
- 		return NULL;
-	
-// if both first and second have elements
- 	else
  	{
-	 	//***** we will return header*****
-		ListNode * curr = first;
-		ListNode * temp1 = first->next;
-		ListNode * temp2 = second;
-		
-		while ((temp2 != NULL) || (temp1 != NULL))		
-		{
-			if (first->data < second->data)
-			{
-					
-			}	
-			if (second->data < first->data)	
-		}	
-		
-		
-/*		
-		if (second->data < first->data)
-		{
-			first = second;
-		}
-		
-		if (first->data)				 	
- 		
- 	}
  	
-  	
- 	
-	ListNode * newhead;
-	if (first->data == second->data)
-	{
-		newhead = first;
-	} 	 
- 	else if (first->data < second->data)
- 	{
- 		newhead = first;
- 	}
- 	else
- 	{
- 		newhead = second;
- 	}
- 	
- 	ListNode * temp1 = newhead;
- 	ListNode * curr = newhead;
- 	ListNode * temp2;
- 	ListNode * temp2_curr;
- 	if (first == newhead)
- 	{
- 		temp2 = second;
- 	}
- 	else
- 	{
- 		temp2 = first;
- 	}	
- 	
- 	if (temp2->next != NULL)
- 	{
- 		temp2_curr = temp2->next;
- 	}
- 	
- //we have head pointer to smallest data
- //we have temp1,curr pointing to head
- //we have temp2,temp2_curr pointing to other list
- 
- 	if (temp1->next != NULL)
- 	{
- 		temp1 = temp1->next;
-   	}
-   	
-	while((temp1->next != NULL) && (temp2_curr->next != NULL))
-	{ 
-		if((temp2->data) < (temp1->data)) 
+// 	if list 2 elements are smaller than list 1 elements initially
+ 		ListNode * intlen = first;
+ 		ListNode * marker = first;
+ 		if (second->data < first->data)
  		{
-			curr->next = temp2;
- 			temp2->prev = curr;
- 			temp1->prev = NULL;
- 			
- 			while ((temp2_curr->data) < (temp1->data))
+ 			intlen = second;
+ 			marker = second;
+ 			while((intlen->data < first->data) && (intlen->next->data < first->data))
  			{
- 				temp2 = temp2->next;
- 				temp2_curr = temp2_curr->next;
+ 				if (intlen->next != NULL)
+ 				{
+ 					intlen = intlen->next;
+ 				}
+ 				else
+ 				{
+ 					return first;
+ 				}	
+ 					
+ 			}
+ 			//now intlen is at required positoin and second is at front of list.
+ 			
+ //			if ()
+ 			second = intlen->next;
+ 			intlen->next = first;
+ 			first->prev = intlen;
+ 			intlen = first;
+ 			
+ 			
+ 			if (second == NULL)
+ 				return marker;
+ 				
+ 				
+ 			if (first->next != NULL)
+ 			{
+ 				intlen = intlen->next;
  			}
  			
- 			temp2->next = temp1;
- 			temp1->prev = temp2;
- 			temp2_curr->prev = NULL;
- 			temp2 = temp2_curr;
- 			
- 			temp2_curr = temp2_curr->next;
+ 			else if (first->next == NULL)
+ 			{
+ 				first->next = second;
+ 				second->prev = first;
+ 				return marker;
+ 			}
+//***************************************************************************************** 			
  		}
- 	}			
- 			
-
-	
- 		if ((temp1->data) < (temp2->data))
+ 		//second will be a valid list from here
+ 		
+ 		//if the first element's data is smaller than the 2nd elements data
+ 		if (first->data < second->data)
  		{
- 			temp1 = temp1->next;
- 			curr = curr->next;
+ 			intlen = first;
+ 			marker = first;
+ 			if (intlen->next != NULL)
+ 			{
+ 				intlen = intlen->next;
+ 			}
+ 			else
+ 			{
+ 				first->next = second;
+ 				second->prev = first;
+ 				return marker;
+ 			}
  		}
+ 		
+ 		
+ 		while((intlen->next != NULL) && (second->next != NULL))
+ 		{
+ 			if ((first->data < second->data) &&(second->data < intlen->data))
+ 			{
+ 				//insert second between first and intlen
+ 				first->next = second;
+ 				second->prev = first;
+ 				intlen->prev = second;
+ 				if (second->next == NULL)
+ 				{
+ 					first->next = second;
+ 					second->prev = first;
+ 					second->next = intlen;
+ 					intlen->prev = second;
+ 					
+// 					second->next = intlen;
+ 					return marker;
+ 				}
+ 				else if (second->next != NULL)
+ 				{
+ 					second = second->next;
+ 					second->prev->next = intlen;
+ 					second->prev = NULL;
+ 					first = first->next;
+ 				}
+ 			}	
+ 			else //if ((first->data < second->data) && (intlen->data < second->data))
+ 			{
+ 				intlen = intlen->next;
+ 				first = first->next;	
+ 			}	
+ 		}	
+ 		
+ 		
+ 		
+ 		if((intlen->next == NULL) && (second->next == NULL))
+ 		{
+ 			if ((first->data < second->data) &&(second->data < intlen->data))
+ 			{
+ 				first->next = second;
+ 				second->prev = first;
+ 				second->next = intlen;
+ 				intlen->prev = second;
+ 				return marker;
+ 			}
+ 			else
+ 			{
+ 				intlen->next = second;
+ 				second->prev = intlen;
+ 				second->next = NULL;
+ 				return marker;
+ 			}
+ 		}
+ 		
+ 		else if((intlen->next == NULL) && (second->next != NULL))
+ 		{
+ 			if ((first->data < second->data) && (second->data < intlen->data))
+ 			{
+ 				first->next = second;
+ 				second->prev = first;
+ 				intlen->prev = second;
+ 				second = second->next;
+ 				second->prev->next = intlen;
+ 				second->prev = NULL;
+ 				intlen->next = second;
+ 				second->prev = intlen;
+ 				return marker;
+ 			}
+ 			
+ 			else
+ 			{
+ 				intlen->next = second;
+ 				second->prev = intlen;
+ 				return marker;
+ 			}	
+ 		}
+ 		
+ 		else //((intlen->next != NULL) && (second->next == NULL))
+ 		{
+ 			while ((first->data < second->data) && (intlen->data < second->data))
+ 			{
+ 				if (intlen->next != NULL)
+ 				{
+ 					intlen = intlen->next;
+ 					first = first->next;	
+ 				}
+ 				else
+ 				{
+ 					intlen->next = second;
+ 					second->prev = intlen;
+ 				}
+ 			}
+ 			if ((first->data < second->data) && (second->data < intlen->data))
+ 			{
+ 				first->next = second;
+ 				second->prev = first;
+ 				intlen->prev = second;
+ 				second->next = intlen;
+ 				
+ 				return marker;
+ 			}
+ 		return marker;
+ 		}
+ 					
+ 			
+ 	}
+}
+*/
+//*************************************************************************************************	
+	//helper function for inserting between first and intlen	
 	
-//temp 1 is null
-
-	if (temp2 != NULL)
-	{
-		if (temp2->data < temp1->data)
-		{
-			curr = curr->next;
-			temp1 = temp1->next;
-		}	
-	}
 	
-	if (temp2_curr != NULL)
-	{
-		temp1->next = temp2_curr;
-		temp2_curr->prev = temp1;
-	}
-*/	
-//    return newhead; // change me!
-
+	
 //*************************************************************************************************
 /**
  * Sorts the current list by applying the Mergesort algorithm.
@@ -647,13 +767,13 @@ typename List<T>::ListNode * List<T>::merge(ListNode * first, ListNode * second)
 template <class T>
 void List<T>::sort()
 {
-/*    if (empty())
+    if (empty())
         return;
     head = mergesort(head, length);
     tail = head;
     while (tail->next != NULL)
         tail = tail->next;
-*/
+
 return;
 }
 
@@ -671,6 +791,19 @@ template <class T>
 typename List<T>::ListNode * List<T>::mergesort(ListNode * start, int chainLength)
 {
     /// @todo Graded in MP3.2
-    return NULL; // change me!
+    
+    if (chainLength == 1)
+    {
+    	return start;
+    }
+    
+    else
+    {
+    	ListNode * temp = split(start, chainLength/2);
+    	ListNode * ret1 = mergesort(start, chainLength/2);
+    	ListNode * ret2 = mergesort(temp, chainLength - (chainLength/2));
+    	
+    	return merge(ret1, ret2);
+     }
 }
 

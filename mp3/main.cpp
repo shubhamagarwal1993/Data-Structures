@@ -263,26 +263,27 @@ void testSplit()
 void testMerge()
 {
 
-	cout << "[main]: " << __func__ << "()" << endl;
+/*	cout << "[main]: " << __func__ << "()" << endl;
 	
 	List<int> list1;
-	list1.insertBack(3);
+//	list1.insertBack(0);
+	list1.insertBack(2);
 	list1.insertBack(4);
-	list1.insertBack(5);
-	list1.insertBack(9);
-	list1.insertBack(11);
-//	list1.insertBack(11);
+	list1.insertBack(6);
+	list1.insertBack(8);
+	list1.insertBack(10);
+	list1.insertBack(13);
 	cout<<list1<<endl;
 	
 	List<int> list2;
-	list2.insertBack(0);
 	list2.insertBack(1);
-	list2.insertBack(2);
-	list2.insertBack(6);
+	list2.insertBack(3);
+	list2.insertBack(5);
 	list2.insertBack(7);
-	list2.insertBack(8);
-	list2.insertBack(10);
-//	list2.insertBack(12);
+	list2.insertBack(9);
+	list2.insertBack(11);
+	list2.insertBack(12);
+	list2.insertBack(14);
 	cout<<list2<<endl;
 	
 	cout<<"================"<<endl;
@@ -290,9 +291,9 @@ void testMerge()
 	list1.mergeWith(list2);
 	cout<<list1<<endl;
 	cout<<list2<<endl;
-	
-
-/*	cout << "[main]: " << __func__ << "()" << endl;
+}	
+*/
+	cout << "[main]: " << __func__ << "()" << endl;
 
 	PNG im1("in_08.png");
 	PNG im2("in_09.png");
@@ -321,7 +322,7 @@ void testMerge()
 	out.writeToFile("merge.png");
 
 	checkSoln(__func__, out, "soln_merge.png");
-*/
+
 }
 
 inline vector<int> buildVector(BlockPNG const & b, int d)
@@ -335,6 +336,26 @@ inline vector<int> buildVector(BlockPNG const & b, int d)
 
 void testSort()
 {
+/*
+cout << "[main]: " << __func__ << "()" << endl;
+	
+	List<int> list;
+	list.insertBack(6);
+	list.insertBack(5);
+	list.insertBack(7);
+	list.insertBack(2);
+	list.insertBack(3);
+	list.insertBack(9);
+	cout<<list<<endl;
+	
+cout<<"================"<<endl;
+	
+	list.sort();
+	cout<<list<<endl;
+	//cout<<list2<<endl;
+*/
+
+
 	cout << "[main]: " << __func__ << "()" << endl;
 
 	srand(225);
@@ -383,6 +404,8 @@ void testSort()
 	b3.writeToFile("unshuffled_1.png");
 
 	checkSoln("testSort", b3, "in_01.png");
+
+		
 }
 
 void testMP31()
