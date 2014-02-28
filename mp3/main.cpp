@@ -121,10 +121,10 @@ void testReverse()
 
 void testReverseNth()
 {
-#if 0
+//#if 1
 	cout << "[main]: " << __func__ << "()" << endl;
 	List<int> list;
-	for(int i=1; i<=9; i++)
+	for(int i=1; i<=18; i++)
 	{
 		list.insertBack(i);
 	}
@@ -132,8 +132,8 @@ void testReverseNth()
 	list.reverseNth(4);
 	cout<<list<<endl;
 	
-#else
-
+//#else
+/*
 	cout << "[main]: " << __func__ << "()" << endl;
 	PNG in("in_03.png");
 	
@@ -155,6 +155,7 @@ void testReverseNth()
 
 	checkSoln(__func__, out, "soln_reverseNth_02.png");
 #endif
+*/
 }
 
 
@@ -263,7 +264,7 @@ void testSplit()
 void testMerge()
 {
 
-/*	cout << "[main]: " << __func__ << "()" << endl;
+	cout << "[main]: " << __func__ << "()" << endl;
 	
 	List<int> list1;
 //	list1.insertBack(0);
@@ -292,8 +293,8 @@ void testMerge()
 	cout<<list1<<endl;
 	cout<<list2<<endl;
 }	
-*/
-	cout << "[main]: " << __func__ << "()" << endl;
+
+/*	cout << "[main]: " << __func__ << "()" << endl;
 
 	PNG im1("in_08.png");
 	PNG im2("in_09.png");
@@ -324,7 +325,7 @@ void testMerge()
 	checkSoln(__func__, out, "soln_merge.png");
 
 }
-
+*/
 inline vector<int> buildVector(BlockPNG const & b, int d)
 {
 	vector<int> v;

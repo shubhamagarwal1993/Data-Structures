@@ -498,8 +498,135 @@ return;
 template <class T>
 typename List<T>::ListNode * List<T>::merge(ListNode * first, ListNode * second)
 {
+	if ((first == NULL) && (second == NULL))
+		return NULL;
 
+	if ((first == NULL) && (second != NULL))
+		return second;
+
+	if ((first != NULL) && (second == NULL))
+		return first;
 	
+	ListNode * t;
+	ListNode * t1 = first;
+	ListNode * t2 = second;
+	ListNode * marker;
+	
+	if (t1->data < t2->data)
+	{
+		t = t1;
+		marker = t;
+		t1 = split(t1,1);
+	}
+	else
+	{
+		t = t2;
+		marker = t;
+		t2 = split(t2,1);
+	}		
+	
+		
+	while((t1 != NULL) && (t2 != NULL))
+	{
+		if (t1->data < t2->data)
+		{
+			t->next = t1;
+			t1->prev = t;
+			t1 = split(t1,1);
+			t = t->next;
+		}
+		else
+		{
+			t->next = t2;
+			t2->prev = t;
+			t2 = split(t2,1);
+			t = t->next;
+		}
+	}
+	
+//	if ((t1 == NULL) && (t2 == NULL))
+//	{
+//		return marker;
+//	}
+
+	if (t1 == NULL)		//t2 is left
+	{
+		t->next = t2;
+		t2->prev = t;
+		return marker;
+	}	
+	
+	if (t2 == NULL)
+	{
+		t->next = t1;
+		t1->prev = t;
+		return marker;
+	}	
+return marker;
+}	
+	
+		
+/*		
+	ListNode * temp1 = first;
+	ListNode * temp2 = second;
+	ListNode * marker;
+	ListNode * newheader;
+//checking which list' data has smallest data
+	if(first->data < second->data)
+	{
+		marker = first;
+		temp1 = temp1->next;
+	//	marker->prev = NULL;
+		newheader = first;	
+	}		
+	else		
+	{
+		marker = second;
+		temp2 = temp2->next;
+	//marker->prev = NULL;
+		newheader = second;		
+	}
+	//we have a pointer to the list that we have to return
+
+	// we have made temp4 = temp3;
+	
+	while ((temp1 != NULL) && (temp2 != NULL))
+	{
+		if(temp1->data<temp2->data)
+		{
+            marker->next=temp1;
+            temp1->prev=marker;
+            temp1=temp1->next;
+            marker=marker->next;    
+        }
+        else
+        {
+            marker->next=temp2;
+            temp2->prev=marker;
+            temp2=temp2->next;
+            marker=marker->next;
+        }
+    }
+    
+    if(temp1!=NULL)
+    {
+        marker->next=temp1;
+        temp1->prev=marker;
+    }
+    
+    if(temp2!=NULL)
+    {
+        marker->next=temp2;
+        temp2->prev=marker;
+    }
+    temp1 = NULL;
+    temp2 = NULL;
+    marker = NULL;
+    return newheader;
+}
+*/
+
+/*{
     /// @todo Graded in MP3.2
  
  	//first = head of first node
@@ -525,7 +652,7 @@ typename List<T>::ListNode * List<T>::merge(ListNode * first, ListNode * second)
 		return temp;	
  	}
 }
- 	
+*/ 	
  	
  	
  	
