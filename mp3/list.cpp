@@ -498,7 +498,7 @@ return;
 template <class T>
 typename List<T>::ListNode * List<T>::merge(ListNode * first, ListNode * second)
 {
-	if ((first == NULL) && (second == NULL))
+/*	if ((first == NULL) && (second == NULL))
 		return NULL;
 
 	if ((first == NULL) && (second != NULL))
@@ -610,9 +610,9 @@ typename List<T>::ListNode * List<T>::merge(ListNode * first, ListNode * second)
 	}
 	return marker;
 }		
-	
+*/	
 		
-/*		
+		
 	ListNode * temp1 = first;
 	ListNode * temp2 = second;
 	ListNode * marker;
@@ -670,7 +670,7 @@ typename List<T>::ListNode * List<T>::merge(ListNode * first, ListNode * second)
     marker = NULL;
     return newheader;
 }
-*/
+
 
 /*{
     /// @todo Graded in MP3.2
