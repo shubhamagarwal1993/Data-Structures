@@ -555,7 +555,8 @@ typename List<T>::ListNode * List<T>::merge(ListNode * first, ListNode * second)
 		{
 			t->next = t2;
 			t2->prev = t;
-			t2 = split(t2,1);
+			if (t2->next != NULL)
+				t2 = split(t2,1);
 			t = t->next;
 			return marker;
 		}
@@ -574,7 +575,8 @@ typename List<T>::ListNode * List<T>::merge(ListNode * first, ListNode * second)
 		{
 			t->next = t1;
 			t1->prev = t;
-			t1 = split(t1,1);
+			if (t1->next != NULL)
+				t1 = split(t1,1);
 			t = t->next;
 			return marker;
 		}
