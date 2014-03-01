@@ -983,7 +983,7 @@ typename List<T>::ListNode * List<T>::mergesort(ListNode * start, int chainLengt
 {
     /// @todo Graded in MP3.2
     
-    if (chainLength == 1)
+    if (chainLength <= 1)
     {
     	return start;
     }
