@@ -4,6 +4,9 @@
  *  stacks and queues portion of the lab.
  */
 
+using namespace std;
+#include <iostream>
+#include <stack>
 /**
  * Sums items in a stack.
  * @param s A stack holding values to sum.
@@ -24,9 +27,22 @@ template <typename T>
 T QuackFun::sum(stack<T> & s)
 {
     // Your code here
-    return T(); // stub return value (0 for primitive types). Change this!
+    if (s.empty())
+    {
+    	return 0;	
+    }
+    
+    T temp = s.top();
+    T newsum = 0;
+    s.pop();		
+	newsum = temp + sum(s);
+	s.push(temp);
+	return newsum; // stub return value (0 for primitive types). Change this!
                 // Note: T() is the default value for objects, and 0 for
                 // primitive types
+                
+                
+                  
 }
 
 /**
@@ -43,10 +59,56 @@ T QuackFun::sum(stack<T> & s)
 template <typename T>
 void QuackFun::scramble(queue<T> & q)
 {
-    stack<T> s;
-    // optional: queue<T> q2;
+    stack<T> temp_stack;
+	queue<T> temp_queue;
+	int length = q.size();
+	unsigned int length_temp = q.size();
+	int k = 1;
+	int counter = 0;
+	while(length != 0) 
+	{
+		for (int i = 0; i < k; i++)
+		{
+			
+			if (length > 0)
+			{
+				temp_queue.push(q.front());
+				q.pop();
+				length = length - 1;
+			}
+		}
+		k = k + 1;
+		
+		if (length > 0)
+		{
+			for (int i = 0; i < k; i ++)
+			{
+				
+				if (length > 0)
+				{	
+					counter++;
+					temp_stack.push(q.front());
+					q.pop();
+					length = length - 1;
+				}	
+									
+			}
+			for (int i = 0; i < counter; i++)
+			{
+				temp_queue.push(temp_stack.top());
+				temp_stack.pop();
+			}	
+			counter = 0;
+			k = k + 1;
+		}
+	}	
 
-    // Your code here
+	
+	for(unsigned int i=0; i<length_temp; i++ )
+	{
+		q.push(temp_queue.front());
+		temp_queue.pop();
+	} 	 
 }
 
 /**
@@ -64,9 +126,27 @@ void QuackFun::scramble(queue<T> & q)
 template <typename T>
 bool QuackFun::verifySame(stack<T> & s, queue<T> & q)
 {
-    bool retval = true; // optional
-    //T temp1; // rename me
-    //T temp2; // rename :)
+    bool retval;
+    T temp1; // rename me
+    T temp2; // rename :)
+    
+    
+    if (temp1 != temp2)
+    {
+    	retval = false;
+    	return retval;
+    }
+    
+    
+    
+    temp1 = s.top();
+    temp2 = q.front();
+    s.pop();
+    q.pop();		
+	retval = verifySame(s,q);
+	s.push(temp1);
+    q.push(temp2);
+    retval = true;
     
     return retval;
 }
