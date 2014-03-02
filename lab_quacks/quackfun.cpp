@@ -126,28 +126,26 @@ void QuackFun::scramble(queue<T> & q)
 template <typename T>
 bool QuackFun::verifySame(stack<T> & s, queue<T> & q)
 {
-    bool retval;
-    T temp1; // rename me
-    T temp2; // rename :)
+    bool retval = true;
+     // rename me
+     // rename :)
     
-    
-    if (temp1 != temp2)
-    {
-    	retval = false;
-    	return retval;
-    }
-    
-    
-    
-    temp1 = s.top();
-    temp2 = q.front();
+    if(s.empty())return true;	
+    T temp1 = s.top();
     s.pop();
-    q.pop();		
-	retval = verifySame(s,q);
-	s.push(temp1);
+	
+	retval = verifySame(s, q) && retval;
+    T temp2 = q.front();
+    q.pop(); 
     q.push(temp2);
-    retval = true;
+            
+    if(temp1 != temp2)retval = false;
     
-    return retval;
-}
+           
+    s.push(temp1);
+    
+	
+
+return retval;	
+}		
 
