@@ -14,10 +14,16 @@
 template<class T>
 void Queue<T>::enqueue(T const & newItem)
 {
+	//let inStack be the back of the queue - where we can insert things.
+	//let outstack be the front of the queue - where we can remove things.
+	
     /**
      * @todo Your code here!
      */
-}
+	
+	inStack.push(newItem);
+//
+}	
 
 /**
  * Removes the object at the front of the Queue, and returns it to the
@@ -28,10 +34,25 @@ void Queue<T>::enqueue(T const & newItem)
 template<class T>
 T Queue<T>::dequeue()
 {
-    /**
-     * @todo Your code here! You will need to replace the following line.
-     */
-    return T();
+	if (outStack.isEmpty())			//isEmpty is a function in stacks that we implemented 
+	{
+		if (inStack.isEmpty())
+		{
+			return dequeue();
+		}
+		else
+		{
+			while(!inStack.isEmpty())
+			{
+				outStack.push(inStack.pop());	//have changed stacks but same order
+			}
+			return outStack.pop();
+		}	
+	}
+	else
+	{
+		return outStack.pop();
+	}
 }
 
 /**
@@ -45,6 +66,8 @@ void Queue<T>::add( const T & theItem ) {
      * @todo Your code here! Hint: this function should call a Queue
      *  function to add the element to the Queue.
      */
+  
+    enqueue(theItem);	
 }
 
 /**
@@ -59,7 +82,7 @@ T Queue<T>::remove() {
      *  function to remove an element from the Queue and return it. You will
      *  need to replace the following line.
      */
-    return T();
+	return dequeue();				
 }
 
 /**
@@ -71,10 +94,25 @@ T Queue<T>::remove() {
 template<class T>
 T Queue<T>::peek()
 {
-    /**
-     * @todo Your code here! You will need to replace the following line.
-     */
-    return T();
+    if (outStack.isEmpty())
+    {
+    	if (inStack.isEmpty())
+    	{
+    		return peek();
+    	}
+    	else
+    	{
+    		while(!inStack.isEmpty())
+			{
+				outStack.push(inStack.pop());	//have changed stacks but same order
+			}
+			return outStack.peek();
+    	}
+    }
+    else
+    {
+    	return outStack.peek();
+    }    
 }
 
 /**
@@ -85,8 +123,21 @@ T Queue<T>::peek()
 template<class T>
 bool Queue<T>::isEmpty() const
 {
-    /**
-     * @todo Your code here! You will need to replace the following line.
-     */
-    return true;
+    if ((outStack.isEmpty()) && (inStack.isEmpty()))
+    	return true;
+    else	
+    	return false;
 }
+
+
+
+
+
+
+
+
+
+
+
+
+

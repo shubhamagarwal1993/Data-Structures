@@ -17,13 +17,14 @@
  *
  * @param newItem The object to be added to the Stack.
  */
+ 
 template<class T>
 void Stack<T>::push(T const & newItem)
 {
-    /**
-     * @todo Your code here!
-     */
-}
+	  
+	myStack.push_front(newItem);
+//
+}	
 
 /**
  * Removes the object on top of the Stack, and returns it. That is, remove
@@ -34,15 +35,18 @@ void Stack<T>::push(T const & newItem)
  *
  * @return The element that used to be at the top of the Stack.
  */
+ 
+
 template<class T>
 T Stack<T>::pop()
 {
-    /**
-     * @todo Your code here! You will have to replace the following line.
-     */
-    return T();
+	T temp = myStack.front();
+	myStack.pop_front();
+	//myStack.size()--;
+	return temp;
+//
 }
-
+ 
 /**
  * Adds an element to the ordering structure.
  *
@@ -54,6 +58,9 @@ void Stack<T>::add( const T & theItem ) {
      * @todo Your code here! Hint: this should call another Stack function
      *  to add the element to the Stack.
      */
+     
+	push(theItem);
+//     		
 }
 
 /**
@@ -68,7 +75,9 @@ T Stack<T>::remove() {
      *  to remove an element from the Stack and return it. You will need to
      *  replace the following line.
      */
-    return T();
+     
+     return pop();
+//
 }
 
 /**
@@ -84,10 +93,8 @@ T Stack<T>::remove() {
 template<class T>
 T Stack<T>::peek()
 {
-    /**
-     * @todo Your code here! You will need to replace the following line.
-     */
-    return T();
+	return myStack.front();					
+//
 }
 
 /**
@@ -105,5 +112,11 @@ bool Stack<T>::isEmpty() const
     /**
      * @todo Your code here! You will need to replace the following line.
      */
-    return true;
+      
+	if (myStack.empty())
+		return true;
+
+	else	
+		return false;
+//		
 }
