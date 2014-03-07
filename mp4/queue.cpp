@@ -111,7 +111,7 @@ T Queue<T>::peek()
     }
     else
     {
-    	return outStack.peek();
+    	return outStack.peek();		//inherits peek from stack.cpp
     }    
 }
 
