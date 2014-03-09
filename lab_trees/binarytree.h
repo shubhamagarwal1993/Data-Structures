@@ -173,6 +173,11 @@ class BinaryTree
 		void preorder(Node * subRoot, T arr[], unsigned int counter)const;	
 		
 		void print_array(T arr[], unsigned int &counter)const;
+		
+		void sumDistances(Node * subRoot, unsigned int &sum)const;
+		
+		int height_helper(const Node * subRoot ,int & level) const;
+		
         /**
          * Private helper function for the public insert function.
          * @param node The current node in the recursion
