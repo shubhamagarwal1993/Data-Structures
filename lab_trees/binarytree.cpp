@@ -9,6 +9,11 @@
  *  is just the length of the longest path from the root to a leaf, and that the
  *  height of an empty tree is -1.
  */
+
+#include <iostream>
+using namespace std;
+
+
 template <typename T>
 int BinaryTree<T>::height() const
 {
@@ -67,7 +72,7 @@ void BinaryTree<T>::printLeftToRight(const Node * subRoot) const
 	// Print right subtree
 	printLeftToRight(subRoot->right);
 }
-
+//***************MIRROR**********************************************************
 /**
  * Flips the tree over a vertical axis, modifying the tree itself
  *  (not creating a flipped copy).
@@ -76,8 +81,34 @@ template <typename T>
 void BinaryTree<T>::mirror()
 {
 	// your code here
+	mirror(root);
 }
 
+template <typename T>
+typename BinaryTree<T>::Node * BinaryTree<T>::mirror(Node * subRoot)const
+{
+	if (subRoot == NULL)
+		return NULL;
+		
+	Node * temp;
+	temp = mirror(subRoot->left);
+	subRoot->left = mirror(subRoot->right);
+	subRoot->right = temp;
+	return subRoot;		
+}
+//***************MIRROR**********************************************************
+
+
+
+
+
+
+
+
+
+
+
+//***************isOrdered********************************************************
 /**
  * @return True if an in-order traversal of the tree would produce a nondecreasing list
  *  output values, and false otherwise. This is also the criterion for a binary tree to be
@@ -86,10 +117,142 @@ void BinaryTree<T>::mirror()
 template <typename T>
 bool BinaryTree<T>::isOrdered() const
 {
-    // your code here
-	return false;
+	if (root == NULL)
+		return 1;
+
+	int nodes = 2;
+	for (int i = 0; i < height(); i++)
+	{
+		nodes = nodes * nodes;
+	}
+	nodes = nodes + 2;
+	
+	T arr[nodes];
+	for (int i = 0;i < nodes; i++)
+	{
+		arr[i] = NULL;
+	}
+	
+	unsigned int counter = 0;
+	isOrdered(root, arr, counter);
+	
+	int i = 0;
+	while(arr[i+1] != NULL)
+	{
+		if (arr[i] < arr[i+1])
+			i++;
+		
+		else
+			return 0;
+	}
+	
+	return 1;	
+	
 }
 
+template <typename T>
+void BinaryTree<T>::isOrdered(Node * subRoot, T &arr, unsigned int &counter)const
+{	
+	if (root == NULL)
+		return;
+
+	isOrdered(subRoot->left, arr, counter);
+
+	if (subRoot != NULL)
+	{
+		arr[counter] = subRoot->elem;
+		counter++;
+	}
+	
+	isOrdered(subRoot->right, arr, counter);
+
+}
+
+
+/*
+{
+	if (isOrdered(root))
+		return 1;
+	
+	else
+		return 0;	
+}
+	
+	
+template <typename T>
+bool BinaryTree<T>::isOrdered(Node * subRoot)const	
+{		
+	if (subRoot == NULL)
+		return 1;
+
+	if (subRoot->left != NULL)
+	{
+		isOrdered(subRoot->left);
+		
+		if (((subRoot->elem) < (subRoot->left->elem)) || ((subRoot->elem) > (max_left(root)->elem)))
+			return 0;
+	}
+	
+	if (subRoot->right != NULL)
+	{
+		isOrdered(subRoot->right);
+		
+		if (((subRoot->elem) > (subRoot->right->elem)) || ((subRoot->elem) < (min_right(root)->elem)))
+			return 0;
+	}
+
+	return 1;
+}
+	
+template <typename T>
+typename BinaryTree<T>::Node * BinaryTree<T>::max_left(Node * subRoot)const
+{
+	
+	if (subRoot->left != NULL)
+	{
+		subRoot = subRoot->left;
+		while (subRoot->right != NULL)
+			subRoot = subRoot->right;
+
+		return subRoot;
+	}
+	//here the value of subRoot if the max on the left sub tree
+	else
+		return root;	
+}
+
+
+template <typename T>
+typename BinaryTree<T>::Node * BinaryTree<T>::min_right(Node * subRoot)const
+{
+		
+	if (subRoot->right != NULL)
+	{
+		subRoot = subRoot->right;
+		while (subRoot->left != NULL)
+			subRoot = subRoot->left;
+	
+		return subRoot;
+	}
+	//here the value of subRoot if the max on the left sub tree
+	else
+		return root;	
+
+}	 	
+*/
+//***************isOrdered********************************************************
+
+
+
+
+
+
+
+
+
+
+
+//***************printPaths********************************************************
 /**
  * Prints out all the possible paths from the root of the tree to any leaf node.
  * That is, all sequences starting at the root node and continuing downwards, ending at a
@@ -99,9 +262,60 @@ bool BinaryTree<T>::isOrdered() const
 template <typename T>
 void BinaryTree<T>::printPaths() const
 {
-    // your code here
+return;
+/*    if (root == NULL)
+    	return;
+    	
+	if (root->left != NULL)
+	{
+		printleft();
+	}
+		
+	else	
+		return;
+*/
 }
+/*	
+template <typename T>
+void BinaryTree<T>::printleft()const	
+{
 
+
+	if (subRoot == NULL)
+		return root;
+
+//	cout<<"Path: ";
+	while (subRoot->left != NULL)
+	{
+		cout<<subRoot->elem <<" ";
+		printleft(subRoot->left);
+		
+	}
+	cout<<subRoot->elem<<endl; 
+//	cout<<""<<endl;
+
+//	else
+		return root;
+}
+*/		
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+//***************printPaths********************************************************
 /**
  * Each node in a tree has a distance from the root node - the depth of that node,
  *  or the number of edges along the path from that node to the root. This function returns

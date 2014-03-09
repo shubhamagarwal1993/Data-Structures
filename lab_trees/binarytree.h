@@ -157,6 +157,21 @@ class BinaryTree
         void printLeftToRight(const Node* subRoot) const;
         
         /**
+         * Private helper function for the public mirror function.
+         * @param subRoot The current node in the recursion
+         */
+        Node * mirror(Node * subRoot)const;
+        
+        bool isOrdered(Node * subRoot)const;	
+        
+        void isOrdered(Node * subRoot, T &arr, int &counter)const;
+        
+        Node * max_left(Node * subRoot)const;
+        
+        Node * min_right(Node * subRoot)const;
+        
+		//Node * printleft(Node * subRoot)const;	
+        /**
          * Private helper function for the public insert function.
          * @param node The current node in the recursion
          * @param elem The element to insert
