@@ -164,7 +164,7 @@ class BinaryTree
         
         bool isOrdered(Node * subRoot)const;	
         
-        void isOrdered(Node * subRoot, T &arr, int &counter)const;
+        void isOrdered(Node * subRoot, T arr[], unsigned int &counter)const;
         
         Node * max_left(Node * subRoot)const;
         

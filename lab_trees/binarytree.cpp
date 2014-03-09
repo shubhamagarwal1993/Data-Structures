@@ -125,10 +125,10 @@ bool BinaryTree<T>::isOrdered() const
 	{
 		nodes = nodes * nodes;
 	}
-	nodes = nodes + 2;
+	nodes--;
 	
 	T arr[nodes];
-	for (int i = 0;i < nodes; i++)
+	for (int i = 0; i < nodes; i++)
 	{
 		arr[i] = NULL;
 	}
@@ -136,35 +136,31 @@ bool BinaryTree<T>::isOrdered() const
 	unsigned int counter = 0;
 	isOrdered(root, arr, counter);
 	
-	int i = 0;
-	while(arr[i+1] != NULL)
+	for(int i = 1; i < counter; i++)
 	{
-		if (arr[i] < arr[i+1])
-			i++;
-		
-		else
-			return 0;
+		if (arr[i] < arr[i-1])
+			return false;
 	}
-	
-	return 1;	
-	
+return true;
 }
 
 template <typename T>
-void BinaryTree<T>::isOrdered(Node * subRoot, T &arr, unsigned int &counter)const
+void BinaryTree<T>::isOrdered(Node * subRoot, T arr[], unsigned int &counter)const
 {	
-	if (root == NULL)
+	if(root == NULL)
 		return;
 
-	isOrdered(subRoot->left, arr, counter);
+	if(subRoot->left != NULL)
+		isOrdered(subRoot->left, arr, counter);
 
-	if (subRoot != NULL)
-	{
-		arr[counter] = subRoot->elem;
-		counter++;
-	}
 	
-	isOrdered(subRoot->right, arr, counter);
+		arr[counter] = subRoot->elem;
+//		cout<<subRoot->elem<<" ";
+		counter++;
+	
+	
+	if(subRoot->right != NULL) 
+		isOrdered(subRoot->right, arr, counter);
 
 }
 
