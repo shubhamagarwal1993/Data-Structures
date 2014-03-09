@@ -174,9 +174,9 @@ class BinaryTree
 		
 		void print_array(T arr[], unsigned int &counter)const;
 		
-		void sumDistances(Node * subRoot, unsigned int &sum)const;
+		int sumDistances(Node * subRoot, unsigned int sum)const;
 		
-		int height_helper(const Node * subRoot ,int & level) const;
+	//	void height_helper(Node * A, Node * &subRoot , unsigned int &level) const;
 		
         /**
          * Private helper function for the public insert function.

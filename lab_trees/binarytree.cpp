@@ -336,43 +336,16 @@ int BinaryTree<T>::sumDistances() const
 		return -1;
 
 	unsigned int sum = 0;
-	sumDistances(root, sum);
-	return sum;
+
+	return sumDistances(root, sum);	
 }
 
 template <typename T>
-void BinaryTree<T>::sumDistances(Node * subRoot, unsigned int &sum)const
+int BinaryTree<T>::sumDistances(Node * subRoot, unsigned int sum)const
 {	
-	if(root == NULL)
-		return;
+	if(subRoot == NULL)
+		return 0;
 
-	if(subRoot->left != NULL)
-		sumDistances(subRoot->left, sum);
-
-	cout<<"data"<<" "<< subRoot->elem<<" "<<height(subRoot)<<endl;
-	int level = 0;
-	sum = sum + height_helper(subRoot, level);
-		
-	if(subRoot->right != NULL) 
-		sumDistances(subRoot->right, sum);
-
-}
-
-template <typename T>
-int BinaryTree<T>::height_helper(const Node * subRoot, int &level) const
-{
-	// Base case
-	if (subRoot == NULL)
-        return -1;
-	
-	if(subRoot->left != NULL)
-		height_helper(subRoot->left, level++);
-
-	height_helper(subRoot, level++);
-		
-	if(subRoot->right != NULL) 
-		height_helper(subRoot->right, level++);
-	
-	
-	return level;
+	sum = sum + sumDistances(subRoot->left, sum+1) + sumDistances(subRoot->right, sum+1);
+	return sum;
 }
