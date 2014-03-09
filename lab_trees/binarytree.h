@@ -170,7 +170,9 @@ class BinaryTree
         
         Node * min_right(Node * subRoot)const;
         
-		//Node * printleft(Node * subRoot)const;	
+		void preorder(Node * subRoot, T arr[], unsigned int counter)const;	
+		
+		void print_array(T arr[], unsigned int &counter)const;
         /**
          * Private helper function for the public insert function.
          * @param node The current node in the recursion

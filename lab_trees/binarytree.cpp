@@ -239,18 +239,9 @@ typename BinaryTree<T>::Node * BinaryTree<T>::min_right(Node * subRoot)const
 //***************isOrdered********************************************************
 
 
-
-
-
-
-
-
-
-
-
 //***************printPaths********************************************************
 /**
- * Prints out all the possible paths from the root of the tree to any leaf node.
+ * Prints out all the possiccble paths from the root of the tree to any leaf node.
  * That is, all sequences starting at the root node and continuing downwards, ending at a
  *  leaf node. Paths ending in a left node should be printed before paths ending in a node
  *  further to the right.
@@ -258,43 +249,62 @@ typename BinaryTree<T>::Node * BinaryTree<T>::min_right(Node * subRoot)const
 template <typename T>
 void BinaryTree<T>::printPaths() const
 {
-return;
-/*    if (root == NULL)
-    	return;
-    	
-	if (root->left != NULL)
-	{
-		printleft();
-	}
-		
-	else	
+	if (root == NULL)
 		return;
-*/
+	unsigned int counter = 0;
+	unsigned int nodes = height();
+	T arr[nodes];
+	for (int i = 0; i < nodes; i++)
+	{
+		arr[i] = NULL;
+	}	 
+
+	
+	preorder(root, arr, 0);
+
 }
-/*	
+
+
+	
 template <typename T>
-void BinaryTree<T>::printleft()const	
+void BinaryTree<T>::preorder(Node *subRoot, T arr[], unsigned int counter)const	
 {
 
-
 	if (subRoot == NULL)
-		return root;
+		return;
 
-//	cout<<"Path: ";
-	while (subRoot->left != NULL)
+	
+	arr[counter] = subRoot->elem;
+		counter++;
+
+	if (subRoot->left == NULL && subRoot->right == NULL)
+		print_array(arr, counter);
+		//
+	
+	else
 	{
-		cout<<subRoot->elem <<" ";
-		printleft(subRoot->left);
+		if (subRoot->left != NULL)
+			preorder(subRoot->left, arr, counter);
 		
-	}
-	cout<<subRoot->elem<<endl; 
-//	cout<<""<<endl;
+		if (subRoot->right != NULL)
+			preorder(subRoot->right, arr, counter);
+	}		
 
-//	else
-		return root;
 }
-*/		
+		
+	
+template <typename T>
+void BinaryTree<T>::print_array(T arr[], unsigned int &counter)const	
+{
+	cout<<"Path: ";
+	for(int i = 0; i < counter; i++)
+	{
+		cout<<arr[i];
+		cout<<" ";
+	}
+	cout <<""<<endl;
 
+}
 
 
 
