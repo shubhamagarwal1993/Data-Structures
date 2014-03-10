@@ -10,12 +10,19 @@
  * @param centerX X coordinate for the center of the gradient.
  * @param centerY Y coordinate for the center of the gradient.
  */
-gradientColorPicker::gradientColorPicker( RGBAPixel fadeColor1, 
-		RGBAPixel fadeColor2, int radius, int centerX, int centerY ) {
+gradientColorPicker::gradientColorPicker( RGBAPixel fadeColor1_temp, 
+		RGBAPixel fadeColor2_temp, int radius_temp, int centerX_temp, int centerY_temp ) {
 	/** 
 	 * @todo Construct your gradientColorPicker here! You may find it
 	 *	helpful to create additional member variables to store things.
 	 */
+	 
+	fadeColor1 = fadeColor1_temp; 
+	fadeColor2 = fadeColor2_temp;
+	radius = radius_temp;
+	centerX = centerX_temp; 
+	centerY = centerY_temp;
+	 
 }
 
 /**
@@ -49,9 +56,25 @@ gradientColorPicker::gradientColorPicker( RGBAPixel fadeColor1,
  */
 RGBAPixel gradientColorPicker::operator()(int x, int y)
 {
+
 	RGBAPixel color;
 	/**
 	 * @todo Return the correct color here!
 	 */
-	return color;
+	int d;
+	d = abs(centerX - x) + abs(centerY - y);
+		
+	if (d < radius)
+	{
+		
+		color.red = fadeColor1.red - ((d*fadeColor1.red)/radius) + ((d*fadeColor2.red)/radius); 
+		color.blue = fadeColor1.blue - ((d*fadeColor1.blue)/radius) + ((d*fadeColor2.blue)/radius);
+		color.green = fadeColor1.green - ((d*fadeColor1.green)/radius) + ((d*fadeColor2.green)/radius);
+//		return color;
+	}
+	else
+		color = fadeColor2;
+		
+return color;
+
 }
