@@ -149,5 +149,9 @@ animation filler::fill( PNG & img, int x, int y,
      *        have been checked. So if frameFreq is set to 1, a pixel should
      *        be filled every frame.
      */
+     
+     
+     
+     
     return animation();
 }
