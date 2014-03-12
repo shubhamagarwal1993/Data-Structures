@@ -7,6 +7,8 @@
  * @date Fall 2012
  */
 #include "filler.h"
+#include <iostream>
+using namespace std;
 
 animation filler::dfs::fillSolid( PNG & img, int x, int y, 
         RGBAPixel fillColor, int tolerance, int frameFreq ) {
@@ -15,7 +17,8 @@ animation filler::dfs::fillSolid( PNG & img, int x, int y,
      *  correct call to fill with the correct colorPicker parameter.
      */
 	solidColorPicker color(fillColor); 
-	return fill(img, x, y, color, tolerance, frameFreq);
+//	cout<<"entered fillsolid";
+	return filler::fill<Stack>(img, x, y, color, tolerance, frameFreq);
 }
 
 animation filler::dfs::fillGrid( PNG & img, int x, int y, 
@@ -26,7 +29,7 @@ animation filler::dfs::fillGrid( PNG & img, int x, int y,
      */
 
 	gridColorPicker color(gridColor, gridSpacing); 
-	return fill(img, x, y, color, tolerance, frameFreq);
+	return filler::fill<Stack>(img, x, y, color, tolerance, frameFreq);
 }
 
 animation filler::dfs::fillGradient( PNG & img, int x, int y, 
@@ -37,7 +40,7 @@ animation filler::dfs::fillGradient( PNG & img, int x, int y,
      *  correct call to fill with the correct colorPicker parameter.
      */
     gradientColorPicker color(fadeColor1, fadeColor2, radius, x, y); 
-	return fill(img, x, y, color, tolerance, frameFreq);
+	return filler::fill<Stack>(img, x, y, color, tolerance, frameFreq);
 }
 
 animation filler::dfs::fill( PNG & img, int x, int y, 
@@ -48,7 +51,7 @@ animation filler::dfs::fill( PNG & img, int x, int y,
      *  indicating the ordering structure to be used in the fill.
      */
     
-    return fill(img, x, y, fillColor, tolerance, frameFreq );
+    return filler::fill<Stack>(img, x, y, fillColor, tolerance, frameFreq);
 }
 
 animation filler::bfs::fillSolid( PNG & img, int x, int y, 
@@ -58,7 +61,7 @@ animation filler::bfs::fillSolid( PNG & img, int x, int y,
      *  correct call to fill with the correct colorPicker parameter.
      */
     solidColorPicker color(fillColor); 
-	return fill(img, x, y, color, tolerance, frameFreq); 
+	return filler::fill<Queue>(img, x, y, color, tolerance, frameFreq); 
 }
 
 animation filler::bfs::fillGrid( PNG & img, int x, int y, 
@@ -68,7 +71,7 @@ animation filler::bfs::fillGrid( PNG & img, int x, int y,
      *  correct call to fill with the correct colorPicker parameter.
      */
     gridColorPicker color(gridColor, gridSpacing); 
-	return fill(img, x, y, color, tolerance, frameFreq);
+	return filler::fill<Queue>(img, x, y, color, tolerance, frameFreq);
 }
 
 animation filler::bfs::fillGradient( PNG & img, int x, int y, 
@@ -79,7 +82,7 @@ animation filler::bfs::fillGradient( PNG & img, int x, int y,
      *  correct call to fill with the correct colorPicker parameter.
      */
     gradientColorPicker color(fadeColor1, fadeColor2, radius, x, y); 
-	return fill(img, x, y, color, tolerance, frameFreq);
+	return filler::fill<Queue>(img, x, y, color, tolerance, frameFreq);
 }
 
 animation filler::bfs::fill( PNG & img, int x, int y, 
@@ -89,7 +92,7 @@ animation filler::bfs::fill( PNG & img, int x, int y,
      *  correct call to filler::fill with the correct template parameter
      *  indicating the ordering structure to be used in the fill.
      */
-    return fill(img, x, y, fillColor, tolerance, frameFreq );
+    return filler::fill<Queue>(img, x, y, fillColor, tolerance, frameFreq );
 }
 //****************************
 template <template <class T> class OrderingStructure>
@@ -151,7 +154,73 @@ animation filler::fill( PNG & img, int x, int y,
      */
      
      
-     
-     
-    return animation();
+    //making two ordering structures and storing coodinates
+	OrderingStructure<int> tempx;		//do we have to specify <int> after OrderingStructure 
+	OrderingStructure<int> tempy;
+
+	//making 2D array for boolean values - 'processed'
+	int processed[img.width()][img.height()];
+	for (int i = 0; i < img.width(); i++)
+	{
+		for (int j = 0; j < img.height(); j++)
+		{
+			processed[i][j] = 0;
+		}
+	}
+	//all the pixels now have a 'false' associated with them
+	
+	//placing the given points in the ordering structure - 'orderingstructure.h'
+	tempx.add(x);
+	tempy.add(y);
+	
+	int frames = 0;
+	animation vid;									//has to be created to keep adding images
+	RGBAPixel orig = *img(x,y);
+	
+	while ((!tempx.isEmpty()) && (!tempy.isEmpty()))
+	{
+	
+		int varX = tempx.remove();					//remove point from struct
+		int varY = tempy.remove();					//remove point from struct
+	
+		//calculating the tolerance distance
+		int dist_check = pow((img(varX, varY)->red - orig.red),2) + pow((img(varX, varY)->green - orig.green),2) + pow((img(varX, varY)->blue - orig.blue),2);  
+		
+		if ((!processed[varX][varY]) && (dist_check <= tolerance))
+		{
+			processed[varX][varY] = 1;								//mark as processed
+			*img(varX, varY) = fillColor(varX, varY);	//change color 
+			frames++;									//add the frames for every pixel 
+			
+			if (varX+1 < img.width())					//right
+			{
+				tempx.add(varX+1);
+				tempy.add(varY);
+			}					
+			if (varY+1 < img.height())					//down
+			{
+				tempy.add(varY+1);			
+				tempx.add(varX);
+			}
+			if (varX-1 >= 0)							//left
+			{
+				tempx.add(varX-1);
+				tempy.add(varY);
+			}		
+			if (varY-1 >= 0)							//up
+			{
+				tempy.add(varY-1);			
+				tempx.add(varX);
+			}	
+			
+			if (frames % frameFreq == 0)					//our frames multiple of frequency of frames
+		{
+			vid.addFrame(img);
+		}
+	}
+		
+		
+	}
+
+	return vid;
 }
