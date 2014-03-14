@@ -1,7 +1,7 @@
 Monad Autograder
-Testing mp4 at 2014-03-13 02:50:40
+Testing mp4 at 2014-03-14 02:53:29
 
-"I'm not saying he's evil incarnate based on that fact alone; I've always known it." ~ REDACTED
+"Measuring programming progress by lines of code is like measuring aircraft building progress by weight." ~ Bill Gates
 
 Setting up test environment...
 Compiling...
