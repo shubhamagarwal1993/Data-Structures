@@ -1,0 +1,28 @@
+Monad Autograder
+Testing lab_huffman at 2014-03-17 01:28:24
+
+"Now that's just math for math's sake." ~ Prof. Julia Hockenmaier
+
+Setting up test environment...
+Compiling...
+================================================================
+
+
+Running tests...
+================================================================
+test_encoder_binary_4  . . . . . . [20 pts] - passed
+test_encoder_binary_8  . . . . . . [20 pts] - passed
+test_encoder_valgrind_2 (valgrind) [6 pts]  - passed
+test_encoder_writetree_4 . . . . . [2 pts]  - passed
+test_encoder_writetree_8 . . . . . [2 pts]  - passed
+test_decode_4  . . . . . . . . . . [20 pts] - passed
+test_decode_8  . . . . . . . . . . [20 pts] - passed
+test_decode_readtree_4 . . . . . . [2 pts]  - passed
+test_decode_readtree_8 . . . . . . [2 pts]  - passed
+test_the_works (valgrind)  . . . . [6 pts]  - passed
+
+
+Total score...
+================================================================
+TOTAL SCORE: 100
+
