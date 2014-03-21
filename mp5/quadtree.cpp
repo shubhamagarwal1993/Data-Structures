@@ -126,25 +126,21 @@ using namespace std;
 //*************************		The buildTree Function**********************************************
 	void Quadtree::buildTree(PNG const & source1, int resolution1)
 	{
-		cout << "fgh"<<endl;
 		clear_tree(root);
-		cout << "fgh2"<<endl;
 	
 		int x_coord = 0;
 		int y_coord = 0;
-	//	root=new QuadtreeNode();
+
 		resolution=resolution1;
 		make_tree(root, x_coord, y_coord, resolution, source1);	
-						
-		cout << "fgh3"<<endl;
 	}
 	
 	
 	void Quadtree::make_tree(QuadtreeNode * &subRoot,int x_coord, int y_coord, int resolution1, PNG const & source1)
 	{
 		subRoot = new QuadtreeNode();
-		if(resolution1 == 64)
-			cout << resolution1 << endl;
+//		if(resolution1 == 64)
+//			cout << resolution1 << endl;
 		
 //		cout<<resolution1<<endl;
 		if (resolution1 == 1)
@@ -171,13 +167,13 @@ using namespace std;
 	RGBAPixel Quadtree::getPixel(int x, int y)const
 	{
 	
-		if ((x>=resolution) || (x < 0) || (y>=resolution) || (y < 0)){
+		if ((x<resolution) && (x >= 0) && (y < resolution) && (y >= 0) && (root != NULL))
+		{
+			return getPixel_helper(x, y, root, resolution);
+		}	
+		
 			 RGBAPixel temp;			
 			 return temp;
-		}		
-				
-		return getPixel_helper(x, y, root, resolution);
-		
 	}
 	
 	RGBAPixel Quadtree::getPixel_helper(int x, int y, QuadtreeNode * subRoot, int resolution1)const
@@ -187,8 +183,7 @@ using namespace std;
 			return subRoot->element;
 		}
 		
-		// 4 cases
-		else if (x < resolution1/2 && y < resolution1/2)
+		if ((x < resolution1/2) && (y < resolution1/2))
 		{
 			if (subRoot->nwChild == NULL)
 				return subRoot->element;
@@ -196,13 +191,12 @@ using namespace std;
 				getPixel_helper(x, y, subRoot->nwChild, resolution1/2);	
 		}
 		
-		
 		else if (x >= resolution1/2 && y < resolution1/2)
 		{
 			if (subRoot->neChild == NULL)
 				return subRoot->element;
 			else
-				getPixel_helper(x, y, subRoot->neChild, resolution1/2);	
+				getPixel_helper(x-resolution1/2,y, subRoot->neChild, resolution1/2);	
 		}
 
 		else if (x < resolution1/2 && y >= resolution1/2)
@@ -210,7 +204,7 @@ using namespace std;
 			if (subRoot->swChild == NULL)
 				return subRoot->element;
 			else
-				getPixel_helper(x, y, subRoot->swChild, resolution1/2);	
+				getPixel_helper(x, y-resolution1/2, subRoot->swChild, resolution1/2);	
 		}
 
 		else if (x >= resolution1/2 && y >= resolution1/2)
@@ -218,10 +212,11 @@ using namespace std;
 			if (subRoot->seChild == NULL)
 				return subRoot->element;
 			else
-				getPixel_helper(x, y, subRoot->seChild, resolution1/2);	
+				getPixel_helper(x-resolution1/2, y-resolution1/2, subRoot->seChild, resolution1/2);	
 		}
-		RGBAPixel temp;
-		return temp;
+	RGBAPixel temp;
+	return temp;	
+		
 	}
 		
 //*************************************************************************************************** 	
