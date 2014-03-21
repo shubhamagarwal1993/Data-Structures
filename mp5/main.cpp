@@ -15,6 +15,7 @@ int main() {
    imgOut = halfTree.decompress();
    imgOut.writeToFile("outHalf.png");
 
+/*
    // now for the real tests
    Quadtree fullTree;
    fullTree.buildTree(imgIn, 256);
@@ -67,6 +68,6 @@ int main() {
    cout << "Printing tinyTree:\n";
    tinyTree.prune(100);
    tinyTree.printTree();
-
+*/
    return 0;
 }
