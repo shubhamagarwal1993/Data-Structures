@@ -63,23 +63,26 @@ using namespace std;
 	*/ 
 	Quadtree::QuadtreeNode * Quadtree::copy_tree(QuadtreeNode * subRoot)
 	{
+		if (subRoot == NULL)
+			return NULL;
+	
 		QuadtreeNode * leafNode = new QuadtreeNode();
+		leafNode->element = subRoot->element;
+//		if ((subRoot->nwChild == NULL) || (subRoot->neChild == NULL) || (subRoot->swChild == NULL) || (subRoot->seChild == NULL))
+//		{
+//			leafNode->element = subRoot->element;
+//			return leafNode;
+//		}
 		
-		if ((subRoot->nwChild == NULL) || (subRoot->neChild == NULL) || (subRoot->swChild == NULL) || (subRoot->seChild == NULL))
-		{
-			leafNode->element = subRoot->element;
-			return leafNode;
-		}
-		
-		copy_tree(subRoot->nwChild);
+		leafNode->nwChild = copy_tree(subRoot->nwChild);
 			
-		copy_tree(subRoot->neChild);
+		leafNode->neChild = copy_tree(subRoot->neChild);
 		
-		copy_tree(subRoot->swChild);
+		leafNode->swChild = copy_tree(subRoot->swChild);
 		
-		copy_tree(subRoot->seChild);
+		leafNode->seChild = copy_tree(subRoot->seChild);
 		
-		return subRoot;
+		return leafNode;
 	}	
 
 	/**

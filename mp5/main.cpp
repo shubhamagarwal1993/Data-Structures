@@ -14,7 +14,10 @@ int main() {
    Quadtree halfTree(imgIn, 128);
    imgOut = halfTree.decompress();
    imgOut.writeToFile("outHalf.png");
-
+   Quadtree copyHalftree = halfTree;
+   
+   PNG imgout2 = copyHalftree.decompress();
+    imgout2.writeToFile("outHalf2.png");	
 /*
    // now for the real tests
    Quadtree fullTree;
