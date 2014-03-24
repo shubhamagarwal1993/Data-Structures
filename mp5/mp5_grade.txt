@@ -1,7 +1,7 @@
 Monad Autograder
-Testing mp5 at 2014-03-23 17:39:22
+Testing mp5 at 2014-03-24 02:14:15
 
-"If you're not failing every now and again, it's a sign you're not doing anything very innovative." ~ Woody Allen
+"The cheapest, fastest, and most reliable components of a computer system are those that aren't there." ~ Gordon Bell
 
 Setting up test environment...
 Compiling...
