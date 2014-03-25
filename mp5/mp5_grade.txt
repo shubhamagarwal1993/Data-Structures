@@ -1,7 +1,7 @@
 Monad Autograder
-Testing mp5 at 2014-03-24 02:14:15
+Testing mp5 at 2014-03-25 02:18:27
 
-"The cheapest, fastest, and most reliable components of a computer system are those that aren't there." ~ Gordon Bell
+"If at first you don't succeed, that's one data point." ~ Randall Munroe
 
 Setting up test environment...
 Compiling...
