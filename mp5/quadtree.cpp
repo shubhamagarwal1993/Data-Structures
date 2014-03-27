@@ -271,8 +271,8 @@ using namespace std;
 //*************************		The clockwiseRotate Function**********************************************************
 	void Quadtree::clockwiseRotate()
 	{
-		if (root == NULL)
-			return;
+//		if (root == NULL)
+//			return;
 			
 			
 	}
