@@ -115,18 +115,16 @@ using namespace std;
 	*/
 	Quadtree const & Quadtree::operator=(Quadtree const & other)
 	{
-		if (other.root == NULL)
-		{
-			root = new QuadtreeNode();
-			resolution = 0;
-		}
-		
-		else if (this != &other)
+		if (this != &other)
 		{
 			clear_tree(root);
 			resolution = 0;
-			copy_tree(other.root);
-			resolution = other.resolution;
+			if (other.root != NULL)
+			{
+				root = new QuadtreeNode();
+				copy_tree(other.root);				
+				resolution = other.resolution;
+			}
 		}
 		
 		return * this;	
@@ -273,7 +271,10 @@ using namespace std;
 //*************************		The clockwiseRotate Function**********************************************************
 	void Quadtree::clockwiseRotate()
 	{
-		
+		if (root == NULL)
+			return;
+			
+			
 	}
 //**************************************************************************************************************	 	
 
