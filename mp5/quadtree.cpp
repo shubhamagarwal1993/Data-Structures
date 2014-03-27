@@ -115,10 +115,16 @@ using namespace std;
 	*/
 	Quadtree const & Quadtree::operator=(Quadtree const & other)
 	{
-	
-		if (this != &other)
+		if (other.root == NULL)
 		{
 			clear_tree(root);
+			return *this;
+		}
+		
+		else if (this != &other)
+		{
+			clear_tree(root);
+//			resolution = other.resolution;
 			copy_tree(other.root);
 		}
 		
