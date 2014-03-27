@@ -117,15 +117,16 @@ using namespace std;
 	{
 		if (other.root == NULL)
 		{
-			clear_tree(root);
-			return *this;
+			root = new QuadtreeNode();
+			resolution = 0;
 		}
 		
 		else if (this != &other)
 		{
 			clear_tree(root);
-//			resolution = other.resolution;
+			resolution = 0;
 			copy_tree(other.root);
+			resolution = other.resolution;
 		}
 		
 		return * this;	
@@ -272,6 +273,7 @@ using namespace std;
 //*************************		The clockwiseRotate Function**********************************************************
 	void Quadtree::clockwiseRotate()
 	{
+		
 	}
 //**************************************************************************************************************	 	
 
