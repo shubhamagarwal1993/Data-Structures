@@ -25,8 +25,34 @@ vector< StringTriple > cartalk_puzzle(PronounceDict d,
 {
     /* Your code goes here! */
 
-		
-    return vector< StringTriple >();
-}
-
-
+	vector< StringTriple > final;
+	StringTriple st;
+//	unsigned int i = 0;
+	ifstream words(word_list_fname);
+	string word;
+	if(words.is_open())
+	{
+		while (getline(words,word))
+		{
+			if (word.length() > 1)
+			{
+				string temp1 = word.substr(1);
+				string temp2 = word[0] + word.substr(2);
+				bool val;
+				val = /*PronounceDict::*/d.homophones(temp1, temp2);
+				if (val == 1)
+				{
+					//final[i]->first = word;
+					st = make_tuple(word, temp1, temp2);
+					final.push_back(st);	
+				}
+			}
+		}
+	}
+	
+	
+	if (final.empty())
+		return vector< StringTriple >();
+	else
+		return final;
+}		
