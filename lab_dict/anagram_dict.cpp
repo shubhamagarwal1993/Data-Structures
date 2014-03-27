@@ -115,10 +115,11 @@ vector< vector< string > > AnagramDict::get_all_anagrams() const
     	if(it->second.size()>1)
     	myvector.push_back(it->second);
     }
-
-    return myvector;
-    //else
-    // return vector< vector < string > >();
+	
+	if(!myvector.empty())
+		return myvector;
+	else
+    	return vector< vector < string > >();
 //&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&
 
 }

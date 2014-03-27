@@ -24,6 +24,8 @@ vector< StringTriple > cartalk_puzzle(PronounceDict d,
                                       const string& word_list_fname)
 {
     /* Your code goes here! */
+
+		
     return vector< StringTriple >();
 }
 
