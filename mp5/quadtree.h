@@ -131,7 +131,7 @@ class Quadtree
 		
 		void make_tree(QuadtreeNode * &subRoot,int x_coord, int y_coord, int resolution1, PNG const &source1);
 		
-		
+		void rotate(QuadtreeNode * subRoot);
 	
 	/**** Functions added for testing/grading                ****/
 	/**** Do not remove this line or copy its contents here! ****/

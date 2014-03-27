@@ -4,6 +4,7 @@
 
 using std::cout;
 using std::endl;
+using namespace std;
 
 int main() {
 
@@ -18,13 +19,13 @@ int main() {
    
    PNG imgout2 = copyHalftree.decompress();
     imgout2.writeToFile("outHalf2.png");	
-/*
+
    // now for the real tests
    Quadtree fullTree;
    fullTree.buildTree(imgIn, 256);
 
    // you may want to experiment with different commands in this section
-
+/*
    // test pruneSize and idealPrune (slow in valgrind, so you may want to
    // comment these out when doing most of your testing for memory leaks)
    cout << "fullTree.pruneSize(0) = " << fullTree.pruneSize(0) << endl;
@@ -34,12 +35,14 @@ int main() {
 
    cout << "fullTree.idealPrune(1000) = "  << fullTree.idealPrune(1000) << endl;
    cout << "fullTree.idealPrune(10000) = " << fullTree.idealPrune(10000) << endl;
-
+*/
 
    // Test some creation/deletion functions
    Quadtree fullTree2;
    fullTree2 = fullTree;
+//   cout<<"one"<<endl;
    imgOut = fullTree2.decompress();
+//    cout<<"two"<<endl;
    imgOut.writeToFile("outCopy.png");
 
 
@@ -48,7 +51,7 @@ int main() {
    imgOut = fullTree.decompress();
    imgOut.writeToFile("outRotated.png");
 
-
+/*
    // test prune
    fullTree = fullTree2;
    fullTree.prune(1000);

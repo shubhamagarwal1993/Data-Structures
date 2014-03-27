@@ -192,7 +192,7 @@ using namespace std;
 	
 	RGBAPixel Quadtree::getPixel_helper(int x, int y, QuadtreeNode * subRoot, int resolution1)const
 	{
-		if (resolution1 == 1)
+		if (subRoot->nwChild == NULL)
 		{
 			return subRoot->element;
 		}
@@ -271,11 +271,30 @@ using namespace std;
 //*************************		The clockwiseRotate Function**********************************************************
 	void Quadtree::clockwiseRotate()
 	{
-//		if (root == NULL)
-//			return;
-			
-			
+		if (root != NULL)
+			rotate(root);	
 	}
+	
+	void Quadtree::rotate(QuadtreeNode * subRoot)
+	{
+	
+		if (subRoot == NULL)
+			return;
+					
+		QuadtreeNode* temp = subRoot->nwChild;
+		subRoot->nwChild = subRoot->swChild;
+		subRoot->swChild = subRoot->seChild;
+		subRoot->seChild = subRoot->neChild;
+		subRoot->neChild = temp;
+		temp = NULL;
+		
+		rotate(subRoot->nwChild);
+		rotate(subRoot->neChild);
+		rotate(subRoot->swChild);
+		rotate(subRoot->seChild);
+		
+	}
+	
 //**************************************************************************************************************	 	
 
 //*************************		The prune Function**********************************************************
