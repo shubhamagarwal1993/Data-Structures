@@ -23,10 +23,13 @@ unsigned long fib(unsigned long n)
 {
 //your code goes here
  	if(n <= 1)
+ 	{
  		return n;
- 	
+ 	}
  	else
+ 	{
  		return fib(n-1)+fib(n-2);
+	}
 }
 
 /** 

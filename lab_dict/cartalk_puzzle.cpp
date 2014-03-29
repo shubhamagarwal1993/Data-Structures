@@ -38,9 +38,9 @@ vector< StringTriple > cartalk_puzzle(PronounceDict d,
 			{
 				string temp1 = word.substr(1);
 				string temp2 = word[0] + word.substr(2);
-				bool val;
-				val = /*PronounceDict::*/d.homophones(temp1, temp2);
-				if (val == 1)
+				bool flag;
+				flag = /*PronounceDict::*/d.homophones(temp1, temp2);
+				if (flag == 1)
 				{
 					//final[i]->first = word;
 					st = make_tuple(word, temp1, temp2);

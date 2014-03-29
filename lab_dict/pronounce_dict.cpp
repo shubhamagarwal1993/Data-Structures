@@ -31,7 +31,7 @@ using std::stringstream;
  */
 PronounceDict::PronounceDict(const string& pronun_dict_filename)
 {
-    ifstream pronun_dict_file(pronun_dict_filename);
+	ifstream pronun_dict_file(pronun_dict_filename);
     string line;
     if(pronun_dict_file.is_open())
     {
