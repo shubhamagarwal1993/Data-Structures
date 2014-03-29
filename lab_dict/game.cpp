@@ -27,7 +27,10 @@ int Game::add_user(const string& username)
 int Game::delete_user(const string& username)
 {
     /* Your code goes here! */
-    return FAIL;
+    auto deleted = users.erase(username);
+    return deleted ? SUCCESS : INVALID_USERNAME;
+	
+ //   return FAIL;
 }
 
 /**
@@ -58,7 +61,22 @@ int Game::login_user(const string& username)
 int Game::logout_user(const string& username)
 {
     /* Your code goes here! */
-    return FAIL;
+//	if (USER_IN_MATCH)
+	
+	auto user = users.find(username);
+	if(user == users.end())
+    {
+    	return INVALID_USERNAME;
+    }
+    else if(user->second.status == User::IN_GAME)
+    {
+    	return USER_IN_MATCH;
+    }
+    else
+    {
+    	user->second.status = User::OFFLINE;
+        return SUCCESS;
+    }
 }
 
 /**
@@ -132,8 +150,46 @@ int Game::Match::remove_party(const Party& p)
 unsigned long Game::make_match(const string& party_id)
 {
     /* Your code goes here! */
+	
+	auto party_itr = parties.find(party_id);
+    Match m;
+    
+    if(party_itr != parties.end())
+    {
+        m.add_party(party_itr->second);	
+        for(string& username : party_itr->second.members)
+        {
+            if(users[username].match_id != 0)
+            {
+                return NULL_MATCH_ID;
+            }
+            else
+            {
+				users[username].match_id = next_match_id;
+	        }
+        }   
+        return next_match_id;
+    }
+    else
+    	return NULL_MATCH_ID;	//INVALID_PARTY;
+}    
+
+/*	
+    if(user->second.status == User::IN_GAME)
+    {
+    	return USER_IN_MATCH;
+    }
+	
+	
+	if (SUCCESS)
+		return party_id;
+		
+	if (FAILURE)
+		return NULL:
+			
     return NULL_MATCH_ID;
-}
+*/
+
 
 /**
  * Finds a match for the party referred to by the given party id.
@@ -162,6 +218,7 @@ unsigned long Game::find_match(const string& party_id, long tol)
  */
 string Game::make_party(const vector< string >& usernames)
 {
+
     /* Your code goes here! */
     return "";
 }
