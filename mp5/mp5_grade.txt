@@ -1,7 +1,7 @@
 Monad Autograder
-Testing mp5 at 2014-03-29 02:51:30
+Testing mp5 at 2014-03-30 02:37:04
 
-"Always code as if the guy who ends up maintaining your code will be a violent psychopath who knows where you live. Code for readability." ~ John Woods
+"We know about as much about software quality problems as they knew about the Black Plague in the 1600s. We've seen the victims' agonies and helped burn the corpses. We don't know what causes it; we don't really know if there is only one disease. We just suffer -- and keep pouring our sewage into our water supply." ~ Tom Van Vleck
 
 Setting up test environment...
 Compiling...
@@ -33,7 +33,7 @@ test_decompress_unpruned_2 . . [1 pts] - passed
 test_decompress_unpruned_3 . . [1 pts] - passed
 test_decompress_unpruned_4 . . [1 pts] - passed
 time_getPixel_logn . . . . . . [4 pts] - passed
-time_decompress_n (valgrind) . [4 pts] - passed
+time_decompress_n (valgrind) . [4 pts] - FAILED
 valgrind_big3 (valgrind) . . . [4 pts] - FAILED
 test_clockwiseRotate_1 . . . . [1 pts] - passed
 test_clockwiseRotate_2 . . . . [1 pts] - passed
@@ -63,5 +63,5 @@ test_const_correctness . . . . [4 pts] - passed
 
 Total score...
 ================================================================
-TOTAL SCORE: 52
+TOTAL SCORE: 48
 
