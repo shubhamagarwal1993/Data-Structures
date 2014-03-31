@@ -28,8 +28,10 @@ int Game::delete_user(const string& username)
 {
     /* Your code goes here! */
     auto deleted = users.erase(username);
-    return deleted ? SUCCESS : INVALID_USERNAME;
-//  return FAIL;
+	if (SUCCESS)
+		return deleted; 
+	else
+		return INVALID_USERNAME;
 }
 
 /**
@@ -153,10 +155,10 @@ unsigned long Game::make_match(const string& party_id)
     {
     	for(auto& loop : (temp->second).members)
     	{
-    		auto there = users.find(loop);
-            if(there != users.end())
+    		auto a = users.find(loop);
+            if(a != users.end())
             {
-            	if((there->second).status == User::IN_GAME)
+            	if((a->second).status == User::IN_GAME)
             	{
             		return NULL_MATCH_ID;
             	}	
@@ -169,16 +171,18 @@ unsigned long Game::make_match(const string& party_id)
     }
     else 
     return NULL_MATCH_ID;
+    
+    Match new_match;
+    new_match.add_party(temp->second);
+    matches.insert(std::make_pair<>(next_match_id, new_match));
+    
     for(auto& loop : (temp->second).members)
     {
         ((users.find(loop))->second).match_id = next_match_id;
         ((users.find(loop))->second).status = User::IN_GAME;
     }
-    Match new_match;
-    new_match.add_party(temp->second);
-    matches.emplace(std::make_pair<>(next_match_id, new_match));
-    return 
-    	next_match_id++;
+    
+    return next_match_id = next_match_id + 1;
 }
 /*{
 	auto party_itr = parties.find(party_id);
@@ -196,7 +200,8 @@ unsigned long Game::make_match(const string& party_id)
             else
             {
                    users[username].match_id = next_match_id;
-		   m.team1.insert(m.team1.end(), party_itr->second.members.begin(),party_itr->second.members.end());	
+		   m.team1.insert(m.team1.end(), party_itr->second.members.begin()
+		   ,party_itr->second.members.end());	
             }
       }   
       ++next_match_id;
@@ -225,19 +230,17 @@ unsigned long Game::find_match(const string& party_id, long tol)
     auto temp = parties.find(party_id);
     if(temp != parties.end())
     {
-    	long num = 0;
-        long match_count = 0;
-        long exper = 0;
-        long match_exper = 0;
-        unsigned long length = 0;
-        for(auto& u : (temp->second).members)
+    
+    	long num, match_count, exper,match_exper,length;
+ 
+ 		for(auto& u : (temp->second).members)
         {
             exper = exper + ((users.find(u))->second).us.experience;
-            num++;
+            num = num + 1;
         }
         if(num)
         {
-            exper /= num;
+            exper = (exper/num);
         }
         else
         {
@@ -249,17 +252,17 @@ unsigned long Game::find_match(const string& party_id, long tol)
             {
                 match_exper = match_exper + ((users.find(temp1))->second).us.experience;
                 length = ((users.find(temp1))->second).match_id;
-                match_count++;
+                match_count = match_count + 1;
             }
             for(auto& temp2 : mat.second.team2)
             {
                 match_exper = match_exper + ((users.find(temp2))->second).us.experience;
                 length = ((users.find(temp2))->second).match_id;
-                match_count++;
+                match_count = match_count + 1;
             }
             if(match_count)
             {
-                match_exper /= match_count;
+                match_exper = (match_exper/match_count);
 			}            
 			if(std::abs(exper - match_exper) <= tol)
 			{
@@ -270,7 +273,6 @@ unsigned long Game::find_match(const string& party_id, long tol)
             length = 0;
         }
     }
-//    return NULL_MATCH_ID;
     return NULL_MATCH_ID;
 }
 
@@ -305,7 +307,7 @@ string Game::make_party(const vector< string >& usernames)
     temp_party.wins = 0;
     temp_party.losses = 0;
     temp_party.win_streak = 0;
-    parties.emplace(std::make_pair<>(party_code,temp_party));
+    parties.insert(std::make_pair<>(party_code,temp_party));
     return party_code;
 }
 
@@ -553,18 +555,15 @@ int Game::get_user_stats(const string& username, UserStats& us)
     /* Your code goes here! */
  
     auto temp = users.find(username);
-    if(temp != users.end())
+    if(temp == users.end())
     {
-        us.wins = (temp->second).us.wins;
-        us.losses = (temp->second).us.losses;
-        us.win_streak = (temp->second).us.win_streak;
-        us.playtime = (temp->second).us.playtime;
-        us.experience = (temp->second).us.experience;
-        return SUCCESS;
+    	return INVALID_USERNAME;
     }
-    else
-	{
-		return INVALID_USERNAME;
-	}	
- //   return FAIL;
+    
+    us.win_streak = (temp->second).us.win_streak;
+    us.wins = (temp->second).us.wins;
+    us.losses = (temp->second).us.losses;
+    us.experience = (temp->second).us.experience;
+	us.playtime = (temp->second).us.playtime;
+    return SUCCESS;
 }
