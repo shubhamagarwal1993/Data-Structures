@@ -1,7 +1,7 @@
 Monad Autograder
-Testing mp5 at 2014-03-30 02:37:04
+Testing mp5 at 2014-03-31 03:05:55
 
-"We know about as much about software quality problems as they knew about the Black Plague in the 1600s. We've seen the victims' agonies and helped burn the corpses. We don't know what causes it; we don't really know if there is only one disease. We just suffer -- and keep pouring our sewage into our water supply." ~ Tom Van Vleck
+"I think I may have made a student cry during my exam..." ~ Joe DiFebo
 
 Setting up test environment...
 Compiling...
@@ -33,7 +33,7 @@ test_decompress_unpruned_2 . . [1 pts] - passed
 test_decompress_unpruned_3 . . [1 pts] - passed
 test_decompress_unpruned_4 . . [1 pts] - passed
 time_getPixel_logn . . . . . . [4 pts] - passed
-time_decompress_n (valgrind) . [4 pts] - FAILED
+time_decompress_n (valgrind) . [4 pts] - passed
 valgrind_big3 (valgrind) . . . [4 pts] - FAILED
 test_clockwiseRotate_1 . . . . [1 pts] - passed
 test_clockwiseRotate_2 . . . . [1 pts] - passed
@@ -63,5 +63,5 @@ test_const_correctness . . . . [4 pts] - passed
 
 Total score...
 ================================================================
-TOTAL SCORE: 48
+TOTAL SCORE: 52
 
