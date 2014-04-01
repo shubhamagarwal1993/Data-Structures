@@ -329,7 +329,6 @@ Quadtree const & Quadtree::operator=(Quadtree const & other	)
 
 	void Quadtree::prune(int tolerance)	
 	{
-		return;
 		prune_helper(root, tolerance);
 	}
 	
