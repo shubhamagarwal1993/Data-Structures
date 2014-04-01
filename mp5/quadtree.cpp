@@ -10,6 +10,8 @@
 
 #include "quadtree.h"
 #include <iostream>
+#include <math.h>
+#include <cmath>
 using namespace std;
 //**********************		CONSTRUCTORS	**************************************************
 	/**
@@ -46,6 +48,7 @@ using namespace std;
 		element= RGBAPixel();
 	}
 	
+	
 //***************************************************************************************************
 
 //*************************		BIG THREE	********************************************************
@@ -63,16 +66,12 @@ using namespace std;
 	*/ 
 	Quadtree::QuadtreeNode * Quadtree::copy_tree(QuadtreeNode * subRoot)
 	{
-		if (subRoot == NULL)
-			return NULL;
-	
+		if (subRoot != NULL)
+		{	
+		
 		QuadtreeNode * leafNode = new QuadtreeNode();
 		leafNode->element = subRoot->element;
-//		if ((subRoot->nwChild == NULL) || (subRoot->neChild == NULL) || (subRoot->swChild == NULL) || (subRoot->seChild == NULL))
-//		{
-//			leafNode->element = subRoot->element;
-//			return leafNode;
-//		}
+		leafNode->nwChild=leafNode->neChild=leafNode->swChild=leafNode->seChild = NULL;
 		
 		leafNode->nwChild = copy_tree(subRoot->nwChild);
 			
@@ -83,7 +82,11 @@ using namespace std;
 		leafNode->seChild = copy_tree(subRoot->seChild);
 		
 		return leafNode;
+		}
+		
+		else return NULL;	
 	}	
+	
 
 	/**
 	 * Destructor.
@@ -108,12 +111,15 @@ using namespace std;
 		clear_tree(subRoot->seChild);
 		delete subRoot;
 		subRoot=NULL;
+//cout<<"all leaves have been deleted"<<endl;
+//cout<<subRoot->nwChild<<endl;
+//cout<<"dfG"<<endl;
 	}
 	
 	/**
 	 * operator =
 	*/
-	Quadtree const & Quadtree::operator=(Quadtree const & other)
+/*	Quadtree const & Quadtree::operator=(Quadtree const & other)
 	{
 		if (this != &other)
 		{
@@ -129,6 +135,28 @@ using namespace std;
 		
 		return * this;	
 	}
+*/	
+	
+Quadtree const & Quadtree::operator=(Quadtree const & other	)	
+{
+	if(this!=&other)
+	{
+		clear_tree(root);
+		root=NULL;
+		resolution=0;
+		if(other.root!=NULL)
+		{
+			
+			root = copy_tree(other.root);
+			resolution=other.resolution;
+		}
+		
+	}
+	return *this;
+}	
+	 
+	 
+	 
 	 
 //**************************************************************************************************	 	
 
@@ -301,7 +329,51 @@ using namespace std;
 
 	void Quadtree::prune(int tolerance)	
 	{
+		return;
+		prune_helper(root, tolerance);
 	}
+	
+	void Quadtree::prune_helper(QuadtreeNode * subRoot, int tolerance)
+	{
+		if(subRoot == NULL)
+			return;
+
+		if (diff_prune(subRoot, subRoot->element, tolerance))
+		{
+			clear_tree(subRoot->nwChild);
+			clear_tree(subRoot->neChild);
+			clear_tree(subRoot->swChild);
+			clear_tree(subRoot->seChild);
+//			cout<<"after clear"<<endl;
+//			cout<<subRoot<<endl;
+			return; 
+		}
+		
+		prune_helper(subRoot->nwChild, tolerance);
+		prune_helper(subRoot->neChild, tolerance);
+		prune_helper(subRoot->swChild, tolerance);
+		prune_helper(subRoot->seChild, tolerance);
+	}
+//================================================================================================	
+	bool Quadtree::diff_prune(QuadtreeNode * subRoot, RGBAPixel temp, int tolerance)
+	{
+		if(subRoot == NULL)
+		{
+			return false;
+		}
+
+		if (subRoot->nwChild == NULL)
+		{
+			int my_tol =  pow((subRoot->element.red - temp.red), 2) + pow((subRoot->element.green - temp.green), 2) + pow((subRoot->element.blue - temp.blue), 2);
+			if (my_tol <= tolerance)
+				return true;
+			else
+				return false;
+		}
+		
+		return diff_prune(subRoot->nwChild, temp, tolerance) && diff_prune(subRoot->neChild, temp, tolerance) && diff_prune(subRoot->swChild, temp, tolerance) && diff_prune(subRoot->seChild, temp, tolerance);
+	}
+
 //**************************************************************************************************************
 
 //*************************		The pruneSize Function**********************************************************

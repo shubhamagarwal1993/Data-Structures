@@ -25,7 +25,7 @@ int main() {
    fullTree.buildTree(imgIn, 256);
 
    // you may want to experiment with different commands in this section
-/*
+
    // test pruneSize and idealPrune (slow in valgrind, so you may want to
    // comment these out when doing most of your testing for memory leaks)
    cout << "fullTree.pruneSize(0) = " << fullTree.pruneSize(0) << endl;
@@ -35,7 +35,7 @@ int main() {
 
    cout << "fullTree.idealPrune(1000) = "  << fullTree.idealPrune(1000) << endl;
    cout << "fullTree.idealPrune(10000) = " << fullTree.idealPrune(10000) << endl;
-*/
+
 
    // Test some creation/deletion functions
    Quadtree fullTree2;
@@ -51,7 +51,7 @@ int main() {
    imgOut = fullTree.decompress();
    imgOut.writeToFile("outRotated.png");
 
-/*
+
    // test prune
    fullTree = fullTree2;
    fullTree.prune(1000);
@@ -74,6 +74,6 @@ int main() {
    cout << "Printing tinyTree:\n";
    tinyTree.prune(100);
    tinyTree.printTree();
-*/
+
    return 0;
 }

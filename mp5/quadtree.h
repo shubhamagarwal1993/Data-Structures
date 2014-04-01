@@ -101,6 +101,16 @@ class Quadtree
 		*/
 		QuadtreeNode();
 		
+	/*	QuadtreeNode(Quadtree const *other)
+	{
+		element = other->element;
+		nwChild = NULL;
+		neChild = NULL;
+		swChild = NULL;
+		seChild = NULL;
+	}
+	*/
+		
 	};
 	
 		/**
@@ -132,6 +142,11 @@ class Quadtree
 		void make_tree(QuadtreeNode * &subRoot,int x_coord, int y_coord, int resolution1, PNG const &source1);
 		
 		void rotate(QuadtreeNode * subRoot);
+		
+		void prune_helper(QuadtreeNode * subRoot, int tolerance);
+		
+		bool diff_prune(QuadtreeNode * subRoot, RGBAPixel temp, int tolerance);
+		
 	
 	/**** Functions added for testing/grading                ****/
 	/**** Do not remove this line or copy its contents here! ****/
