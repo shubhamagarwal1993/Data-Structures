@@ -1,7 +1,7 @@
 Monad Autograder
-Testing mp5 at 2014-03-31 03:05:55
+Testing mp5 at 2014-04-01 02:46:43
 
-"I think I may have made a student cry during my exam..." ~ Joe DiFebo
+"More than the act of testing, the act of designing tests is one of the best bug preventers known. The thinking that must be done to create a useful test can discover and eliminate bugs before they are coded - indeed, test-design thinking can discover and eliminate bugs at every stage in the creation of software, from conception to specification, to design, coding and the rest." ~ Boris Bezier
 
 Setting up test environment...
 Compiling...
