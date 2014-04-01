@@ -273,7 +273,7 @@ string Game::make_party(const vector< string >& usernames)
     throw_my_party.wins = 0;
     throw_my_party.losses = 0;
     throw_my_party.win_streak = 0;
-    parties.emplace(std::make_pair<>(name,throw_my_party));
+    parties.insert(std::make_pair<>(name,throw_my_party));
     return name;
 }
 
