@@ -1,6 +1,6 @@
 #include <algorithm>
 #include <cstdlib>
-
+#include <iostream>
 #include "game.h"
 
 using namespace game_ret;
@@ -26,12 +26,8 @@ int Game::add_user(const string& username)
  */
 int Game::delete_user(const string& username)
 {
-    /* Your code goes here! */
     auto deleted = users.erase(username);
-	if (SUCCESS)
-		return deleted; 
-	else
-		return INVALID_USERNAME;
+	return deleted ? SUCCESS : INVALID_USERNAME;
 }
 
 /**
@@ -76,6 +72,7 @@ int Game::logout_user(const string& username)
     else
     {
     	user->second.status = User::OFFLINE;
+
         return SUCCESS;
     }
 }
@@ -89,6 +86,7 @@ int Game::logout_user(const string& username)
  */
 int Game::Match::add_party(const Party& p)
 {
+
     if(team1.size() + p.members.size() <= Match::MAX_PLAYERS / 2 ||
        team2.size() + p.members.size() <= Match::MAX_PLAYERS / 2)
     {
@@ -116,6 +114,7 @@ int Game::Match::add_party(const Party& p)
  */
 int Game::Match::remove_party(const Party& p)
 {
+
     for(const string& username : p.members)
     {
         auto username_itr = find(team1.begin(), team1.end(), username);
@@ -150,67 +149,28 @@ int Game::Match::remove_party(const Party& p)
  */ 
 unsigned long Game::make_match(const string& party_id)
 {
-    auto temp = parties.find(party_id);
-    if(temp != parties.end())
-    {
-    	for(auto& loop : (temp->second).members)
-    	{
-    		auto a = users.find(loop);
-            if(a != users.end())
-            {
-            	if((a->second).status == User::IN_GAME)
-            	{
-            		return NULL_MATCH_ID;
-            	}	
+auto clan = parties.find(party_id);
+    if(clan != parties.end()){
+        for(auto& mem : (clan->second).members){
+            auto there = users.find(mem);
+            if(there != users.end()){
+                if((there->second).status == User::IN_GAME)
+                    return NULL_MATCH_ID;
             }
-            else
-            {
-            	return NULL_MATCH_ID;
-            }	
+            else return NULL_MATCH_ID;
         }
     }
-    else 
-    return NULL_MATCH_ID;
-    
+    else return NULL_MATCH_ID;
+    for(auto& mem : (clan->second).members){
+        ((users.find(mem))->second).match_id = next_match_id;
+        ((users.find(mem))->second).status = User::IN_GAME;
+    }
     Match new_match;
-    new_match.add_party(temp->second);
-    matches.insert(std::make_pair<>(next_match_id, new_match));
-    
-    for(auto& loop : (temp->second).members)
-    {
-        ((users.find(loop))->second).match_id = next_match_id;
-        ((users.find(loop))->second).status = User::IN_GAME;
-    }
-    
-    return next_match_id = next_match_id + 1;
-}
-/*{
-	auto party_itr = parties.find(party_id);
-    
-    if(party_itr != parties.end())
-    {
-    	Match m;	       
-        m.add_party(party_itr->second);	
-        for(string& username : party_itr->second.members)
-        {
-        	if(users[username].match_id != 0)
-                  {
-                         return NULL_MATCH_ID;
-                  }
-            else
-            {
-                   users[username].match_id = next_match_id;
-		   m.team1.insert(m.team1.end(), party_itr->second.members.begin()
-		   ,party_itr->second.members.end());	
-            }
-      }   
-      ++next_match_id;
-      return next_match_id-1;
-    }
-    else
-    	return NULL_MATCH_ID;	//INVALID_PARTY;
+    new_match.add_party(clan->second);
+    matches.emplace(std::make_pair<>(next_match_id, new_match));
+    return next_match_id++;
 }    
-*/
+
 
 /**
  * Finds a match for the party referred to by the given party id.
@@ -226,56 +186,43 @@ unsigned long Game::make_match(const string& party_id)
  */
 unsigned long Game::find_match(const string& party_id, long tol)
 {
-    /* Your code goes here! */
-    auto temp = parties.find(party_id);
-    if(temp != parties.end())
-    {
-    
-    	long num, match_count, exper,match_exper,length;
- 
- 		for(auto& u : (temp->second).members)
-        {
-            exper = exper + ((users.find(u))->second).us.experience;
-            num = num + 1;
+ auto clan = parties.find(party_id);
+    if(clan != parties.end()){
+        long clan_cnt = 0;
+        long mat_cnt = 0;
+        long avg_exp = 0;
+        long match_exp = 0;
+        unsigned long mid = 0;
+        for(auto& mem : (clan->second).members){
+            avg_exp += ((users.find(mem))->second).us.experience;
+            clan_cnt++;
         }
-        if(num)
-        {
-            exper = (exper/num);
-        }
+        if(clan_cnt)
+            avg_exp /= clan_cnt;
         else
-        {
             return NULL_MATCH_ID;
-        }
-        for(auto& mat : matches)
-        {
-            for(auto& temp1 : mat.second.team1)
-            {
-                match_exper = match_exper + ((users.find(temp1))->second).us.experience;
-                length = ((users.find(temp1))->second).match_id;
-                match_count = match_count + 1;
+        for(auto& mat : matches){
+            for(auto& t1 : mat.second.team1){
+                match_exp += ((users.find(t1))->second).us.experience;
+                mid = ((users.find(t1))->second).match_id;
+                mat_cnt++;
             }
-            for(auto& temp2 : mat.second.team2)
-            {
-                match_exper = match_exper + ((users.find(temp2))->second).us.experience;
-                length = ((users.find(temp2))->second).match_id;
-                match_count = match_count + 1;
+            for(auto& t2 : mat.second.team2){
+                match_exp += ((users.find(t2))->second).us.experience;
+                mid = ((users.find(t2))->second).match_id;
+                mat_cnt++;
             }
-            if(match_count)
-            {
-                match_exper = (match_exper/match_count);
-			}            
-			if(std::abs(exper - match_exper) <= tol)
-			{
-                return length;
-            } 
-            match_exper = 0;
-            match_count = 0;
-            length = 0;
+            if(mat_cnt)
+                match_exp /= mat_cnt;
+            if(std::abs(avg_exp - match_exp) <= tol)
+                return mid;
+            match_exp = 0;
+            mat_cnt = 0;
+            mid = 0;
         }
     }
     return NULL_MATCH_ID;
-}
-
+}   
 /**
  * Creates a party from a vector of usernames.
  * @return The party id of the new party on success. Empty string on 
@@ -286,13 +233,11 @@ unsigned long Game::find_match(const string& party_id, long tol)
 string Game::make_party(const vector< string >& usernames)
 {
     /* Your code goes here! */
-    string party_code;
-    for(auto& loop : usernames)
-    {
-        auto person = users.find(loop);
-        if(person != users.end())
-        {
-            party_code = party_code + loop;
+     string name;
+    for(auto& mem : usernames){
+        auto person = users.find(mem);
+        if(person != users.end()){
+            name += mem;
             if((person->second).party_id != "")
                 return "";
             if((person->second).status != User::ONLINE)
@@ -300,15 +245,15 @@ string Game::make_party(const vector< string >& usernames)
         }
         else return "";
     }
-    for(auto& loop : usernames)
-        (users.find(loop))->second.party_id = party_code;
-    Party temp_party;
-    temp_party.members = usernames;
-    temp_party.wins = 0;
-    temp_party.losses = 0;
-    temp_party.win_streak = 0;
-    parties.insert(std::make_pair<>(party_code,temp_party));
-    return party_code;
+    for(auto& mem : usernames)
+        (users.find(mem))->second.party_id = name;
+    Party new_party;
+    new_party.members = usernames;
+    new_party.wins = 0;
+    new_party.losses = 0;
+    new_party.win_streak = 0;
+    parties.emplace(std::make_pair<>(name,new_party));
+    return name;
 }
 
 /**
@@ -392,8 +337,7 @@ int Game::add_party_to_match(const string& party_id,
  * @param party_id The id of the party to remove.
  * @param match_id The id of the match to remove the party from.
  */
-int Game::remove_party_from_match(const std::string& party_id,
-                                  unsigned long match_id)
+int Game::remove_party_from_match(const std::string& party_id, unsigned long match_id)
 {
     auto match_itr = matches.find(match_id);
     if(match_itr != matches.end())
@@ -461,26 +405,15 @@ int Game::start_match(unsigned long match_id)
  * @param team2_xp Experience awarded to team2.
  * @param elapsed_time Amount of time the match lasted.
  */
-int Game::end_match(unsigned long match_id, long team1_xp, 
-                    long team2_xp, unsigned long elapsed_time)
+int Game::end_match(unsigned long match_id, long team1_xp, long team2_xp, unsigned long elapsed_time)
 {
     auto match_itr = matches.find(match_id);
     if(match_itr != matches.end() && match_itr->second.status == Match::IN_GAME)
     {
         unordered_set< string > processed_parties = { "" };
         bool team1_won = team1_xp > team2_xp;
-
-        end_match_update(match_itr->second.team1, 
-                         processed_parties, 
-                         team1_xp, 
-                         elapsed_time, 
-                         team1_won); 
-        end_match_update(match_itr->second.team2, 
-                         processed_parties, 
-                         team2_xp, 
-                         elapsed_time, 
-                         ! team1_won); 
-
+        end_match_update(match_itr->second.team1, processed_parties, team1_xp, elapsed_time, team1_won);
+        end_match_update(match_itr->second.team2, processed_parties, team2_xp, elapsed_time, ! team1_won);
         matches.erase(match_id);
         return SUCCESS;
     }
@@ -536,8 +469,8 @@ void Game::end_match_update(vector< string >& team,
                 processed_parties.insert(user.party_id);
             }
         }
-        user.us.experience = user.us.experience + xp;
-        user.us.playtime = user.us.playtime + elapsed_time;
+        user.us.experience += xp;
+        user.us.playtime += elapsed_time;
         user.status = User::ONLINE;
         user.match_id = NULL_MATCH_ID;
     }
@@ -552,18 +485,14 @@ void Game::end_match_update(vector< string >& team,
  */ 
 int Game::get_user_stats(const string& username, UserStats& us)
 {
-    /* Your code goes here! */
- 
-    auto temp = users.find(username);
-    if(temp == users.end())
-    {
-    	return INVALID_USERNAME;
+   auto user = users.find(username);
+    if(user != users.end()){
+        us.wins = (user->second).us.wins;
+        us.losses = (user->second).us.losses;
+        us.win_streak = (user->second).us.win_streak;
+        us.playtime = (user->second).us.playtime;
+        us.experience = (user->second).us.experience;
+        return SUCCESS;
     }
-    
-    us.win_streak = (temp->second).us.win_streak;
-    us.wins = (temp->second).us.wins;
-    us.losses = (temp->second).us.losses;
-    us.experience = (temp->second).us.experience;
-	us.playtime = (temp->second).us.playtime;
-    return SUCCESS;
-}
+    else return INVALID_USERNAME;
+}	

@@ -33,6 +33,8 @@ const string SEP =
 
 int main()
 {
+cout<<"1st func"<<endl;
+
     cout << boolalpha;
     Game::UserStats t, s;
 
@@ -46,6 +48,8 @@ int main()
         cout << left << "Loging in user " 
         << setw(15) << un << msgs[g.login_user(un)] << endl;
     }
+cout<<"2nd func"<<endl;
+
     cout << SEP << endl;
     for(string& un : team2)
     {
@@ -54,8 +58,12 @@ int main()
         cout << left << "Loging in user " 
         << setw(15) << un << msgs[g.login_user(un)] << endl;
     }
+    
+cout<<"3rd func"<<endl;
+
     string party1 = g.make_party(team1);
     string party2 = g.make_party(team2);
+cout<<"4th func"<<endl;
 
     cout << SEP << endl;
     cout << "party1 id: " << party1 << endl;
@@ -64,6 +72,7 @@ int main()
     unsigned long match_id = g.make_match(party1);
     unsigned long found_match = g.find_match(party2, 10);
     cout << "Found match: " <<  (match_id == found_match) << endl;
+cout<<"5th func"<<endl;
 
     cout << SEP << endl;
     Game::UserStats stal;
@@ -72,24 +81,30 @@ int main()
     g.get_user_stats("reagan", reag);
     cout << "stalin's stats == reagan's stats: "
     << (stal == reag) << endl;
+cout<<"6th func"<<endl;
 
     cout << SEP << endl;
     g.add_party_to_match(party2, match_id);
+
     g.start_match(match_id);
     g.end_match(match_id, 1000, 0, 10);
+cout<<"7th func"<<endl;
     cout << "Ending match, team1 experience == 1000, team2 experience == 0"
     << endl;
+cout<<"7ath func"<<endl;
     Game::UserStats us;
     g.get_user_stats("stalin", us);
     cout << "stalin's experience == 1000: " << (us.experience == 1000) << endl;
     g.get_user_stats("reagan", us);
     cout << "reagan's experience == 0: " << (us.experience == 0) << endl;
- 
+
+
     cout << SEP << endl;
     match_id = g.make_match(party1);
     found_match = g.find_match(party2, 10);
     cout << left << setw(20) << "Found match, tolerance 10: " 
     << (found_match != NULL_MATCH_ID) << endl;
     found_match = g.find_match(party2, 1000);
+cout<<"8th func"<<endl;
 
 }
