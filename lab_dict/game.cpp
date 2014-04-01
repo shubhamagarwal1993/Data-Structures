@@ -173,7 +173,7 @@ unsigned long Game::make_match(const string& party_id)
     
     Match new_match;
     new_match.add_party(temp->second);
-    matches.emplace(std::make_pair<>(next_match_id, new_match));
+    matches.insert(std::make_pair<>(next_match_id, new_match));
     return next_match_id++;
 }    
 
