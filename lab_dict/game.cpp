@@ -149,11 +149,14 @@ int Game::Match::remove_party(const Party& p)
  */ 
 unsigned long Game::make_match(const string& party_id)
 {
-auto clan = parties.find(party_id);
-    if(clan != parties.end()){
-        for(auto& mem : (clan->second).members){
+	auto temp = parties.find(party_id);
+    if(temp != parties.end())
+    {
+        for(auto& mem : (temp->second).members)
+        {
             auto there = users.find(mem);
-            if(there != users.end()){
+            if(there != users.end())
+            {
                 if((there->second).status == User::IN_GAME)
                     return NULL_MATCH_ID;
             }
@@ -161,12 +164,15 @@ auto clan = parties.find(party_id);
         }
     }
     else return NULL_MATCH_ID;
-    for(auto& mem : (clan->second).members){
+    
+    for(auto& mem : (temp->second).members)
+    {
         ((users.find(mem))->second).match_id = next_match_id;
         ((users.find(mem))->second).status = User::IN_GAME;
     }
+    
     Match new_match;
-    new_match.add_party(clan->second);
+    new_match.add_party(temp->second);
     matches.emplace(std::make_pair<>(next_match_id, new_match));
     return next_match_id++;
 }    
@@ -186,41 +192,54 @@ auto clan = parties.find(party_id);
  */
 unsigned long Game::find_match(const string& party_id, long tol)
 {
- auto clan = parties.find(party_id);
-    if(clan != parties.end()){
-        long clan_cnt = 0;
-        long mat_cnt = 0;
-        long avg_exp = 0;
-        long match_exp = 0;
-        unsigned long mid = 0;
-        for(auto& mem : (clan->second).members){
-            avg_exp += ((users.find(mem))->second).us.experience;
-            clan_cnt++;
-        }
-        if(clan_cnt)
-            avg_exp /= clan_cnt;
+	auto temp = parties.find(party_id);
+    if(temp != parties.end())
+    {
+    
+    	long temp_count, match_count, average, my_matches = 0;
+//        long temp_count = 0;
+//        long match_count = 0;
+//        long average = 0;
+//        long my_matches = 0;
+        unsigned long center = 0;
+       for(auto& mem : (temp->second).members)
+       {
+            average = average + ((users.find(mem))->second).us.experience;
+            temp_count++;
+       }
+       
+		if(temp_count)
+            average = average/temp_count;
         else
             return NULL_MATCH_ID;
-        for(auto& mat : matches){
-            for(auto& t1 : mat.second.team1){
-                match_exp += ((users.find(t1))->second).us.experience;
-                mid = ((users.find(t1))->second).match_id;
-                mat_cnt++;
+       
+		for(auto& mat : matches)
+		{
+            for(auto& t1 : mat.second.team1)
+            {
+                my_matches = my_matches + ((users.find(t1))->second).us.experience;
+                center = ((users.find(t1))->second).match_id;
+                match_count++;
             }
-            for(auto& t2 : mat.second.team2){
-                match_exp += ((users.find(t2))->second).us.experience;
-                mid = ((users.find(t2))->second).match_id;
-                mat_cnt++;
+            
+            for(auto& t2 : mat.second.team2)
+            {
+                my_matches = my_matches + ((users.find(t2))->second).us.experience;
+                center = ((users.find(t2))->second).match_id;
+                match_count++;
             }
-            if(mat_cnt)
-                match_exp /= mat_cnt;
-            if(std::abs(avg_exp - match_exp) <= tol)
-                return mid;
-            match_exp = 0;
-            mat_cnt = 0;
-            mid = 0;
-        }
-    }
+            
+            if(match_count)
+                my_matches = my_matches/match_count;
+            
+            if(std::abs(average - my_matches) <= tol)
+                return center;
+            
+            my_matches = 0;
+            match_count = 0;
+            center = 0;
+		}
+	}
     return NULL_MATCH_ID;
 }   
 /**
@@ -234,25 +253,27 @@ string Game::make_party(const vector< string >& usernames)
 {
     /* Your code goes here! */
      string name;
-    for(auto& mem : usernames){
-        auto person = users.find(mem);
-        if(person != users.end()){
-            name += mem;
-            if((person->second).party_id != "")
-                return "";
-            if((person->second).status != User::ONLINE)
+    for(auto& loop : usernames)
+    {
+        auto person = users.find(loop);
+        if(person != users.end())
+        {
+            name = name + loop;
+            if(((person->second).party_id != "") || ((person->second).status != User::ONLINE))
                 return "";
         }
         else return "";
     }
-    for(auto& mem : usernames)
-        (users.find(mem))->second.party_id = name;
-    Party new_party;
-    new_party.members = usernames;
-    new_party.wins = 0;
-    new_party.losses = 0;
-    new_party.win_streak = 0;
-    parties.emplace(std::make_pair<>(name,new_party));
+    for(auto& loop : usernames)
+    {
+        (users.find(loop))->second.party_id = name;
+    }
+    Party throw_my_party;
+    throw_my_party.members = usernames;
+    throw_my_party.wins = 0;
+    throw_my_party.losses = 0;
+    throw_my_party.win_streak = 0;
+    parties.emplace(std::make_pair<>(name,throw_my_party));
     return name;
 }
 
@@ -469,8 +490,8 @@ void Game::end_match_update(vector< string >& team,
                 processed_parties.insert(user.party_id);
             }
         }
-        user.us.experience += xp;
-        user.us.playtime += elapsed_time;
+        user.us.experience = user.us.experience + xp;
+        user.us.playtime = user.us.playtime + elapsed_time;
         user.status = User::ONLINE;
         user.match_id = NULL_MATCH_ID;
     }
@@ -487,11 +508,12 @@ int Game::get_user_stats(const string& username, UserStats& us)
 {
    auto user = users.find(username);
     if(user != users.end()){
-        us.wins = (user->second).us.wins;
-        us.losses = (user->second).us.losses;
         us.win_streak = (user->second).us.win_streak;
-        us.playtime = (user->second).us.playtime;
         us.experience = (user->second).us.experience;
+        us.wins = (user->second).us.wins;
+        us.playtime = (user->second).us.playtime;
+        us.losses = (user->second).us.losses;
+       
         return SUCCESS;
     }
     else return INVALID_USERNAME;
