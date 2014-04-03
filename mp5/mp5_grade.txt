@@ -1,7 +1,7 @@
 Monad Autograder
-Testing mp5 at 2014-04-02 02:48:18
+Testing mp5 at 2014-04-03 03:24:26
 
-"Computer Science is no more about computers than astronomy is about telescopes." ~ E. Dijkstra
+"I did respond to your email, but I might have forgotten to hit send." ~ Cinda Heeren
 
 Setting up test environment...
 Compiling...
@@ -33,7 +33,7 @@ test_decompress_unpruned_2 . . [1 pts] - passed
 test_decompress_unpruned_3 . . [1 pts] - passed
 test_decompress_unpruned_4 . . [1 pts] - passed
 time_getPixel_logn . . . . . . [4 pts] - passed
-time_decompress_n (valgrind) . [4 pts] - FAILED
+time_decompress_n (valgrind) . [4 pts] - passed
 valgrind_big3 (valgrind) . . . [4 pts] - passed
 test_clockwiseRotate_1 . . . . [1 pts] - passed
 test_clockwiseRotate_2 . . . . [1 pts] - passed
@@ -63,5 +63,5 @@ test_const_correctness . . . . [4 pts] - passed
 
 Total score...
 ================================================================
-TOTAL SCORE: 74
+TOTAL SCORE: 78
 
