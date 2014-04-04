@@ -399,23 +399,24 @@ Quadtree const & Quadtree::operator=(Quadtree const & other	)
 	{
 		
 		if (max<=min)
-			return max+1;
+			return min;
 		avg = (min+max)/2;
 			
 		int x = pruneSize(avg);
 		
-		if (x<=numLeaves)
-			max = avg-1;
+		if (x <= numLeaves)
+			max = avg;
+		//else if (x == numLeaves)
+				
 		else
 			min=avg+1;
 		
-		//have to add an edge case here
-		
-		
-			
 		return idealPrune_helper(min, max, avg, numLeaves); 	
-							
 	}	
-
 //**************************************************************************************************************
+
+		//have to add an edge case here
+		//if tolerance-1 > numLeaves then nothing
+		//else tolerance-1
+
 
