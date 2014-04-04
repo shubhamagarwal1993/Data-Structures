@@ -151,6 +151,8 @@ class Quadtree
 		int num_leaf(QuadtreeNode * subRoot)const;
 		
 		int idealPrune_helper(int min, int max,int avg, int numLeaves)const;
+		
+//		int idealPrune_helper(int left,int right, int numLeaves) const;
 	
 	/**** Functions added for testing/grading                ****/
 	/**** Do not remove this line or copy its contents here! ****/

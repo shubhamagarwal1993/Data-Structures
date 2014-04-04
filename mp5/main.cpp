@@ -10,7 +10,7 @@ int main() {
 
    PNG imgIn, imgOut;
    imgIn.readFromFile("in.png");
-
+	
    // test constructor, decompress
    Quadtree halfTree(imgIn, 128);
    imgOut = halfTree.decompress();
@@ -35,7 +35,6 @@ int main() {
 
    cout << "fullTree.idealPrune(1000) = "  << fullTree.idealPrune(1000) << endl;
    cout << "fullTree.idealPrune(10000) = " << fullTree.idealPrune(10000) << endl;
-
 
    // Test some creation/deletion functions
    Quadtree fullTree2;

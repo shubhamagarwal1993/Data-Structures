@@ -196,6 +196,8 @@ Quadtree const & Quadtree::operator=(Quadtree const & other	)
 		(subRoot->element).green = (((subRoot->nwChild->element).green) + ((subRoot->neChild->element).green) + ((subRoot->swChild->element).green) + ((subRoot->seChild->element).green))/4;
 	
 	}
+
+	
 	
 //**************************************************************************************************	 	
 //*************************		The getPixel Function***********************************************
@@ -372,7 +374,10 @@ Quadtree const & Quadtree::operator=(Quadtree const & other	)
 	
 	int Quadtree::pruneSize_helper(QuadtreeNode* subRoot, int tolerance)const
 	{
-		if ((subRoot->nwChild == NULL) || diff_prune(subRoot, subRoot->element, tolerance) == 1)
+		if(subRoot == NULL)				//have added after autograder
+			return 0;
+			
+		if ((subRoot->nwChild == NULL) || diff_prune(subRoot, subRoot->element, tolerance))
 			return 1;
 		
 		return pruneSize_helper(subRoot->nwChild, tolerance) + pruneSize_helper(subRoot->neChild, tolerance) + 	pruneSize_helper(subRoot->swChild, tolerance) + pruneSize_helper(subRoot->seChild, tolerance);
@@ -380,19 +385,7 @@ Quadtree const & Quadtree::operator=(Quadtree const & other	)
 
 //**************************************************************************************************************
 
-		
-/*	int Quadtree::num_leaf(QuadtreeNode * subRoot)const
-	{
-		if(subRoot == NULL)
-			return 0;
-		
-		return num_leaf(subRoot->nwChild)+num_leaf(subRoot->neChild)+num_leaf(subRoot->swChild)+num_leaf(subRoot->seChild);
-	}
-*/	
-
-
 //*************************		The idealPrune Function**********************************************************
-
 	int Quadtree::idealPrune(int numLeaves)const
 	{
 		if (root == NULL) return 0;
@@ -415,9 +408,14 @@ Quadtree const & Quadtree::operator=(Quadtree const & other	)
 			max = avg-1;
 		else
 			min=avg+1;
+		
+		//have to add an edge case here
+		
+		
 			
 		return idealPrune_helper(min, max, avg, numLeaves); 	
 							
 	}	
+
 //**************************************************************************************************************
 
