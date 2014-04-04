@@ -86,7 +86,7 @@ using namespace std;
 		
 		else return NULL;	
 	}	
-	
+//   -   -    -   -    -   -    -   -    -   -    -   -    -   -    -   -    -   -    -   -           	
 
 	/**
 	 * Destructor.
@@ -343,8 +343,6 @@ Quadtree const & Quadtree::operator=(Quadtree const & other	)
 			clear_tree(subRoot->neChild);
 			clear_tree(subRoot->swChild);
 			clear_tree(subRoot->seChild);
-//			cout<<"after clear"<<endl;
-//			cout<<subRoot<<endl;
 			return; 
 		}
 		
@@ -353,8 +351,8 @@ Quadtree const & Quadtree::operator=(Quadtree const & other	)
 		prune_helper(subRoot->swChild, tolerance);
 		prune_helper(subRoot->seChild, tolerance);
 	}
-//================================================================================================	
-	bool Quadtree::diff_prune(QuadtreeNode * subRoot, RGBAPixel temp, int tolerance)
+	
+	bool Quadtree::diff_prune(QuadtreeNode * subRoot, RGBAPixel temp, int tolerance)const
 	{
 		if(subRoot == NULL)
 		{
@@ -374,20 +372,64 @@ Quadtree const & Quadtree::operator=(Quadtree const & other	)
 	}
 
 //**************************************************************************************************************
-
-//*************************		The pruneSize Function**********************************************************
+//*************************		The pruneSize Function	**********************************************************
 
 	int Quadtree::pruneSize(int tolerance)const
 	{
-		return tolerance;
+		int total = pow(resolution, 2);					
+		int counter = pruneSize_helper(root, tolerance);
+		
+		return counter;
 	}
+	
+	int Quadtree::pruneSize_helper(QuadtreeNode* subRoot, int tolerance)const
+	{
+		if ((subRoot->nwChild == NULL) || diff_prune(subRoot, subRoot->element, tolerance) == 1)
+			return 1;
+		
+		return pruneSize_helper(subRoot->nwChild, tolerance) + pruneSize_helper(subRoot->neChild, tolerance) + 	pruneSize_helper(subRoot->swChild, tolerance) + pruneSize_helper(subRoot->seChild, tolerance);
+	}
+
 //**************************************************************************************************************
+
+		
+/*	int Quadtree::num_leaf(QuadtreeNode * subRoot)const
+	{
+		if(subRoot == NULL)
+			return 0;
+		
+		return num_leaf(subRoot->nwChild)+num_leaf(subRoot->neChild)+num_leaf(subRoot->swChild)+num_leaf(subRoot->seChild);
+	}
+*/	
+
 
 //*************************		The idealPrune Function**********************************************************
 
 	int Quadtree::idealPrune(int numLeaves)const
 	{
-		return numLeaves;	
+		if (root == NULL) return 0;
+		int minimum = 0;
+		int maximum = 3*pow(255,2);
+		int avg = (minimum + maximum)/2;	
+		return idealPrune_helper(minimum, maximum, avg, numLeaves);	
+	}
+	
+	int Quadtree::idealPrune_helper(int min, int max,int avg, int numLeaves)const
+	{
+		
+		if (max<=min)
+			return max+1;
+		avg = (min+max)/2;
+			
+		int x = pruneSize(avg);
+		
+		if (x<=numLeaves)
+			max = avg-1;
+		else
+			min=avg+1;
+			
+		return idealPrune_helper(min, max, avg, numLeaves); 	
+							
 	}	
 //**************************************************************************************************************
 

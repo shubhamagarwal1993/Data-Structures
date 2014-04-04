@@ -123,7 +123,6 @@ class Quadtree
 		*/
 		int resolution; 
 		
-			
 		/**
 		 * helper function for copy
 		*/
@@ -145,8 +144,13 @@ class Quadtree
 		
 		void prune_helper(QuadtreeNode * subRoot, int tolerance);
 		
-		bool diff_prune(QuadtreeNode * subRoot, RGBAPixel temp, int tolerance);
+		bool diff_prune(QuadtreeNode * subRoot, RGBAPixel temp, int tolerance)const;
 		
+		int pruneSize_helper(QuadtreeNode * subRoot, int tolerance)const;
+		
+		int num_leaf(QuadtreeNode * subRoot)const;
+		
+		int idealPrune_helper(int min, int max,int avg, int numLeaves)const;
 	
 	/**** Functions added for testing/grading                ****/
 	/**** Do not remove this line or copy its contents here! ****/
