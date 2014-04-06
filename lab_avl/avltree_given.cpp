@@ -110,3 +110,58 @@ void AVLTree<K, V>::setOutput(ostream & newOut)
 {
     _out = &newOut;
 }
+
+
+
+
+
+
+
+
+//						SYNTAX  BATA DE  
+//						ALGORITHM SAMJHA DE
+//						PSUEDO CODE DE DE	
+//								- Satyavachan by "Somnath" 
+											
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
