@@ -363,12 +363,41 @@ class BTree
  * the index of val in elements.
  */
 template <class T, class C>
+size_t binary_search(std::vector< T > vec, const C &key, int first, int last)
+{
+	int avg = (first+last)/2;
+	
+	if(key == vec[avg])	
+		return avg;
+		
+	else if(key > vec[avg])
+		return binary_search(vec, key,	avg+1, (avg+(vec.size()/2)));	 				
+
+	else if(key < vec[avg])
+		return binary_search(vec, key, (avg-(vec.size()/2)+1), (avg-1));
+}
+
+template <class T, class C>
 size_t insertion_idx(const std::vector< T >& elements, const C& val)
 {
     /* TODO Your code goes here! */
-    return 5;
-}
+   
+	if (elements.empty())
+   		return 0;
+   	
+   	else if(val < 0)
+		return 0;
+		
+	else if(val > elements.size())
+		return elements.size();
+	
+	else   		
+   	return binary_search(elements, val, elements[0], elements[(elements.size()-1)]);	
+}   	
 
+	
+
+	
 #include "btree_given.cpp"
 #include "btree.cpp"
 

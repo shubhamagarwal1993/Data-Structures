@@ -44,7 +44,15 @@ V BTree<K, V>::find(const BTreeNode* subroot, const K& key) const
      * a leaf and we didn't find the key in it, then we have failed to find it
      * anywhere in the tree and return the default V.
      */
-    return V();
+     
+//     if(subRoot == NULL)
+//    	return V();
+     	
+//     else if	
+     
+     
+//    else 
+	    return V();
 }
 
 /**
