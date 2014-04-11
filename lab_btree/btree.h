@@ -386,13 +386,11 @@ size_t insertion_idx(const std::vector< T >& elements, const C& val)
 {
     /* TODO Your code goes here! */
    
-/*	if (elements.empty())
-   	{
-   		cout<<"1 - hey"<<endl;   	
-   		return 0;
-	}		
+	if (elements.empty())
+		return 0;
+	
 
-   	else if(val < 0)
+/*   	else if(val < 0)
 	{
 		cout<<"2"<<endl;   			
 		return 0;
