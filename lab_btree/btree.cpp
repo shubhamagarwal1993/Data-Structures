@@ -45,7 +45,7 @@ V BTree<K, V>::find(const BTreeNode* subroot, const K& key) const
      * anywhere in the tree and return the default V.
      */
      
-	if(subroot->children[0] == NULL)
+	if(subroot->children.size() == 0)
 		return V();
      	
 	int temp = insertion_idx(subroot->elements, key);			
