@@ -407,14 +407,13 @@ size_t insertion_idx(const std::vector< T >& elements, const C& val)
 	else if (val > elements.size())
 		return (elements.size()-1);
 	
-	else
-	{		
-		for(unsigned int i = 0; i < elements.size(); i++)
-		{
-			if(val <= elements[i])
-				return i;
-		}
-   }
+	for(unsigned int i = 0; i < elements.size(); i++)
+	{
+		if(val <= elements[i])
+			return i;
+	}
+return 0;
+}
 /*	if (elements.empty())
 		return 0;
 	
@@ -427,7 +426,7 @@ size_t insertion_idx(const std::vector< T >& elements, const C& val)
 	else
 		return binary_search(elements, val, elements[0], elements[(elements.size()-1)]);	
 */
-}   	
+   	
 
 	
 
