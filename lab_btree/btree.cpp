@@ -45,14 +45,14 @@ V BTree<K, V>::find(const BTreeNode* subroot, const K& key) const
      * anywhere in the tree and return the default V.
      */
      
-//     if(subRoot == NULL)
-//    	return V();
+	if(subroot == NULL)
+		return V();
      	
-//     else if	
-     
-     
-//    else 
-	    return V();
+	int temp = insertion_idx(subroot->elements, key);			
+    if(subroot->elements[temp] == key)
+    	return subroot->elements[temp].value;
+    
+    return find(subroot->children[key], key);		 
 }
 
 /**
