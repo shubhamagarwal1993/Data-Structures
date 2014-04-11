@@ -365,7 +365,20 @@ class BTree
 template <class T, class C>
 size_t binary_search(std::vector< T > vec, const C &key, int min, int max)
 {	
-	int avg = (max+min)/2;
+	if(max <= min)
+		return min;
+		
+	int avg = (min + max)/2;
+	
+	if(key < avg)
+		max = avg;
+		
+	else
+		min = avg + 1;
+	
+	return binary_search(vec, key, min, max);			
+
+/*	int avg = (max+min)/2;
 	
 	if(key >= vec[avg])	
 		return avg;
@@ -375,7 +388,7 @@ size_t binary_search(std::vector< T > vec, const C &key, int min, int max)
 
 	else if(key < vec[avg])
 		return binary_search(vec, key, (avg-(vec.size()/2)+1), (avg-1));
-
+*/
 }
 
 template <class T, class C>
@@ -386,11 +399,12 @@ size_t insertion_idx(const std::vector< T >& elements, const C& val)
 	if (elements.empty())
 		return 0;
 	
-//	if(val < 0)
-//		return 0;
+	if(val < 0)
+		return 0;
 	
-//	if(elements.size() == 1)
-	
+	if(elements.size() == 1)
+		return 0;
+			
 	return binary_search(elements, val, elements[0], elements[(elements.size()-1)]);	
 }   	
 
