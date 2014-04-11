@@ -50,7 +50,7 @@ V BTree<K, V>::find(const BTreeNode* subroot, const K& key) const
      	
 	int temp = insertion_idx(subroot->elements, key);			
     if(subroot->elements[temp] == key)
-    	return subroot->elements[temp].value;
+    	return subroot->children[temp].value;
     
     return find(subroot->children[temp], key);		 
 }
