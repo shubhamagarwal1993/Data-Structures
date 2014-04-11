@@ -52,7 +52,7 @@ V BTree<K, V>::find(const BTreeNode* subroot, const K& key) const
     if(subroot->elements[temp] == key)
     	return subroot->elements[temp].value;
     
-    return find(subroot->children[key], key);		 
+    return find(subroot->children[temp], key);		 
 }
 
 /**
