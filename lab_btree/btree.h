@@ -376,8 +376,6 @@ size_t binary_search(std::vector< T > vec, const C &key, int min, int max)
 	else if(key < vec[avg])
 		return binary_search(vec, key, (avg-(vec.size()/2)+1), (avg-1));
 
-
-return 0;
 }
 
 template <class T, class C>
