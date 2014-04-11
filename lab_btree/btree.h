@@ -374,7 +374,7 @@ size_t binary_search(std::vector< T > vec, const C &key, int min, int max)
 		max = avg;
 		
 	else
-		min = avg;
+		min = avg+1;
 	
 	return binary_search(vec, key, min, max);			
 
