@@ -399,11 +399,11 @@ size_t insertion_idx(const std::vector< T >& elements, const C& val)
 	if (elements.empty())
 		return 0;
 	
-	if(val < 0)
-		return 0;
+//	if(val < 0)
+//		return 0;
 	
-	if(elements.size() == 1)
-		return 0;
+//	if(elements.size() == 1)
+//		return 0;
 			
 	return binary_search(elements, val, elements[0], elements[(elements.size()-1)]);	
 }   	
