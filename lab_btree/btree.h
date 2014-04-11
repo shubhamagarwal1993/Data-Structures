@@ -413,7 +413,7 @@ size_t insertion_idx(const std::vector< T >& elements, const C& val)
 			return i;
 			
 		else if(val < elements[i])
-			return i-1;	
+			return i;	
 	}
 return 0;
 }
