@@ -365,8 +365,8 @@ class BTree
 template <class T, class C>
 size_t binary_search(std::vector< T > vec, const C &key, int min, int max)
 {	
-	
-/*	int avg = (first+last)/2;
+	return 0;		
+	int avg = (max+min)/2;
 	
 	if(key >= vec[avg])	
 		return avg;
@@ -376,7 +376,7 @@ size_t binary_search(std::vector< T > vec, const C &key, int min, int max)
 
 	else if(key < vec[avg])
 		return binary_search(vec, key, (avg-(vec.size()/2)+1), (avg-1));
-*/
+
 
 return 0;
 }
