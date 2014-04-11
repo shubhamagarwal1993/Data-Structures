@@ -401,8 +401,9 @@ size_t insertion_idx(const std::vector< T >& elements, const C& val)
 	if (elements.empty())
 		return 0;
 
-//	else if (val < 0)
-//		return 0;
+	else if (val < 0)
+		return 0;
+
 		
 	for(unsigned int i = 0; i < elements.size(); i++)
 	{
