@@ -15,7 +15,7 @@
 #include <iostream>
 #include <string>
 #include <sstream>
-
+using namespace std;
 /**
  * BTree class. Provides interfaces for inserting and finding elements in 
  * B-tree.
@@ -362,12 +362,13 @@ class BTree
  * the sorted order of elements. If val occurs in elements, then this returns
  * the index of val in elements.
  */
-template <class T, class C>
-size_t binary_search(std::vector< T > vec, const C &key, int first, int last)
-{
-	int avg = (first+last)/2;
+//template <class T, class C>
+//size_t binary_search(std::vector< T > vec, const C &key, int min, int max)
+//{	
 	
-	if(key == vec[avg])	
+/*	int avg = (first+last)/2;
+	
+	if(key >= vec[avg])	
 		return avg;
 		
 	else if(key > vec[avg])
@@ -375,24 +376,40 @@ size_t binary_search(std::vector< T > vec, const C &key, int first, int last)
 
 	else if(key < vec[avg])
 		return binary_search(vec, key, (avg-(vec.size()/2)+1), (avg-1));
-}
+*/
+
+//return 0;
+//}
 
 template <class T, class C>
 size_t insertion_idx(const std::vector< T >& elements, const C& val)
 {
     /* TODO Your code goes here! */
    
-	if (elements.empty())
+/*	if (elements.empty())
+   	{
+   		cout<<"1 - hey"<<endl;   	
    		return 0;
-   	
+	}		
+
    	else if(val < 0)
+	{
+		cout<<"2"<<endl;   			
 		return 0;
+	}
 		
-	else if(val > elements.size())
+	if(val > elements.size())
+	{
+		cout<<"3"<<endl;   		
 		return elements.size();
-	
-	else   		
-   	return binary_search(elements, val, elements[0], elements[(elements.size()-1)]);	
+	}
+*/	
+//	else   		
+//		for(int i = 0; i < elements.size(); i++)
+//			cout<<elements[i]<<endl;
+		
+		return 5;	
+//		return binary_search(elements, val, elements[0], elements[(elements.size()-1)]);	
 }   	
 
 	
