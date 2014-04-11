@@ -362,9 +362,9 @@ class BTree
  * the sorted order of elements. If val occurs in elements, then this returns
  * the index of val in elements.
  */
-//template <class T, class C>
-//size_t binary_search(std::vector< T > vec, const C &key, int min, int max)
-//{	
+template <class T, class C>
+size_t binary_search(std::vector< T > vec, const C &key, int min, int max)
+{	
 	
 /*	int avg = (first+last)/2;
 	
@@ -378,8 +378,8 @@ class BTree
 		return binary_search(vec, key, (avg-(vec.size()/2)+1), (avg-1));
 */
 
-//return 0;
-//}
+return 0;
+}
 
 template <class T, class C>
 size_t insertion_idx(const std::vector< T >& elements, const C& val)
@@ -389,25 +389,7 @@ size_t insertion_idx(const std::vector< T >& elements, const C& val)
 	if (elements.empty())
 		return 0;
 	
-
-/*   	else if(val < 0)
-	{
-		cout<<"2"<<endl;   			
-		return 0;
-	}
-		
-	if(val > elements.size())
-	{
-		cout<<"3"<<endl;   		
-		return elements.size();
-	}
-*/	
-//	else   		
-//		for(int i = 0; i < elements.size(); i++)
-//			cout<<elements[i]<<endl;
-		
-		return 5;	
-//		return binary_search(elements, val, elements[0], elements[(elements.size()-1)]);	
+	return binary_search(elements, val, elements[0], elements[(elements.size()-1)]);	
 }   	
 
 	
