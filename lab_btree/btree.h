@@ -398,26 +398,26 @@ size_t insertion_idx(const std::vector< T >& elements, const C& val)
 {
     /* TODO Your code goes here! */
 
-	int min = 0;
-	int max;
+	int minimum = 0;
+	int maximum;
 	if (elements.size() > 0)
-		max = elements.size() - 1;
+		maximum = elements.size() - 1;
 	else
 		return 0;
 
-	int mid;
-	while (min <= max) 
+	int avg;
+	while (minimum <= maximum) 
 	{
-		mid = (min+max)/2;
+		avg = (minimum + maximum)/2;
 		
-		if (val < elements[mid])
-			max = mid - 1;	
+		if (val < elements[avg])
+			maximum = avg - 1;	
 
-		else if (val > elements[mid]) 
-			min = mid + 1;
+		else if (val > elements[avg]) 
+			minimum = avg + 1;
 
-		else if (val == elements[mid]) 
-			return mid;
+		else if (val == elements[avg]) 
+			return avg;
 	}
 }
 
