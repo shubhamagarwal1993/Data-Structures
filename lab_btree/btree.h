@@ -398,15 +398,30 @@ size_t insertion_idx(const std::vector< T >& elements, const C& val)
 {
     /* TODO Your code goes here! */
 
-//	if (elements.empty())
-//		return 0;
+	int min = 0;
+	int max;
+	if (elements.size() > 0)
+		max = elements.size() - 1;
+	else
+		return 0;
 
-//	else if (val < 0)
-//		return 0;
+	int mid;
+	while (min <= max) 
+	{
+		mid = (min+max)/2;
+		
+		if (val < elements[mid])
+			max = mid - 1;	
 
-//	else if (val > elements.size())
-//		return (elements.size());
-	
+		else if (val > elements[mid]) 
+			min = mid + 1;
+
+		else if (val == elements[mid]) 
+			return mid;
+	}
+}
+
+/*	
 	for(unsigned int i = 0; i < elements.size(); i++)
 	{
 		if(val == elements[i])
@@ -417,23 +432,7 @@ size_t insertion_idx(const std::vector< T >& elements, const C& val)
 	}
 	
 	return elements.size();
-//return 0;
-}
-/*	if (elements.empty())
-		return 0;
-	
-//	if(val < 0)
-//		return 0;
-	
-	else if(elements.size() == 1)
-		return 0;
-
-	else
-		return binary_search(elements, val, elements[0], elements[(elements.size()-1)]);	
 */
-   	
-
-	
 
 	
 #include "btree_given.cpp"

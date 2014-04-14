@@ -7,9 +7,9 @@
  * @author Matt Joras
  * @date Winter 2013
  */
-
+#include <iostream>
 using std::vector;
-
+using namespace std;
 /**
  * Finds the value associated with a given key.
  * @param key The key to look up.
@@ -44,8 +44,8 @@ V BTree<K, V>::find(const BTreeNode* subroot, const K& key) const
      * a leaf and we didn't find the key in it, then we have failed to find it
      * anywhere in the tree and return the default V.
      */
-     
-	if(subroot->children.size() == 0)
+/*     
+	if(subroot->element.size() == 0)
 		return V();
      	
 	int temp = insertion_idx(subroot->elements, key);			
@@ -53,6 +53,7 @@ V BTree<K, V>::find(const BTreeNode* subroot, const K& key) const
     	return subroot->elements[temp].value;
     
     return find(subroot->children[temp], key);		 
+*/
 }
 
 /**
@@ -122,6 +123,30 @@ void BTree<K, V>::split_child(BTreeNode* parent, size_t child_idx)
      * | 1 | | 3 | | 8 |
      *
      */
+
+/*     
+    //create an empty node, make pointer to new btreenode
+    BTreeNode * schild = new BTreeNode(parent->is_leaf, order);
+    
+	
+	//copy median to parent 
+	int temp = insertion_idx(parent->elements, parent->children[child_idx]->elements[elements.size()/2);		
+	parent->elements[temp] = parent->children[child_idx]->elements[elements.size()/2];	
+
+	//copy 'elements' and 'children' from right of median to new btreenode
+	for (int i = (elements.size()/2+1); i < elements.size(); i++)
+	{
+		
+	}
+
+    for(int i = )
+    parent->elements[]
+    
+
+	
+	BTreeNode * temp_pointer = parent->children[child_idx];
+	parent->children[ 
+*/
 }
 
 /**
@@ -144,5 +169,24 @@ void BTree<K, V>::insert(BTreeNode* subroot, const DataPair& pair)
      */
 
     /* TODO Your code goes here! */
+
+/*
+	int temp = insertion_idx(subroot->elements, );			    
+	
+	if(subroot->elements[temp] == key)
+    	return;
+    
+	
+	if((subroot->children.size() == 0) && (subroot->elements[temp] != key))
+		subroot->elements[temp] = pair;		
+    
+    
+	return insert(subroot->children[temp], pair);		 
+    	
+    if(suboot.size() >= order )
+    {
+    	
+    }	
+  */  
 }
 
