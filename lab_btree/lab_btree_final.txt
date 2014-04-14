@@ -1,0 +1,111 @@
+Monad Autograder
+Testing lab_btree at 2014-04-14 02:03:59
+
+"What is written without effort is, in general, read without pleasure." ~ Samuel Johnson
+
+Setting up test environment...
+Compiling...
+================================================================
+In file included from btree.h:439:0,
+                 from unit_tests.cpp:2:
+btree.cpp: In instantiation of 'V BTree<K, V>::find(const BTree<K, V>::BTreeNode*, const K&) const [with K = int; V = int]':
+btree.cpp:21:50:   required from 'V BTree<K, V>::find(const K&) const [with K = int; V = int]'
+unit_tests.cpp:106:5:   required from here
+btree.cpp:57:1: warning: no return statement in function returning non-void [-Wreturn-type]
+ }
+ ^
+btree.cpp: In instantiation of 'V BTree<K, V>::find(const BTree<K, V>::BTreeNode*, const K&) const [with K = std::basic_string<char>; V = std::basic_string<char>]':
+btree.cpp:21:50:   required from 'V BTree<K, V>::find(const K&) const [with K = std::basic_string<char>; V = std::basic_string<char>]'
+unit_tests.cpp:47:37:   required from 'void verify_finds(std::vector<std::pair<_T1, _T2> >&, BTree<K, V>&) [with K = std::basic_string<char>; V = std::basic_string<char>]'
+unit_tests.cpp:184:25:   required from here
+btree.cpp:57:1: warning: no return statement in function returning non-void [-Wreturn-type]
+In file included from unit_tests.cpp:2:0:
+btree.h: In function 'size_t insertion_idx(const std::vector<T>&, const C&) [with T = int; C = int; size_t = long unsigned int]':
+btree.h:422:1: warning: control reaches end of non-void function [-Wreturn-type]
+ }
+ ^
+
+
+Running tests...
+================================================================
+test_insertion_idx_emp  . . . . . [10 pts] - passed
+test_insertion_idx_small  . . . . [10 pts] - passed
+test_insertion_idx_logn . . . . . [10 pts] - passed
+test_btree3_small (valgrind)  . . [10 pts] - FAILED: unit_tests.cpp:48: [ret => -16779696] != [key_val.second => 5]
+test_btree3_large_seq . . . . . . [10 pts] - FAILED: unit_tests.cpp:48: [ret => -1916556800] != [key_val.second => 0]
+test_btree3_large_rand  . . . . . [10 pts] - FAILED: unit_tests.cpp:48: [ret => -1916556784] != [key_val.second => 981077384]
+test_btree64_large_seq  . . . . . [10 pts] - FAILED: unit_tests.cpp:48: [ret => -1916556800] != [key_val.second => 0]
+test_btree64_large_rand . . . . . [10 pts] - FAILED: unit_tests.cpp:48: [ret => -1916556784] != [key_val.second => 981077384]
+test_btree128_med_rand (valgrind) [10 pts] - FAILED: unit_tests.cpp:48: [ret => -16779552] != [key_val.second => 981077384]
+test_btree5_strings . . . . . . . [10 pts] - FAILED: Segmentation fault
+
+
+Total score...
+================================================================
+TOTAL SCORE: 30
+
+
+
+Detailed test output...
+================================================================
+----------------------------------------------------------------
+test_btree3_small (run under valgrind) [10 points]
+Result: FAILED: unit_tests.cpp:48: [ret => -16779696] != [key_val.second => 5]
+Took unknown time (5000ms timeout)
+Output:
+----------------------------------------------------------------
+Running test_btree3_small [worth 10 points, output below]
+Result: FAILED:
+unit_tests.cpp:48: [ret => -16779696] != [key_val.second => 5]
+
+----------------------------------------------------------------
+test_btree3_large_seq [10 points]
+Result: FAILED: unit_tests.cpp:48: [ret => -1916556800] != [key_val.second => 0]
+Took 1ms (1000ms timeout)
+Output:
+----------------------------------------------------------------
+
+----------------------------------------------------------------
+test_btree3_large_rand [10 points]
+Result: FAILED: unit_tests.cpp:48: [ret => -1916556784] != [key_val.second => 981077384]
+Took 1ms (1000ms timeout)
+Output:
+----------------------------------------------------------------
+
+----------------------------------------------------------------
+test_btree64_large_seq [10 points]
+Result: FAILED: unit_tests.cpp:48: [ret => -1916556800] != [key_val.second => 0]
+Took 14ms (1500ms timeout)
+Output:
+----------------------------------------------------------------
+
+----------------------------------------------------------------
+test_btree64_large_rand [10 points]
+Result: FAILED: unit_tests.cpp:48: [ret => -1916556784] != [key_val.second => 981077384]
+Took 15ms (1500ms timeout)
+Output:
+----------------------------------------------------------------
+
+----------------------------------------------------------------
+test_btree128_med_rand (run under valgrind) [10 points]
+Result: FAILED: unit_tests.cpp:48: [ret => -16779552] != [key_val.second => 981077384]
+Took unknown time (5500ms timeout)
+Output:
+----------------------------------------------------------------
+Running test_btree128_med_rand [worth 10 points, output below]
+Result: FAILED:
+unit_tests.cpp:48: [ret => -16779552] != [key_val.second => 981077384]
+
+----------------------------------------------------------------
+test_btree5_strings [10 points]
+Result: FAILED: Segmentation fault
+Took 8867190909968ms (1000ms timeout)
+Output:
+----------------------------------------------------------------
+
+
+----------------------------------------------------------------
+Total score...
+================================================================
+TOTAL SCORE: 30
+
