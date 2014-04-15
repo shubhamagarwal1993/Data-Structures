@@ -240,6 +240,37 @@ class KDTree
         /**
          * @todo Add your helper functions here.
          */
+
+
+		void constHelp(vector< Point<Dim> > & Points, int left, int right, int pivotIndex, int dim);
+
+		int partition(vector< Point<Dim> > & Points, int left, int right, int pivotIndex, int dim);
+
+		Point<Dim> select(vector< Point<Dim> > & newPoints, int left, int right, int k, int dim);			
+	
+
+
+
+
+		int dist(const Point<Dim> & temp, const Point<Dim> & target) const;
+
+
+
+		Point<Dim> find_helper(const Point<Dim> & query, int left, int right, int dim) const;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 };
 
 #include "kdtree.cpp"
