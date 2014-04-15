@@ -51,10 +51,8 @@ KDTree<Dim>::KDTree(const vector< Point<Dim> > & newPoints)
 {
     points = newPoints;
     int size = points.size()-1;
-    int left = 0;
-    int right = 0;
-    int center = 0;
-    constHelp(points, left, size, (size)/2, center);
+	    
+    constHelp(points, 0, size, (size)/2, 0);
 }
 
 template<int Dim>
@@ -73,40 +71,39 @@ void KDTree<Dim>::constHelp(vector< Point<Dim> > & Points, int left, int right, 
 }
 
 template<int Dim>
-int KDTree<Dim>::partition(vector< Point<Dim> > & Points, int left, int right, int pivotIndex, int dim)
-{
-	Point<Dim> pivotValue = points[pivotIndex];
-
-    Point<Dim> temp = points[pivotIndex];
-    points[pivotIndex] = points[right];
-    points[right] = temp;
-
-    int storeIndex = left;
-
-    for(int i=left; i<right; i++)
-    	if (smallerDimVal(points[i], pivotValue, dim))
-        {
-        	Point<Dim> tem = points[storeIndex];
-            points[storeIndex] = points[i];
-            points[i] = tem;
-
-            storeIndex++;
-		}
-
-        temp = points[right];
-        points[right] = points[storeIndex];
-        points[storeIndex] = temp;
-
-        return storeIndex;
-}
-
-template<int Dim>
 Point<Dim> KDTree<Dim>::select(vector< Point<Dim> > & newPoints, int left, int right, int k, int dim)
 {
 	if (left>= right)
     	return newPoints[left];
 
-	int pivotNewIndex = partition(newPoints, left, right, k, dim);
+// ++++ ====== ++++ inserting partition here ++++ ====== ++++++++ ====== ++++++++ ====== ++++++++ ====== ++++++++ ====== ++++
+
+	int pivotIndex = k;
+	Point<Dim> pivotValue = newPoints[pivotIndex];
+
+    Point<Dim> temp = newPoints[pivotIndex];
+    newPoints[pivotIndex] = newPoints[right];
+    newPoints[right] = temp;
+
+    int storeIndex = left;
+
+    for(int i=left; i<right; i++)
+    	if (smallerDimVal(newPoints[i], pivotValue, dim))
+        {
+        	Point<Dim> tem = newPoints[storeIndex];
+            newPoints[storeIndex] = newPoints[i];
+            newPoints[i] = tem;
+
+            storeIndex++;
+		}
+
+        temp = newPoints[right];
+        newPoints[right] = newPoints[storeIndex];
+        newPoints[storeIndex] = temp;
+
+//++++ ====== ++++++++ ====== ++++++++ ====== ++++++++ ====== ++++++++ ====== ++++++++ ====== ++++++++ ====== ++++++++ ====== ++++
+
+	int pivotNewIndex = storeIndex;
 	int pivotDist = pivotNewIndex;
 	
 	if(pivotDist == k)
@@ -117,6 +114,9 @@ Point<Dim> KDTree<Dim>::select(vector< Point<Dim> > & newPoints, int left, int r
     else
     	return select(newPoints, pivotNewIndex + 1, right, k, dim);
 }
+
+
+
 
 //=============================================================================================
 template<int Dim>
