@@ -58,22 +58,22 @@ KDTree<Dim>::KDTree(const vector< Point<Dim> > & newPoints)
 }
 
 template<int Dim>
-void KDTree<Dim>::constHelp(vector< Point<Dim> > & Points, int left, int right, int pivotIndex, int center)
+void KDTree<Dim>::constHelp(vector< Point<Dim> > & Points, int left, int right, int pivotIndex, int dim)
 {
 	if (left >= right)
     {
     	return;
 	}
 
-    select(points, left, right, pivotIndex, center);
+    select(points, left, right, pivotIndex, dim);
 
-    center = (center + 1) % center;
-    constHelp(points, left, pivotIndex-1, (left+pivotIndex-1)/2, center);
-    constHelp(points, pivotIndex+1, right, (pivotIndex+1+right)/2, center);
+    dim = (dim + 1) % Dim;
+    constHelp(points, left, pivotIndex-1, (left+pivotIndex-1)/2, dim);
+    constHelp(points, pivotIndex+1, right, (pivotIndex+1+right)/2, dim);
 }
 
 template<int Dim>
-int KDTree<Dim>::partition(vector< Point<Dim> > & Points, int left, int right, int pivotIndex, int center)
+int KDTree<Dim>::partition(vector< Point<Dim> > & Points, int left, int right, int pivotIndex, int dim)
 {
 	Point<Dim> pivotValue = points[pivotIndex];
 
@@ -84,7 +84,7 @@ int KDTree<Dim>::partition(vector< Point<Dim> > & Points, int left, int right, i
     int storeIndex = left;
 
     for(int i=left; i<right; i++)
-    	if (smallerDimVal(points[i], pivotValue, center))
+    	if (smallerDimVal(points[i], pivotValue, dim))
         {
         	Point<Dim> tem = points[storeIndex];
             points[storeIndex] = points[i];
@@ -101,21 +101,21 @@ int KDTree<Dim>::partition(vector< Point<Dim> > & Points, int left, int right, i
 }
 
 template<int Dim>
-Point<Dim> KDTree<Dim>::select(vector< Point<Dim> > & newPoints, int left, int right, int k, int center)
+Point<Dim> KDTree<Dim>::select(vector< Point<Dim> > & newPoints, int left, int right, int k, int dim)
 {
 	if (left>= right)
     	return newPoints[left];
 
-	int pivotNewIndex = partition(newPoints, left, right, k, center);
+	int pivotNewIndex = partition(newPoints, left, right, k, dim);
 	int pivotDist = pivotNewIndex;
 	
 	if(pivotDist == k)
 		return newPoints[pivotNewIndex];
 	
 	else if(k < pivotDist)
-    	return select(newPoints, left, pivotNewIndex - 1, k, center);
+    	return select(newPoints, left, pivotNewIndex - 1, k, dim);
     else
-    	return select(newPoints, pivotNewIndex + 1, right, k, center);
+    	return select(newPoints, pivotNewIndex + 1, right, k, dim);
 }
 
 //=============================================================================================
