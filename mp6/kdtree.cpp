@@ -13,10 +13,6 @@ using namespace std;
 template<int Dim>
 bool KDTree<Dim>::smallerDimVal(const Point<Dim> & first, const Point<Dim> & second, int curDim) const
 {
-    /**
-     * @todo Implement this function!
-     */
-
 	if (first[curDim] < second[curDim])
 		return true;
 		
@@ -62,22 +58,22 @@ KDTree<Dim>::KDTree(const vector< Point<Dim> > & newPoints)
 }
 
 template<int Dim>
-void KDTree<Dim>::constHelp(vector< Point<Dim> > & Points, int left, int right, int pivotIndex, int dim)
+void KDTree<Dim>::constHelp(vector< Point<Dim> > & Points, int left, int right, int pivotIndex, int center)
 {
 	if (left >= right)
     {
     	return;
 	}
 
-    select(points, left, right, pivotIndex, dim);
+    select(points, left, right, pivotIndex, center);
 
-    dim = (dim + 1) % Dim;
-    constHelp(points, left, pivotIndex-1, (left+pivotIndex-1)/2, dim);
-    constHelp(points, pivotIndex+1, right, (pivotIndex+1+right)/2, dim);
+    center = (center + 1) % center;
+    constHelp(points, left, pivotIndex-1, (left+pivotIndex-1)/2, center);
+    constHelp(points, pivotIndex+1, right, (pivotIndex+1+right)/2, center);
 }
 
 template<int Dim>
-int KDTree<Dim>::partition(vector< Point<Dim> > & Points, int left, int right, int pivotIndex, int dim)
+int KDTree<Dim>::partition(vector< Point<Dim> > & Points, int left, int right, int pivotIndex, int center)
 {
 	Point<Dim> pivotValue = points[pivotIndex];
 
@@ -88,7 +84,7 @@ int KDTree<Dim>::partition(vector< Point<Dim> > & Points, int left, int right, i
     int storeIndex = left;
 
     for(int i=left; i<right; i++)
-    	if (smallerDimVal(points[i], pivotValue, dim))
+    	if (smallerDimVal(points[i], pivotValue, center))
         {
         	Point<Dim> tem = points[storeIndex];
             points[storeIndex] = points[i];
@@ -105,21 +101,21 @@ int KDTree<Dim>::partition(vector< Point<Dim> > & Points, int left, int right, i
 }
 
 template<int Dim>
-Point<Dim> KDTree<Dim>::select(vector< Point<Dim> > & newPoints, int left, int right, int k, int dim)
+Point<Dim> KDTree<Dim>::select(vector< Point<Dim> > & newPoints, int left, int right, int k, int center)
 {
 	if (left>= right)
     	return newPoints[left];
 
-	int pivotNewIndex = partition(newPoints, left, right, k, dim);
+	int pivotNewIndex = partition(newPoints, left, right, k, center);
 	int pivotDist = pivotNewIndex;
 	
 	if(pivotDist == k)
 		return newPoints[pivotNewIndex];
 	
 	else if(k < pivotDist)
-    	return select(newPoints, left, pivotNewIndex - 1, k, dim);
+    	return select(newPoints, left, pivotNewIndex - 1, k, center);
     else
-    	return select(newPoints, pivotNewIndex + 1, right, k, dim);
+    	return select(newPoints, pivotNewIndex + 1, right, k, center);
 }
 
 //=============================================================================================
