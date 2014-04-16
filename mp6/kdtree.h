@@ -244,7 +244,7 @@ class KDTree
 
 		void constHelp(vector< Point<Dim> > & Points, int left, int right, int center, int dimension);
 
-		Point<Dim> select(vector< Point<Dim> > & newPoints, int left, int right, int avg, int dimension);			
+		Point<Dim> get_val(vector< Point<Dim> > & newPoints, int left, int right, int avg, int dimension);			
 	
 
 

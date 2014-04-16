@@ -61,7 +61,7 @@ void KDTree<Dim>::constHelp(vector< Point<Dim> > & Points, int left, int right, 
 {
 	if (left< right)
 	{
-    	select(points, left, right, center, dimension);
+    	get_val(points, left, right, center, dimension);
 
 	    dimension = (dimension+1) % Dim;
 
@@ -71,45 +71,45 @@ void KDTree<Dim>::constHelp(vector< Point<Dim> > & Points, int left, int right, 
 }
 
 template<int Dim>
-Point<Dim> KDTree<Dim>::select(vector< Point<Dim> > & newPoints, int left, int right, int avg, int dimension)
+Point<Dim> KDTree<Dim>::get_val(vector< Point<Dim> > & newPoints, int left, int right, int avg, int dimension)
 {
 	if (left>= right)
     	return newPoints[left];
 
-	int pivotIndex = avg;
-	Point<Dim> pivotValue = newPoints[pivotIndex];
+	int val = avg;
+	Point<Dim> temp_val = newPoints[val];
 
-    Point<Dim> temp = newPoints[pivotIndex];
-    newPoints[pivotIndex] = newPoints[right];
+    Point<Dim> temp = newPoints[val];
+    newPoints[val] = newPoints[right];
     newPoints[right] = temp;
 
-    int storeIndex = left;
+    int temp_left = left;
 
     for(int i=left; i<right; i++)
-    	if (smallerDimVal(newPoints[i], pivotValue, dimension))
+    	if (smallerDimVal(newPoints[i], temp_val, dimension))
         {
-        	Point<Dim> tem = newPoints[storeIndex];
-            newPoints[storeIndex] = newPoints[i];
+        	Point<Dim> tem = newPoints[temp_left];
+            newPoints[temp_left] = newPoints[i];
             newPoints[i] = tem;
 
-            storeIndex++;
+            temp_left++;
 		}
 
         temp = newPoints[right];
-        newPoints[right] = newPoints[storeIndex];
-        newPoints[storeIndex] = temp;
+        newPoints[right] = newPoints[temp_left];
+        newPoints[temp_left] = temp;
 
 
-	int pivotNewIndex = storeIndex;
-	int pivotDist = pivotNewIndex;
+	int set_val = temp_left;
+	int len = set_val;
 	
-	if(pivotDist == avg)
-		return newPoints[pivotNewIndex];
+	if(len == avg)
+		return newPoints[set_val];
 	
-	else if(avg < pivotDist)
-    	return select(newPoints, left, pivotNewIndex - 1, avg, dimension);
+	else if(avg < len)
+    	return get_val(newPoints, left, set_val - 1, avg, dimension);
     else
-    	return select(newPoints, pivotNewIndex + 1, right, avg, dimension);
+    	return get_val(newPoints, set_val + 1, right, avg, dimension);
 }
 
 //=============================================================================================
