@@ -242,9 +242,9 @@ class KDTree
          */
 
 
-		void constHelp(vector< Point<Dim> > & Points, int left, int right, int center, int dim);
+		void constHelp(vector< Point<Dim> > & Points, int left, int right, int center, int dimension);
 
-		Point<Dim> select(vector< Point<Dim> > & newPoints, int left, int right, int k, int dim);			
+		Point<Dim> select(vector< Point<Dim> > & newPoints, int left, int right, int avg, int dimension);			
 	
 
 
@@ -254,7 +254,8 @@ class KDTree
 
 
 
-		Point<Dim> find_helper(const Point<Dim> & query, int left, int right, int dim) const;
+		Point<Dim> find_helper(const Point<Dim> & query, int left, int right, int dimension) const;
+		Point<Dim> findhelp(const Point<Dim> & query, Point<Dim> retval, int med, int dimension) const;
 
 
 
