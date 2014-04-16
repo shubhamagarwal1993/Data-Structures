@@ -242,9 +242,7 @@ class KDTree
          */
 
 
-		void constHelp(vector< Point<Dim> > & Points, int left, int right, int pivotIndex, int dim);
-
-		int partition(vector< Point<Dim> > & Points, int left, int right, int pivotIndex, int dim);
+		void constHelp(vector< Point<Dim> > & Points, int left, int right, int center, int dim);
 
 		Point<Dim> select(vector< Point<Dim> > & newPoints, int left, int right, int k, int dim);			
 	

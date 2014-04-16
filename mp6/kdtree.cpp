@@ -22,8 +22,8 @@ bool KDTree<Dim>::smallerDimVal(const Point<Dim> & first, const Point<Dim> & sec
 	else
 		return false;	
 }
+//===================================================================================================
 
-//=============================================================================================================
 template<int Dim>
 bool KDTree<Dim>::shouldReplace(const Point<Dim> & target, const Point<Dim> & currentBest, const Point<Dim> & potential) const
 {
@@ -51,32 +51,39 @@ KDTree<Dim>::KDTree(const vector< Point<Dim> > & newPoints)
 {
     points = newPoints;
     int size = points.size()-1;
-	    
-    constHelp(points, 0, size, (size)/2, 0);
+    int left = 0;
+    int dim = 0;
+    constHelp(points, left, size, (size)/2, dim);
 }
 
 template<int Dim>
-void KDTree<Dim>::constHelp(vector< Point<Dim> > & Points, int left, int right, int pivotIndex, int dim)
+void KDTree<Dim>::constHelp(vector< Point<Dim> > & Points, int left, int right, int center, int dim)
 {
 	if (left >= right)
     {
     	return;
 	}
 
-    select(points, left, right, pivotIndex, dim);
+    select(points, left, right, center, dim);
 
     dim = (dim + 1) % Dim;
-    constHelp(points, left, pivotIndex-1, (left+pivotIndex-1)/2, dim);
-    constHelp(points, pivotIndex+1, right, (pivotIndex+1+right)/2, dim);
+
+    constHelp(points, left, center-1, (left+center-1)/2, dim);
+    constHelp(points, center+1, right, (center+1+right)/2, dim);
 }
+
+
+
+
+
+
+
 
 template<int Dim>
 Point<Dim> KDTree<Dim>::select(vector< Point<Dim> > & newPoints, int left, int right, int k, int dim)
 {
 	if (left>= right)
     	return newPoints[left];
-
-// ++++ ====== ++++ inserting partition here ++++ ====== ++++++++ ====== ++++++++ ====== ++++++++ ====== ++++++++ ====== ++++
 
 	int pivotIndex = k;
 	Point<Dim> pivotValue = newPoints[pivotIndex];
@@ -101,7 +108,6 @@ Point<Dim> KDTree<Dim>::select(vector< Point<Dim> > & newPoints, int left, int r
         newPoints[right] = newPoints[storeIndex];
         newPoints[storeIndex] = temp;
 
-//++++ ====== ++++++++ ====== ++++++++ ====== ++++++++ ====== ++++++++ ====== ++++++++ ====== ++++++++ ====== ++++++++ ====== ++++
 
 	int pivotNewIndex = storeIndex;
 	int pivotDist = pivotNewIndex;
@@ -115,10 +121,8 @@ Point<Dim> KDTree<Dim>::select(vector< Point<Dim> > & newPoints, int left, int r
     	return select(newPoints, pivotNewIndex + 1, right, k, dim);
 }
 
-
-
-
 //=============================================================================================
+
 template<int Dim>
 Point<Dim> KDTree<Dim>::findNearestNeighbor(const Point<Dim> & query) const
 {
