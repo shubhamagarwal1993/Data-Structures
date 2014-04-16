@@ -114,7 +114,7 @@ Point<Dim> KDTree<Dim>::get_val(vector< Point<Dim> > & newPoints, int left, int 
 
 //=============================================================================================
 
-
+/*
 template<int Dim>
 Point<Dim> KDTree<Dim>::findNearestNeighbor(const Point<Dim> & query) const
 {
@@ -146,27 +146,7 @@ Point<Dim> KDTree<Dim>::find_help(vector< Point<Dim> >  p,const Point<Dim> & q, 
         left = true;
         childResult = find_help(p,q,init,mid-1,(dim+1)%Dim);
     }
-    /*else if(temp[dim]==q[dim])
-      {
-         if(q<temp)
-           {
-            if (mid == 0 || mid == init)
-            {
-              return temp;
-            }
-            left = true;
-            childResult = find_help(p,q,init,mid-1,(dim+1)%Dim);
-           }
-         else
-           {
-            if (mid == end)
-            {
-              return temp;
-            }
-            right = true;
-            childResult = find_help(p,q,mid+1,end,(dim+1)%Dim);
-           }
-       }*/
+   
     else
     {
         if (mid == end)
@@ -240,9 +220,9 @@ double KDTree<Dim>::compute(const Point<Dim> x,const Point<Dim> y)const
       } 
     return sqrt(check);
 }
+*/
 
 
-/*
 template<int Dim>
 Point<Dim> KDTree<Dim>::findNearestNeighbor(const Point<Dim> & query) const
 {
@@ -301,4 +281,4 @@ Point<Dim> KDTree<Dim>::find_helper(const Point<Dim> & query, int left, int righ
 	}
 	return retval;	
 }
-*/
+
