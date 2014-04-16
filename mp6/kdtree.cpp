@@ -41,7 +41,10 @@ int KDTree<Dim>::dist(const Point<Dim> & temp, const Point<Dim> & target) const
 {
 	int sum = 0;
 	for(int i = 0; i < Dim; i++)
-		sum = sum + ((target[i] - temp[i])*(target[i] - temp[i]));
+	{
+		sum += ((target[i] - temp[i])*(target[i] - temp[i]));
+	}
+	
 	return sum;	
 }
 
@@ -50,10 +53,10 @@ template<int Dim>
 KDTree<Dim>::KDTree(const vector< Point<Dim> > & newPoints)
 {
     points = newPoints;
-    int size = points.size()-1;
+    //int size = points.size()-1;
     int left = 0;
     int dim = 0;
-    constHelp(points, left, size, (size)/2, dim);
+    constHelp(points, left, (points.size()), (points.size())/2, dim);;
 }
 
 template<int Dim>
@@ -71,13 +74,6 @@ void KDTree<Dim>::constHelp(vector< Point<Dim> > & Points, int left, int right, 
     constHelp(points, left, center-1, (left+center-1)/2, dim);
     constHelp(points, center+1, right, (center+1+right)/2, dim);
 }
-
-
-
-
-
-
-
 
 template<int Dim>
 Point<Dim> KDTree<Dim>::select(vector< Point<Dim> > & newPoints, int left, int right, int k, int dim)
