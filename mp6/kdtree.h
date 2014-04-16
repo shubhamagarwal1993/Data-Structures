@@ -261,8 +261,9 @@ class KDTree
 
 		Point<Dim> find_help(vector< Point<Dim> >  p,const Point<Dim> & q, int init,int end,int dim) const;
 
+double diff(const Point<Dim> x,const Point<Dim> y,int dim)const;
 
-
+double compute(const Point<Dim> x,const Point<Dim> y)const;
 
 
 

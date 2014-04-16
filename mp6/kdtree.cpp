@@ -115,7 +115,134 @@ Point<Dim> KDTree<Dim>::get_val(vector< Point<Dim> > & newPoints, int left, int 
 //=============================================================================================
 
 
+template<int Dim>
+Point<Dim> KDTree<Dim>::findNearestNeighbor(const Point<Dim> & query) const
+{
+    return find_help(points,query,0,points.size()-1,0);
+}
+template<int Dim>
+Point<Dim> KDTree<Dim>::find_help(vector< Point<Dim> >  p,const Point<Dim> & q, int init,int end,int dim) const
+{
+    int mid = (init+end)/2;
+    Point <Dim> temp = p[mid];
+    Point <Dim> childResult;
+    Point <Dim> currentBest;
+    Point <Dim> potential;
+    bool check = false;
+    bool left = false;
+    bool right = false;
+    
+    if(temp == q)
+      {
+       return temp;
+      }
+    
+    else if (smallerDimVal(q,temp,dim))
+    {
+        if (mid == 0 || mid == init)
+            {
+              return temp;
+            }
+        left = true;
+        childResult = find_help(p,q,init,mid-1,(dim+1)%Dim);
+    }
+    /*else if(temp[dim]==q[dim])
+      {
+         if(q<temp)
+           {
+            if (mid == 0 || mid == init)
+            {
+              return temp;
+            }
+            left = true;
+            childResult = find_help(p,q,init,mid-1,(dim+1)%Dim);
+           }
+         else
+           {
+            if (mid == end)
+            {
+              return temp;
+            }
+            right = true;
+            childResult = find_help(p,q,mid+1,end,(dim+1)%Dim);
+           }
+       }*/
+    else
+    {
+        if (mid == end)
+            {
+              return temp;
+            }
+        right = true;
+        childResult = find_help(p,q,mid+1,end,(dim+1)%Dim);
+    }
+ 
+    check = shouldReplace(q,childResult,temp);
+    
+    if(check==true)
+      {
+        currentBest = temp;
+      }
+    else
+      {
+        currentBest = childResult;
+      }
+    
+    if(diff(q,temp,dim)>=compute(q,currentBest))
+      {
+        return currentBest;
+      }
+    else
+      {
+        if(mid!=init || mid!=end)
+           {
+            if(left==true && mid)
+              {
+                potential = find_help(p,q,mid+1,end,(dim+1)%Dim);
+              }
+            else
+              {
+            potential = find_help(p,q,init,mid-1,(dim+1)%Dim);
+              }
+            check = shouldReplace(q,currentBest,potential);
+            if (check==true)
+              {
+               return potential;
+              }
+            else
+              {
+               return currentBest;
+              }
+           }
+       else
+          {
+            return currentBest;
+          }
+      
+      }
+}
+template<int Dim>
+double KDTree<Dim>::diff(const Point<Dim> x,const Point<Dim> y,int dim)const
+{
+    double point = pow((x[dim]-y[dim]),2);
+    return sqrt(point);
+}
+template<int Dim>
+double KDTree<Dim>::compute(const Point<Dim> x,const Point<Dim> y)const
+{
+    int k = Dim;
+    k=k-1;
+    double check = 0.0;
+    while(k>=0)
+      {
+        check += pow((x[k]-y[k]),2);
+        k--;
+      } 
+    return sqrt(check);
+}
 
+
+/*
 template<int Dim>
 Point<Dim> KDTree<Dim>::findNearestNeighbor(const Point<Dim> & query) const
 {
@@ -174,3 +301,4 @@ Point<Dim> KDTree<Dim>::find_helper(const Point<Dim> & query, int left, int righ
 	}
 	return retval;	
 }
+*/
