@@ -259,7 +259,7 @@ class KDTree
 
 
 
-
+		Point<Dim> find_help(vector< Point<Dim> >  p,const Point<Dim> & q, int init,int end,int dim) const;
 
 
 
