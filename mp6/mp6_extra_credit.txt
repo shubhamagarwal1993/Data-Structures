@@ -1,0 +1,40 @@
+Monad Autograder
+Testing mp6.1 at 2014-04-16 01:25:59
+
+"Who dares to teach must never cease to learn." ~ J.C. Dana
+
+Setting up test environment...
+Compiling...
+================================================================
+
+
+Running tests...
+================================================================
+testSmallerDimVal . . . . . [4 pts] - passed
+testShouldReplace . . . . . [4 pts] - passed
+testLinearCtor_1_10 . . . . [6 pts] - passed
+testLinearCtor_3_31 . . . . [6 pts] - passed
+testLinearCtor_2_14 . . . . [6 pts] - passed
+testLinearNNS_1_10  . . . . [6 pts] - FAILED
+testLinearNNS_3_31  . . . . [6 pts] - FAILED
+testLinearNNS_2_14  . . . . [6 pts] - FAILED
+testDeceptiveNNOneLevelCtor [4 pts] - passed
+testDeceptiveNNOneLevelNNS  [4 pts] - FAILED
+testMinesCtor . . . . . . . [4 pts] - passed
+testMinesNNS  . . . . . . . [4 pts] - FAILED
+testDeceptiveMinesCtor  . . [4 pts] - passed
+testDeceptiveMinesNNS . . . [4 pts] - FAILED
+testTieBreakingCtor . . . . [4 pts] - passed
+testTieBreakingNNS  . . . . [4 pts] - passed
+testLeftRecurseCtor . . . . [4 pts] - passed
+testLeftRecurseNNS  . . . . [4 pts] - FAILED
+testRandom1Ctor . . . . . . [4 pts] - passed
+testRandom1NNS  . . . . . . [4 pts] - passed
+testRandom2Ctor . . . . . . [4 pts] - passed
+testRandom2NNS  . . . . . . [4 pts] - FAILED
+
+
+Total score...
+================================================================
+TOTAL SCORE: 62
+
