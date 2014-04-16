@@ -117,10 +117,10 @@ Point<Dim> KDTree<Dim>::get_val(vector< Point<Dim> > & newPoints, int left, int 
 template<int Dim>
 Point<Dim> KDTree<Dim>::findNearestNeighbor(const Point<Dim> & query) const
 {
-	return Point<Dim>();
-	//find_helper(query, 0, points.size()-1, 0);	
+//	return Point<Dim>();
+	return find_helper(query, 0, points.size()-1, 0);	
 }	
-/*
+
 template<int Dim>
 Point<Dim> KDTree<Dim>::find_helper(const Point<Dim> & query, int left, int right, int dim) const
 {
@@ -136,8 +136,6 @@ Point<Dim> KDTree<Dim>::find_helper(const Point<Dim> & query, int left, int righ
 	
 	if(smallerDimVal(query,points[med],dim%Dim))
 	{
-		retval=find_helper(query,left,med-1,(dim+1)%Dim);
-		retval=findhelp(query, retval, left, right, med, dim);
 		int a=0;
 		if(shouldReplace(query,retval,points[med]))
 			retval=points[med];
@@ -158,7 +156,7 @@ Point<Dim> KDTree<Dim>::find_helper(const Point<Dim> & query, int left, int righ
 	else
 	{
 		retval=find_helper(query,med+1,right,(dim+1)%Dim);
-		retval=findhelp(query, retval, med, dim);
+
 		int a=0;
 		if(shouldReplace(query,retval,points[med]))
 			retval=points[med];
@@ -175,4 +173,4 @@ Point<Dim> KDTree<Dim>::find_helper(const Point<Dim> & query, int left, int righ
 		}
 	}
 	return retval;	
-}*/
+}
