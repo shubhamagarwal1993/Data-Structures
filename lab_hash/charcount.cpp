@@ -46,8 +46,8 @@ int main( int argc, char ** argv ) {
     istringstream iss( args[2] );
     iss >> arg;
     string htarg = args[3];
-    std::transform( htarg.begin(), htarg.end(), htarg.begin(), tolower );
-    if( htarg.find("sc") == 0 )
+    std::transform ( htarg.begin(), htarg.end(), htarg.begin(), tolower );
+    if( args[3].find("sc") == 0 )
         htarg = "SCHashTable";
     else
         htarg = "LPHashTable";
