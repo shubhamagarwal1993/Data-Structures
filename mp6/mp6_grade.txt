@@ -1,7 +1,7 @@
 Monad Autograder
-Testing mp6 at 2014-04-17 01:28:20
+Testing mp6 at 2014-04-18 01:25:43
 
-"There's not enough wiggleability, you know." ~ Eric Shaffer
+"If you just rely on one model, you tend to amputate reality to make it fit your model." ~ David Brooks
 
 Setting up test environment...
 Compiling...
