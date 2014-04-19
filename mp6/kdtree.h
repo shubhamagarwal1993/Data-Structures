@@ -242,35 +242,13 @@ class KDTree
          */
 
 
-		void constHelp(vector< Point<Dim> > & Points, int left, int right, int center, int dimension);
-
-		Point<Dim> get_val(vector< Point<Dim> > & newPoints, int left, int right, int avg, int dimension);			
-	
-
-
-
-
 		int dist(const Point<Dim> & temp, const Point<Dim> & target) const;
+		
+		void quick_select(vector< Point<Dim> > & Points, int left, int right, int pivot, int dimension);
+		
+		void select(vector< Point<Dim> > & Points, int left, int right, int pivot, int dimension);
 
-
-
-		Point<Dim> find_helper(const Point<Dim> & query, int left, int right, int dimension) const;
-		Point<Dim> findhelp(const Point<Dim> & query, Point<Dim> retval, int med, int dimension) const;
-
-
-
-		Point<Dim> find_help(vector< Point<Dim> >  p,const Point<Dim> & q, int init,int end,int dim) const;
-
-double diff(const Point<Dim> x,const Point<Dim> y,int dim)const;
-
-double compute(const Point<Dim> x,const Point<Dim> y)const;
-
-
-
-
-
-
-
+		int partition(vector< Point<Dim> > & Points, int left, int right, int pivot, int dimension);
 };
 
 #include "kdtree.cpp"

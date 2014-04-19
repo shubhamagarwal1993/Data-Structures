@@ -53,232 +53,71 @@ template<int Dim>
 KDTree<Dim>::KDTree(const vector< Point<Dim> > & newPoints)
 {
     points = newPoints;
-    constHelp(points, 0, (points.size()-1), (points.size()-1)/2, 0);
+    quick_select(points, 0, (points.size()-1), (points.size()-1)/2, 0);
 }
 
 template<int Dim>
-void KDTree<Dim>::constHelp(vector< Point<Dim> > & Points, int left, int right, int center, int dimension)
+void KDTree<Dim>::quick_select(vector< Point<Dim> > & Points, int left, int right, int pivot, int dimension)
 {
-	if (left< right)
-	{
-    	get_val(points, left, right, center, dimension);
-
-	    dimension = (dimension+1) % Dim;
-
-	    constHelp(points, left, center-1, (left+center-1)/2, dimension);
-	    constHelp(points, center+1, right, (center+1+right)/2, dimension);
-	}
-}
-
-template<int Dim>
-Point<Dim> KDTree<Dim>::get_val(vector< Point<Dim> > & newPoints, int left, int right, int avg, int dimension)
-{
-	if (left>= right)
-    	return newPoints[left];
-
-	int val = avg;
-	Point<Dim> temp_val = newPoints[val];
-
-    Point<Dim> temp = newPoints[val];
-    newPoints[val] = newPoints[right];
-    newPoints[right] = temp;
-
-    int temp_left = left;
-
-    for(int i=left; i<right; i++)
-    	if (smallerDimVal(newPoints[i], temp_val, dimension))
-        {
-        	Point<Dim> tem = newPoints[temp_left];
-            newPoints[temp_left] = newPoints[i];
-            newPoints[i] = tem;
-
-            temp_left++;
-		}
-
-        temp = newPoints[right];
-        newPoints[right] = newPoints[temp_left];
-        newPoints[temp_left] = temp;
-
-
-	int set_val = temp_left;
-	int len = set_val;
+	if (left >= right)
+		return;
 	
-	if(len == avg)
-		return newPoints[set_val];
-	
-	else if(avg < len)
-    	return get_val(newPoints, left, set_val - 1, avg, dimension);
-    else
-    	return get_val(newPoints, set_val + 1, right, avg, dimension);
+	select(Points, left, right, pivot, dimension);
+
+	dimension = (dimension+1) % Dim;
+
+	quick_select(Points, left, pivot-1, ((left+pivot-1)/2), dimension);
+	quick_select(Points, pivot+1, right, ((pivot+1+right)/2), dimension);
 }
 
-//=============================================================================================
-
-/*
 template<int Dim>
-Point<Dim> KDTree<Dim>::findNearestNeighbor(const Point<Dim> & query) const
-{
-    return find_help(points,query,0,points.size()-1,0);
-}
-template<int Dim>
-Point<Dim> KDTree<Dim>::find_help(vector< Point<Dim> >  p,const Point<Dim> & q, int init,int end,int dim) const
-{
-    int mid = (init+end)/2;
-    Point <Dim> temp = p[mid];
-    Point <Dim> childResult;
-    Point <Dim> currentBest;
-    Point <Dim> potential;
-    bool check = false;
-    bool left = false;
-    bool right = false;
-    
-    if(temp == q)
-      {
-       return temp;
-      }
-    
-    else if (smallerDimVal(q,temp,dim))
-    {
-        if (mid == 0 || mid == init)
-            {
-              return temp;
-            }
-        left = true;
-        childResult = find_help(p,q,init,mid-1,(dim+1)%Dim);
-    }
-   
-    else
-    {
-        if (mid == end)
-            {
-              return temp;
-            }
-        right = true;
-        childResult = find_help(p,q,mid+1,end,(dim+1)%Dim);
-    }
- 
-    check = shouldReplace(q,childResult,temp);
-    
-    if(check==true)
-      {
-        currentBest = temp;
-      }
-    else
-      {
-        currentBest = childResult;
-      }
-    
-    if(diff(q,temp,dim)>=compute(q,currentBest))
-      {
-        return currentBest;
-      }
-    else
-      {
-        if(mid!=init || mid!=end)
-           {
-            if(left==true && mid)
-              {
-                potential = find_help(p,q,mid+1,end,(dim+1)%Dim);
-              }
-            else
-              {
-            potential = find_help(p,q,init,mid-1,(dim+1)%Dim);
-              }
-            check = shouldReplace(q,currentBest,potential);
-            if (check==true)
-              {
-               return potential;
-              }
-            else
-              {
-               return currentBest;
-              }
-           }
-       else
-          {
-            return currentBest;
-          }
-      
-      }
-}
-template<int Dim>
-double KDTree<Dim>::diff(const Point<Dim> x,const Point<Dim> y,int dim)const
-{
-    double point = pow((x[dim]-y[dim]),2);
-    return sqrt(point);
-}
-template<int Dim>
-double KDTree<Dim>::compute(const Point<Dim> x,const Point<Dim> y)const
-{
-    int k = Dim;
-    k=k-1;
-    double check = 0.0;
-    while(k>=0)
-      {
-        check += pow((x[k]-y[k]),2);
-        k--;
-      } 
-    return sqrt(check);
-}
-*/
-
-
-template<int Dim>
-Point<Dim> KDTree<Dim>::findNearestNeighbor(const Point<Dim> & query) const
-{
-	return find_helper(query, 0, points.size()-1, 0);	
-}	
-
-template<int Dim>
-Point<Dim> KDTree<Dim>::find_helper(const Point<Dim> & query, int left, int right, int dim) const
-{
-	Point<Dim> retval;
-	Point<Dim> x;
-	int med = (left + right)/2;
-	
-	if(left>=right)
-	{
-		retval=points[left];
-		return retval;
-	}
-	
-	if(smallerDimVal(query,points[med],dim%Dim))
-	{
-		int a=0;
-		if(shouldReplace(query,retval,points[med]))
-			retval=points[med];
-		for (int i=0;i<Dim;i++)
-			a=a+pow(query[i]-retval[i],2);
-		if(pow(points[med][dim%Dim]-query[dim%Dim],2)<=a)
-		{
-			Point<Dim> y;
-			y=find_helper(query,med+1,right,(dim+1)%Dim);
-			if(shouldReplace(query,retval,y))
-			{
-				retval=y;
-			}
-		}
-	}
-	
+void KDTree<Dim>::select(vector< Point<Dim> > & Points, int left, int right, int pivot, int dimension)
+{	
+	if(left >= right)
+		return;
+		
+	int new_pivot = partition(Points, left, right, pivot, dimension);
+		
+	if(new_pivot == pivot)
+		return;	
+		
+	else if(pivot < new_pivot)
+		select(Points, left, new_pivot-1, pivot, dimension);
+		
 	else
-	{
-		retval=find_helper(query,med+1,right,(dim+1)%Dim);
-
-		int a=0;
-		if(shouldReplace(query,retval,points[med]))
-			retval=points[med];
-		for (int i=0;i<Dim;i++)
-			a=a+pow(query[i]-retval[i],2);
-		if(pow(points[med][dim%Dim]-query[dim%Dim],2)<=a)
-		{
-			Point<Dim> y;
-			y=find_helper(query,left,med-1,(dim+1)%Dim);
-			if(shouldReplace(query,retval,y))
-			{
-				retval=y;
-			}
-		}
-	}
-	return retval;	
+		select(Points, new_pivot+1, right, pivot, dimension);
 }
 
+template<int Dim>
+int KDTree<Dim>::partition(vector< Point<Dim> > & Points, int left, int right, int pivot, int dimension)
+{
+	Point<Dim> pivot_val = Points[pivot];
+	
+	Point<Dim> temp = Points[pivot];
+	Points[pivot] = Points[right];
+	Points[right] = temp;
+	
+	int counter = left;
+	
+	for(int i = left; i < right; i++) 
+	{
+		if(smallerDimVal(Points[i], pivot_val, dimension))
+		{
+			Point<Dim> newtemp = Points[counter];
+			Points[counter] = Points[i];
+			Points[i] = newtemp;
+			counter++;		
+		}	
+	} 
+
+	temp = Points[right];
+	Points[right] = Points[counter];
+	Points[counter] = temp;
+	return counter; 
+}
+
+template<int Dim>
+Point<Dim> KDTree<Dim>::findNearestNeighbor(const Point<Dim> & query) const
+{
+    return Point<Dim>();
+}
