@@ -116,6 +116,8 @@ int KDTree<Dim>::partition(vector< Point<Dim> > & Points, int left, int right, i
 	return counter; 
 }
 
+//=================================================================================================
+
 template<int Dim>
 Point<Dim> KDTree<Dim>::findNearestNeighbor(const Point<Dim> & query) const
 {
