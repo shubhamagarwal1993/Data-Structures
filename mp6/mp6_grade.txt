@@ -1,7 +1,7 @@
 Monad Autograder
-Testing mp6 at 2014-04-18 01:25:43
+Testing mp6 at 2014-04-19 01:28:08
 
-"If you just rely on one model, you tend to amputate reality to make it fit your model." ~ David Brooks
+"Any sufficiently advanced bug is indistinguishable from a feature." ~ Rich Kulawiec
 
 Setting up test environment...
 Compiling...
@@ -24,13 +24,13 @@ testMinesCtor . . . . . . . [3 pts]  - passed
 testMinesNNS  . . . . . . . [4 pts]  - FAILED
 testDeceptiveMinesCtor  . . [3 pts]  - passed
 testDeceptiveMinesNNS . . . [5 pts]  - FAILED
-testTieBreakingCtor . . . . [3 pts]  - passed
-testTieBreakingNNS  . . . . [3 pts]  - passed
+testTieBreakingCtor . . . . [3 pts]  - FAILED
+testTieBreakingNNS  . . . . [3 pts]  - FAILED
 testLeftRecurseCtor . . . . [3 pts]  - passed
 testLeftRecurseNNS  . . . . [3 pts]  - FAILED
-testRandom1Ctor . . . . . . [3 pts]  - passed
-testRandom1NNS  . . . . . . [3 pts]  - passed
-testRandom2Ctor . . . . . . [3 pts]  - passed
+testRandom1Ctor . . . . . . [3 pts]  - FAILED
+testRandom1NNS  . . . . . . [3 pts]  - FAILED
+testRandom2Ctor . . . . . . [3 pts]  - FAILED
 testRandom2NNS  . . . . . . [3 pts]  - FAILED
 testCheckeredMosaic . . . . [12 pts] - FAILED
 testPrimaryColorMosaic  . . [6 pts]  - FAILED
@@ -39,5 +39,5 @@ testRandomMosaic  . . . . . [6 pts]  - FAILED
 
 Total score...
 ================================================================
-TOTAL SCORE: 46
+TOTAL SCORE: 31
 
