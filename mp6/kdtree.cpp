@@ -13,7 +13,7 @@ using namespace std;
 template<int Dim>
 bool KDTree<Dim>::smallerDimVal(const Point<Dim> & first, const Point<Dim> & second, int curDim) const
 {
-	if (first[curDim] <= second[curDim])
+	if (first[curDim] < second[curDim])
 		return true;
 		
 	else if ((first[curDim] == second[curDim]) && (first < second))
