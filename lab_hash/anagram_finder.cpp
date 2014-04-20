@@ -51,6 +51,30 @@ bool AnagramFinder<HT>::checkWord( const string & word, const string & test ) {
      * @todo Implement this function! You should use the provided
      * templated hashtable class HT.
      */
+     
+	HT<char, int> word_table(256);
+	HT<char, int> temp_table(256);
+    for(int i = 0; i < word.length(); i++) word_table[word[i]]++;
+    for(int i = 0; i < test.length(); i++) temp_table[test[i]]++;
+
+    if(word.length() > test.length()) 
+    {
+    	typename HT<char, int>::iterator i;
+        for(i = word_table.begin(); i != word_table.end(); i++)
+        {
+        	if(i->second != temp_table[i->first]) 
+        		return false;
+        }
+    } 
+    else
+    {
+    	typename HT<char, int>::iterator i;
+        for(i = temp_table.begin(); i != temp_table.end(); i++)
+        {
+        	if(i->second != word_table[i->first]) 
+        		return false;
+        }
+    }
     return true;
 }
 

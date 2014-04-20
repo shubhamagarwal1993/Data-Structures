@@ -22,14 +22,23 @@ template <template <class K, class V> class HT>
 vector< pair<string, int> > WordFreq<HT>::getWords( int threshold ) const {
     TextFile infile( filename );
     vector< pair<string, int> > ret;
-    /**
-     * @todo Implement this function.
-     * @see char_counter.cpp if you're having trouble.
-     */
-
-
-
-
-
-    return ret;
+    
+	HT<string, int> temp_table(256);
+    
+    while(infile.good())
+    {
+    	temp_table[infile.getNextWord()]++;
+	}
+    
+//fill the ret vector to store the words that have to be returned    
+        
+    typename HT<string, int>::iterator i;
+	for(i = temp_table.begin(); i != temp_table.end(); i++) 
+	{
+		if(i->second >= threshold)
+		{
+			ret.push_back(*i);
+		}
+	}		
+	return ret;
 }

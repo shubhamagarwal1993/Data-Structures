@@ -50,7 +50,8 @@ LogfileParser::LogfileParser( const string & fname ) : whenVisitedTable( 256 ) {
     SCHashTable< string, bool > pageVisitedTable( 256 );
     ifstream infile( fname.c_str() );
     string line;
-    while( infile.good() ) {
+    while( infile.good() ) 
+    {
         getline( infile, line );
 
         // if the line length is 0, move on to the next loop iteration
@@ -59,6 +60,11 @@ LogfileParser::LogfileParser( const string & fname ) : whenVisitedTable( 256 ) {
 
         // otherwise parse the line and update the hash tables and vector
         LogLine ll( line );
+        string key = ll.customer;
+        key += " ";
+        key += ll.url;
+        time_t date = ll.date;
+        
         /**
          * @todo Finish implementing this function.
          *
@@ -67,6 +73,19 @@ LogfileParser::LogfileParser( const string & fname ) : whenVisitedTable( 256 ) {
          * this problem. This should also build the uniqueURLs member
          * vector as well.
          */
+    	if(whenVisitedTable.keyExists(key))
+    	{
+    		if(whenVisitedTable[key] > date)
+    			whenVisitedTable[key] = date;
+    	}
+    	else
+    		whenVisitedTable[key] = date;
+    
+    	if(!pageVisitedTable.keyExists(ll.url))
+    	{
+    		pageVisitedTable[ll.url] = true;
+    		uniqueURLs.push_back(ll.url);
+    	}
     }
     infile.close();
 }
