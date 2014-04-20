@@ -15,4 +15,5 @@ MosaicCanvas * mapTiles(SourceImage const & theSource, vector<TileImage> const &
      * @todo Implement this function!
      */
 	return NULL;
+	
 }

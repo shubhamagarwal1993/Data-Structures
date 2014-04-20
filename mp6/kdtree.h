@@ -250,7 +250,7 @@ class KDTree
 
 		int partition(vector< Point<Dim> > & Points, int left, int right, int pivot, int dimension);
 		
-		Point<Dim> findNearestNeighbor(const Point<Dim> & query, int left, int right, Point<Dim> bestPt, int dim) const;
+		Point<Dim> findNearestNeighbor(const Point<Dim> & query, int left, int right, Point<Dim> &pnt, int dimension) const;
 };
 
 #include "kdtree.cpp"

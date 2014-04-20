@@ -116,45 +116,51 @@ int KDTree<Dim>::partition(vector< Point<Dim> > & Points, int left, int right, i
 	return counter; 
 }
 
-//=================================================================================================
+//==========================================================================================
 
 //   return Point<Dim>();
 
 template<int Dim>
 Point<Dim> KDTree<Dim>::findNearestNeighbor(const Point<Dim> & query) const
 {
-   return findNearestNeighbor(query, 0, points.size()-1, points[(points.size()-1)/2], -1);
+	Point< Dim> pnt = points[(points.size()-1)/2];
+	if(points.size() != 0)
+		findNearestNeighbor(query, 0, points.size()-1, pnt, 0);
+	return pnt;
 }
 
 template<int Dim>
-Point<Dim> KDTree<Dim>::findNearestNeighbor(const Point<Dim> & query, int left, int right, Point<Dim> bestPt, int dim) const
+Point<Dim> KDTree<Dim>::findNearestNeighbor(const Point<Dim> & query, int left, int right, Point<Dim> &pnt, int dimension) const
 {
-        if (left >= right)
-        {
-                if (shouldReplace(query, bestPt, points[left]))
-                        return points[left];
-                return bestPt;
-        }
+	if(left >= right)
+	{
+		if(shouldReplace(query, pnt, points[left]))
+			return points[left];
+		return pnt;	
+	}
+	
+//	int center = (left + right)/2;
+	Point< Dim> final_pnt = pnt;
+	dimension = (dimension+1)%Dim;
+	
 
-        Point<Dim> ret = bestPt;
+	if(shouldReplace(query, final_pnt, points[(left+right)/2]))
+		final_pnt = points[(left+right)/2];
 
-        if(shouldReplace(query, ret, points[(left+right)/2]))
-                ret = points[(left+right)/2];
 
-        dim = (dim+1)%Dim;
-
-        if(smallerDimVal(query, points[(left+right)/2], dim))
-        {
-                ret = findNearestNeighbor(query, left, (left+right)/2-1, ret, dim);
-                if(dist(query, ret) > pow((query[dim]-points[(left+right)/2][dim]),2))
-                        return findNearestNeighbor(query, (left+right)/2+1, right, ret, dim);
-        }
-        else if(smallerDimVal(points[(left+right)/2], query, dim))
-        {
-                ret = findNearestNeighbor(query, (left+right)/2+1, right, ret, dim);
-                if(dist(query, ret) > pow((query[dim]-points[(left+right)/2][dim]),2))
-                        return findNearestNeighbor(query, left, (left+right)/2-1, ret, dim);
-        }
-
-        return ret;
+	if(smallerDimVal(query, points[(left+right)/2], dimension))//point smaller than mid, go left
+	{
+		final_pnt = findNearestNeighbor(query, left, ((left+right)/2)-1, final_pnt, dimension);
+		if(dist(query, final_pnt) > pow((query[dimension]-points[(left+right)/2][dimension]), 2))
+			return findNearestNeighbor(query, ((left+right)/2)+1, right, final_pnt, dimension); 		 		
+	}
+	
+	else if(smallerDimVal(points[(left+right)/2], query, dimension)) 
+	{
+		final_pnt = findNearestNeighbor(query, ((left+right)/2)+1, right, pnt, dimension);	
+		if(dist(query, final_pnt) > pow((query[dimension]-points[(left+right)/2][dimension]),2))
+			return findNearestNeighbor(query, left, ((left+right)/2)-1, final_pnt, dimension);
+	}
+	
+	return final_pnt;
 }
