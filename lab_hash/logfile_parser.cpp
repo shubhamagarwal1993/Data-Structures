@@ -101,7 +101,10 @@ bool LogfileParser::hasVisited( const string & customer, const string & url ) co
     /**
      * @todo Implement this function.
      */
-    return true; // replaceme
+    string key = customer;
+    key += " ";
+    key += url;
+	return whenVisitedTable.keyExists(key);
 }
 
 /**
@@ -118,7 +121,14 @@ time_t LogfileParser::dateVisited( const string & customer, const string & url )
     /**
      * @todo Implement this function.
      */
-    return time_t(); // replaceme
+
+	if (!hasVisited(customer, url))
+    	return time_t();
+    
+    string key = customer;
+    key += " ";
+    key += url;
+    return whenVisitedTable.find(key);
 }
 
 /**
