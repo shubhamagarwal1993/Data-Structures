@@ -125,7 +125,7 @@ Point<Dim> KDTree<Dim>::findNearestNeighbor(const Point<Dim> & query) const
 {
 	Point< Dim> pnt = points[(points.size()-1)/2];
 	if(points.size() != 0)
-		findNearestNeighbor(query, 0, points.size()-1, pnt, 0);
+	pnt = findNearestNeighbor(query, 0, points.size()-1, pnt, -1);
 	return pnt;
 }
 
@@ -135,32 +135,39 @@ Point<Dim> KDTree<Dim>::findNearestNeighbor(const Point<Dim> & query, int left, 
 	if(left >= right)
 	{
 		if(shouldReplace(query, pnt, points[left]))
-			return points[left];
+			pnt = points[left];
 		return pnt;	
 	}
 	
 //	int center = (left + right)/2;
-	Point< Dim> final_pnt = pnt;
 	dimension = (dimension+1)%Dim;
 	
 
-	if(shouldReplace(query, final_pnt, points[(left+right)/2]))
-		final_pnt = points[(left+right)/2];
+	if(shouldReplace(query, pnt, points[(left+right)/2]))
+		pnt = points[(left+right)/2];
 
 
 	if(smallerDimVal(query, points[(left+right)/2], dimension))//point smaller than mid, go left
 	{
-		final_pnt = findNearestNeighbor(query, left, ((left+right)/2)-1, final_pnt, dimension);
-		if(dist(query, final_pnt) > pow((query[dimension]-points[(left+right)/2][dimension]), 2))
-			return findNearestNeighbor(query, ((left+right)/2)+1, right, final_pnt, dimension); 		 		
+		pnt = findNearestNeighbor(query, left, ((left+right)/2)-1, pnt, dimension);
+//		if(dist(query, pnt) > pow((query[dimension]-points[(left+right)/2][dimension]), 2))
+		int rad=0;
+		for (int i=0;i<Dim;i++)
+			rad=rad+pow(query[i]-pnt[i],2);
+		if(pow(points[(left+right)/2][dimension%Dim]-query[dimension%Dim],2) <= rad)
+			return findNearestNeighbor(query, ((left+right)/2)+1, right, pnt, dimension); 		 		
 	}
 	
 	else if(smallerDimVal(points[(left+right)/2], query, dimension)) 
 	{
-		final_pnt = findNearestNeighbor(query, ((left+right)/2)+1, right, pnt, dimension);	
-		if(dist(query, final_pnt) > pow((query[dimension]-points[(left+right)/2][dimension]),2))
-			return findNearestNeighbor(query, left, ((left+right)/2)-1, final_pnt, dimension);
+		pnt = findNearestNeighbor(query, ((left+right)/2)+1, right, pnt, dimension);	
+//		if(dist(query, pnt) > pow((query[dimension]-points[(left+right)/2][dimension]),2))
+		int rad=0;
+		for (int i=0;i<Dim;i++)
+			rad=rad+pow(query[i]-pnt[i],2);
+		if(pow(points[(left+right)/2][dimension%Dim]-query[dimension%Dim],2) <= rad)
+			return findNearestNeighbor(query, left, ((left+right)/2)-1, pnt, dimension);
 	}
 	
-	return final_pnt;
+	return pnt;
 }
