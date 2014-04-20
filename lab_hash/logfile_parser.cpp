@@ -60,10 +60,7 @@ LogfileParser::LogfileParser( const string & fname ) : whenVisitedTable( 256 ) {
 
         // otherwise parse the line and update the hash tables and vector
         LogLine ll( line );
-        string key = ll.customer;
-        key += " ";
-        key += ll.url;
-        time_t date = ll.date;
+       
         
         /**
          * @todo Finish implementing this function.
@@ -73,20 +70,26 @@ LogfileParser::LogfileParser( const string & fname ) : whenVisitedTable( 256 ) {
          * this problem. This should also build the uniqueURLs member
          * vector as well.
          */
-    	if(whenVisitedTable.keyExists(key))
+    	 if(!hasVisited(ll.customer, ll.url)) 
     	{
-    		if(whenVisitedTable[key] > date)
-    			whenVisitedTable[key] = date;
+    		whenVisitedTable.insert(ll.customer + "--" + ll.url, ll.date);
     	}
-    	else
-    		whenVisitedTable[key] = date;
-    
-    	if(!pageVisitedTable.keyExists(ll.url))
-    	{
-    		pageVisitedTable[ll.url] = true;
-    		uniqueURLs.push_back(ll.url);
-    	}
-    }
+    	else 
+		{
+    	 	if(dateVisited(ll.customer, ll.url) < ll.date) 
+    	 	{
+    	 		whenVisitedTable.remove(ll.customer + "--" + ll.url);
+                whenVisitedTable.insert(ll.customer + "--" + ll.url, ll.date);
+			}
+		}			               
+        
+        bool found = false;
+        for(int i = 0; i < uniqueURLs.size(); i++) 
+        {
+        	if(uniqueURLs[i] == ll.url) found = true;
+        }
+        if(!found) uniqueURLs.push_back(ll.url);
+	}
     infile.close();
 }
 
