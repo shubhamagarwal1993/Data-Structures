@@ -155,7 +155,7 @@ Point<Dim> KDTree<Dim>::findNearestNeighbor(const Point<Dim> & query, int left, 
 			return findNearestNeighbor(query, ((left+right)/2)+1, right, final_pnt, dimension); 		 		
 	}
 	
-	else if(smallerDimVal(points[(left+right)/2], query, dimension)) 
+	else //if(smallerDimVal(points[(left+right)/2], query, dimension)) 
 	{
 		final_pnt = findNearestNeighbor(query, ((left+right)/2)+1, right, pnt, dimension);	
 		if(dist(query, final_pnt) > pow((query[dimension]-points[(left+right)/2][dimension]),2))
