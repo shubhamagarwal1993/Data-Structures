@@ -122,13 +122,7 @@ time_t LogfileParser::dateVisited( const string & customer, const string & url )
      * @todo Implement this function.
      */
 
-	if (!hasVisited(customer, url))
-    	return time_t();
-    
-    string key = customer;
-    key += " ";
-    key += url;
-    return whenVisitedTable.find(key);
+	return whenVisitedTable.find(customer + "--" + url);
 }
 
 /**
