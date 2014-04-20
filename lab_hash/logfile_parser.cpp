@@ -104,10 +104,7 @@ bool LogfileParser::hasVisited( const string & customer, const string & url ) co
     /**
      * @todo Implement this function.
      */
-    string key = customer;
-    key += " ";
-    key += url;
-	return whenVisitedTable.keyExists(key);
+	return whenVisitedTable.find(customer + "--" + url) != time_t();
 }
 
 /**
