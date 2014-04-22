@@ -1,7 +1,7 @@
 Monad Autograder
-Testing mp6 at 2014-04-21 01:28:00
+Testing mp6 at 2014-04-22 01:20:05
 
-"You look at their elbows, they actually have many good theoretical elbows." ~ Prof. Jiawei Han
+"A common mistake that people make when trying to design something completely foolproof is to underestimate the ingenuity of complete fools." ~ Douglas Adams
 
 Setting up test environment...
 Compiling...
