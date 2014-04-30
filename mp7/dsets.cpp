@@ -43,22 +43,22 @@ void DisjointSets::setunion(int a, int b)
 		
 		int newSize = vec[root1] + vec[root2];
 
-		if(isBigger(root1, root2))
-		{
-			vec[root2] = root1;
-			vec[root1] = newSize;
-		}	
-		else
+		if(isBigger(vec[root1], vec[root2]))
 		{
 			vec[root1] = root2;
 			vec[root2] = newSize;
+		}	
+		else
+		{
+			vec[root2] = root1;
+			vec[root1] = newSize;
 		}
 	}
 }			
 
 bool DisjointSets::isBigger(int a, int b)
 {
-	if(a >= b)
+	if(a > b)
 		return true;
 		
 	return false;	
