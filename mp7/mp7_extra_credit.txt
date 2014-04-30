@@ -1,0 +1,25 @@
+Monad Autograder
+Testing mp7.1 at 2014-04-30 00:53:18
+
+"There's an old story about the person who wished his computer were as easy to use as his telephone. That wish has come true, since I no longer know how to use my telephone." ~ Bjarne Stroustrup
+
+Setting up test environment...
+cp: cannot stat `/dev/shm/geigle1/monad/sp14-cs225/sagarwl4/mp7/maze.h': No such file or directory
+cp: cannot stat `/dev/shm/geigle1/monad/sp14-cs225/sagarwl4/mp7/maze.cpp': No such file or directory
+Compiling...
+================================================================
+
+
+Running tests...
+================================================================
+addElements1 . . . . [20 pts] - passed
+addElements2 . . . . [20 pts] - passed
+testFindAndSetUnion1 [20 pts] - passed
+testFindAndSetUnion2 [20 pts] - passed
+testFindAndSetUnion3 [20 pts] - passed
+
+
+Total score...
+================================================================
+TOTAL SCORE: 100
+
