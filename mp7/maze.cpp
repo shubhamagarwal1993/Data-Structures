@@ -118,44 +118,44 @@ bool SquareMaze::canTravel(int x, int y, int dir)const
 //	2	-	leftward
 //	3	-	upward
 
-	if(dir == 0)				//last column and no rightWall
+	if(dir == 0)			
 	{
 		if(y == w-1)
 			return false;
 		else if(maze[x][y].rightWalls)
 			return false;
-		else return true;			
+		else 
+			return true;			
 	}
-	
 	else if(dir == 1)
 	{
 		if(x == h-1)
 			return false;
 		else if(maze[x][y].bottomWalls)
 			return false;
-		else return true;		
+		else 
+			return true;		
 	}
-	
 	else if(dir == 2)
 	{
 		if(x == 0)
 			return false;
 		else if(maze[x-1][y].rightWalls)
 			return false;
-		else return true;		
+		else 
+			return true;		
 	}
-	
 	else if(dir == 3)
 	{
 		if(y == 0)
 			return false;
 		else if(maze[x][y-1].bottomWalls)
 			return false;
-		else return true;		
+		else 
+			return true;		
 	}
 	else
 		return false;
-	
 }
 
 //==========================  SET WALL ====================================		
