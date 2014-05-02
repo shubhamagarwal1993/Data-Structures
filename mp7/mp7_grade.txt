@@ -1,7 +1,7 @@
 Monad Autograder
-Testing mp7 at 2014-05-01 00:59:28
+Testing mp7 at 2014-05-02 00:59:07
 
-"I hope this code makes sense when I wake up." ~ Jason Cho
+"If you don't hand in the next homework, you might miss some points." ~ Prof. Jiawei Han
 
 Setting up test environment...
 Error: /dev/shm/geigle1/monad/sp14-cs225/sagarwl4/mp7/maze.h does not exist.
