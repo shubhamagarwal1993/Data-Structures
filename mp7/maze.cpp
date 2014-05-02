@@ -138,18 +138,11 @@ void SquareMaze::setWall(int x, int y, int dir, bool exists)
 //	exists	-	false	-	setting the wall to not exist
 
 
-	//	do we have to care about copying the side walls	-	am i already raking that into picture??????????
-	
-	
 	if(dir == 0)
-	{
 		maze[x][y].rightWalls = exists;
-	}	
-
+	
 	else if(dir == 1)
-	{
 		maze[x][y].bottomWalls = exists;
-	}
 }		
 
 //==========================  SOLVE MAZE ====================================		
