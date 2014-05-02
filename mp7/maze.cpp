@@ -61,35 +61,6 @@ void SquareMaze::makeMaze(int width, int height)
 		
 		if(flag && (x+1 < width))
 		{
-//		cout << "hi  right" << endl;
-			if((a.find(x*height + y) != a.find((x+1)*height + y))) 
-			{
-				a.setunion(a.find(x*height + y), a.find((x+1)*height + y));
-				counter++;
-				maze[x][y].rightWalls = false;
-			}
-		}
-		else if(!flag && (y+1 < height))
-		{
-//				cout << "hi	down" << endl;
-			if((a.find(x*height + y) != a.find(x*height + y + 1)))
-			{
-				a.setunion(a.find(x*height + y), a.find(x*height + y + 1));
-				counter++;
-				maze[x][y].bottomWalls = false;
-			}
-		}
-	}
-/*	
-	while(counter <= (size-1))
-	{
-		x = rand()%width;
-		y = rand()%height;
-		bool flag = rand()%2;
-		
-		if(flag && (x+1 < width))
-		{
-
 			if((a.find(x*height + y) != a.find((x+1)*height + y))) 
 			{
 				a.setunion(a.find(x*height + y), a.find((x+1)*height + y));
@@ -107,7 +78,6 @@ void SquareMaze::makeMaze(int width, int height)
 			}
 		}
 	}
-*/
 }	
 
 //==========================  CAN TRAVEL ====================================		
@@ -120,7 +90,7 @@ bool SquareMaze::canTravel(int x, int y, int dir)const
 
 	if(dir == 0)			
 	{
-		if(y == w-1)
+		if(x == w-1)
 			return false;
 		else if(maze[x][y].rightWalls)
 			return false;
@@ -129,7 +99,7 @@ bool SquareMaze::canTravel(int x, int y, int dir)const
 	}
 	else if(dir == 1)
 	{
-		if(x == h-1)
+		if(y == h-1)
 			return false;
 		else if(maze[x][y].bottomWalls)
 			return false;
@@ -160,19 +130,48 @@ bool SquareMaze::canTravel(int x, int y, int dir)const
 
 //==========================  SET WALL ====================================		
 void SquareMaze::setWall(int x, int y, int dir, bool exists)
-{
+{		//Sets whether or not the specified wall exists
+//	dir 	-	0		-	right	
+//	dir		-	1		-	down
+//	
+//	exists	-	true	-	setting the wall to exist	
+//	exists	-	false	-	setting the wall to not exist
 
+
+	//	do we have to care about copying the side walls	-	am i already raking that into picture??????????
+	
+	
+	if(dir == 0)
+	{
+		maze[x][y].rightWalls = exists;
+	}	
+
+	else if(dir == 1)
+	{
+		maze[x][y].bottomWalls = exists;
+	}
 }		
 
 //==========================  SOLVE MAZE ====================================		
 vector< int > SquareMaze::solveMaze()
 {
+	/*
+	int length = 0;							//counts the number of steps
+	int final_length = 0;					//keeps the final lengh
+	int x = 0;								//stores the x coordinate of the e;;
+	for(int i = 0; i < width; i++)			//checks all the bottom cells
+	{
+		maze[i][height-1];
+		
+	}
+	*/
+	
 	vector< int > temp;
 	return temp;
 }	
 
 //==========================  DRAW MAZE ====================================
-PNG * SquareMaze::drawMaze()const
+PNG * SquareMaze::drawMaze()const			//have to edit this function in own way = in the end
 {
 	
 	PNG * output = new PNG();
