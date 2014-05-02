@@ -1,5 +1,5 @@
-  /**
- * @file kdtree.h
+/**
+ * @file dsets.h
 */
 
 #ifndef DSETS_H
@@ -25,3 +25,4 @@ class DisjointSets
 };
 
 #endif
+
