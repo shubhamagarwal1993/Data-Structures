@@ -30,7 +30,55 @@
  */
 int GraphTools::findShortestPath(Graph & graph, Vertex start, Vertex end)
 {
-    return -1;
+	             if(graph.getEdges().size() == 0) return 0;
+ 
+        vector<Vertex> allV = graph.getVertices();
+        vector<Edge> allE = graph.getEdges();
+        for(int i = 0; i < allV.size(); i++)
+                graph.setVertexLabel(allV[i], "UNEXPLORED");
+        for(int i = 0; i < allE.size(); i++)
+                graph.setEdgeLabel(allE[i].source,allE[i].dest, "UNEXPLORED");
+ 
+        queue<Vertex> vertexes;
+        Vertex v = start;
+        graph.setVertexLabel(v, "VISITED");
+        vertexes.push(v);
+        unordered_map<Vertex, Vertex> plot;
+ 
+        vector<Vertex> adjacent;
+        bool done = false;
+ 
+        while(!vertexes.empty() && !done){
+                v = vertexes.front();
+                vertexes.pop();
+                adjacent = graph.getAdjacent(v);
+                for(int i = 0; i < adjacent.size() && !done; i++){             
+                        if(adjacent[i] == end){
+                                done = true;
+                        }
+                        else if(graph.getVertexLabel(adjacent[i]) == "UNEXPLORED"){
+                                graph.setEdgeLabel(v,adjacent[i], "DISCOVERY");
+                                graph.setVertexLabel(adjacent[i], "VISITED");
+                                vertexes.push(adjacent[i]);
+                                plot[adjacent[i]] = v;
+                        }
+                        else if(graph.getEdgeLabel(v,adjacent[i]) == "UNEXPLORED")
+                                graph.setEdgeLabel(v,adjacent[i], "CROSS");
+                }
+        }
+ 
+        graph.setEdgeLabel(v,end, "CROSS");
+        int c = 1;
+        graph.setEdgeLabel(v, end, "MINPATH");
+        while(v != start){
+                Vertex u = plot[v];
+                graph.setEdgeLabel(v, u, "MINPATH");
+                v = u;
+                c++;
+        }
+ 
+        return c;
+ 
 }
 
 /**
@@ -51,7 +99,36 @@ int GraphTools::findShortestPath(Graph & graph, Vertex start, Vertex end)
  */
 int GraphTools::findMinWeight(Graph & graph)
 {
-    return -1;
+	  set< pair<Vertex, Vertex> > seen;
+    vector<Vertex> vs = graph.getVertices();
+ 
+        int min = 999999;
+        Vertex su, sv;
+   
+    for(int j = 0; j < vs.size(); j++)
+    {
+                Vertex u = vs[j];
+        vector<Vertex> adj = graph.getAdjacent(u);
+        for(size_t i = 0; i < adj.size(); ++i)
+        {
+            Vertex v = adj[i];
+            if(seen.find(make_pair(u, v)) == seen.end())
+            {
+                                Edge e = graph.getEdge(u, v);
+                                if(e.weight < min) {
+                                        min = e.weight;
+                                        su = u;
+                                        sv = v;
+                                }
+ 
+                seen.insert(make_pair(u, v));
+                seen.insert(make_pair(v, u));
+            }
+        }
+    }
+ 
+        graph.setEdgeLabel(su, sv, "MIN");
+        return min;
 }
 
 /**
@@ -70,5 +147,17 @@ int GraphTools::findMinWeight(Graph & graph)
  */
 void GraphTools::findMST(Graph & graph)
 {
-
+	 int pu, pv;
+        DisjointSets set;
+        set.addelements(graph.getVertices().size());
+        vector<Edge> edges = graph.getEdges();
+        sort(edges.begin(), edges.end());
+        for(int i = 0; i < edges.size(); i++) {
+                pu = set.find(edges[i].source);
+                pv = set.find(edges[i].dest);
+                if(pu != pv) {
+                        graph.setEdgeLabel(edges[i].source, edges[i].dest, "MST");
+                        set.setunion(pu, pv);
+                }
+        }
 }
