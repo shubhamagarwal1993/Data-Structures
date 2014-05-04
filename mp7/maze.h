@@ -33,7 +33,7 @@ class SquareMaze
 				bool haveVisited;
 		};	
 		
-		DisjointSets a;
+//		DisjointSets a;
 
 		int w;
 		int h;

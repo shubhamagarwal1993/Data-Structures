@@ -31,7 +31,7 @@ void SquareMaze::makeMaze(int width, int height)
 
 	//we have to clear all that was present;
 	//clear();
-
+		DisjointSets a;
 	w = width;
 	h = height;	
 	int size = width*height;
