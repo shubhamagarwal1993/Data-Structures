@@ -1,7 +1,7 @@
 Monad Autograder
-Testing mp7 at 2014-05-03 01:03:44
+Testing mp7 at 2014-05-04 01:15:27
 
-"We know about as much about software quality problems as they knew about the Black Plague in the 1600s. We've seen the victims' agonies and helped burn the corpses. We don't know what causes it; we don't really know if there is only one disease. We just suffer -- and keep pouring our sewage into our water supply." ~ Tom Van Vleck
+"When you say 'You suck', I think 'I win'." ~ Michael Lopp
 
 Setting up test environment...
 Compiling...
@@ -20,19 +20,19 @@ testMakeMazeConnected . . [5 pts] - passed
 testMakeMazeAcyclic . . . [5 pts] - passed
 testMakeMazeTree1000  . . [5 pts] - passed
 testMakeMazeRandom  . . . [5 pts] - passed
-testSolveMazeValidPath  . [5 pts] - FAILED
-testSolutionBottomRow . . [5 pts] - FAILED
-testSolutionCorrectSquare [5 pts] - FAILED
-testSolveMazeSmall  . . . [5 pts] - FAILED
-testSolveMazeLarge  . . . [5 pts] - FAILED
+testSolveMazeValidPath  . [5 pts] - passed
+testSolutionBottomRow . . [5 pts] - passed
+testSolutionCorrectSquare [5 pts] - passed
+testSolveMazeSmall  . . . [5 pts] - passed
+testSolveMazeLarge  . . . [5 pts] - passed
 testDrawMazeSmall . . . . [5 pts] - passed
 testDrawMazeMed . . . . . [5 pts] - passed
 testDrawMazeLarge . . . . [5 pts] - passed
-testDrawSolutionMed . . . [5 pts] - FAILED
-testDrawSolutionLarge . . [5 pts] - FAILED
+testDrawSolutionMed . . . [5 pts] - passed
+testDrawSolutionLarge . . [5 pts] - passed
 
 
 Total score...
 ================================================================
-TOTAL SCORE: 65
+TOTAL SCORE: 100
 
