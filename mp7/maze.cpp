@@ -17,23 +17,35 @@ using namespace std;
 //=================== NO PARAMETER CONSTRUCTOR =============================
 
 SquareMaze::SquareMaze()	
-{
-	
-}
+{}
+
 //==========================================================================
 SquareMaze::dualBool::dualBool()
 	: rightWalls(true), bottomWalls(true), haveVisited(false)
 {}
-
+//==========================================================================
+SquareMaze::~SquareMaze()
+{
+	for(int i=0;i<w;i++)
+		delete []maze[i];
+	delete []maze;
+}
 //=========================== MAKE MAZE ====================================
 void SquareMaze::makeMaze(int width, int height)
 {
 
 	//we have to clear all that was present;
-	//clear();
-		DisjointSets a;
+//	if(maze != NULL)
+//	{
+//		delete maze;
+//		maze = NULL;
+//	}
+	
+	DisjointSets a;
+	
 	w = width;
 	h = height;	
+	
 	int size = width*height;
 					
 	maze = new dualBool*[width];		
@@ -50,6 +62,7 @@ void SquareMaze::makeMaze(int width, int height)
 	int counter = 0;	
 	
 	int x, y;
+	
 	srand(time(NULL));
 	
 	while(counter != (size-1))
@@ -96,6 +109,7 @@ bool SquareMaze::canTravel(int x, int y, int dir)const
 		else 
 			return true;			
 	}
+
 	else if(dir == 1)
 	{
 		if(y == h-1)
@@ -105,6 +119,7 @@ bool SquareMaze::canTravel(int x, int y, int dir)const
 		else 
 			return true;		
 	}
+
 	else if(dir == 2)
 	{
 		if(x == 0)
@@ -114,6 +129,7 @@ bool SquareMaze::canTravel(int x, int y, int dir)const
 		else 
 			return true;		
 	}
+
 	else if(dir == 3)
 	{
 		if(y == 0)
@@ -123,6 +139,7 @@ bool SquareMaze::canTravel(int x, int y, int dir)const
 		else 
 			return true;		
 	}
+
 	else
 		return false;
 }
@@ -152,12 +169,8 @@ vector< int > SquareMaze::solveMaze()
 		for(int n = 0; n < h; n++)
 			maze[m][n].haveVisited = false;
 
-
-
-
-
-
-
+	
+	
 	vector<int> pred(w*h, -1);
 	vector<int> dist(w*h, 0);
 	
@@ -165,8 +178,9 @@ vector< int > SquareMaze::solveMaze()
 	temp.push(0);
 	
 	maze[0][0].haveVisited = true;
-		int x = 0;
-		int y = 0;
+	
+	int x = 0;
+	int y = 0;
 	 
 //	cout << "start of loop" <<endl;
 	 
@@ -254,7 +268,7 @@ vector< int > SquareMaze::solveMaze()
 	vector<int> direction;
 	while(pred[follow] != -1)
 	{
-		if(pred[follow] == follow+1)						//+1
+		if(pred[follow] == follow+1)						//right
 		{
 			direction.insert(direction.begin(), 2);
 			follow = pred[follow];
@@ -263,21 +277,21 @@ vector< int > SquareMaze::solveMaze()
 		
 		x = front/h;									//check
 		y = front%h;									//check
-		if(pred[follow] == follow-1)						//-1
+		if(pred[follow] == follow-1)						//left
 		{
 			direction.insert(direction.begin(), 0);
 			follow = pred[follow];
 			continue;
 		}
 		
-		if(pred[follow] == follow + h)						//+w
+		if(pred[follow] == follow + h)						//down
 		{
 			direction.insert(direction.begin(), 3);
 			follow = pred[follow];
 			continue;
 		}
 		
-		if(pred[follow] == follow - h)						//-w
+		if(pred[follow] == follow - h)						//up
 		{
 			direction.insert(direction.begin(), 1);
 			follow = pred[follow];
@@ -293,23 +307,23 @@ vector< int > SquareMaze::solveMaze()
 //==========================  DRAW MAZE ====================================
 PNG * SquareMaze::	drawMaze()const			//have to edit this function in own way = in the end
 {
-	PNG * output = new PNG();
-	output->resize(w*10+1,h*10+1);
+	PNG * temp = new PNG();
+	temp->resize(w*10+1,h*10+1);
 
 	unsigned int i,j,k;
 
 	for(i = 0; i < h*10+1; i++)
 	{
-		(*output)(0,i)->red=0;
-		(*output)(0,i)->green=0;
-		(*output)(0,i)->blue=0;
+		(*temp)(0,i)->red=0;
+		(*temp)(0,i)->green=0;
+		(*temp)(0,i)->blue=0;
 	}
 	
 	for(i = 10; i < w*10+1; i++)
 	{
-		(*output)(i,0)->red=0;
-		(*output)(i,0)->green=0;
-		(*output)(i,0)->blue=0;
+		(*temp)(i,0)->red=0;
+		(*temp)(i,0)->green=0;
+		(*temp)(i,0)->blue=0;
 	}
 	
 	for(i = 0;i < w; i++)
@@ -320,24 +334,24 @@ PNG * SquareMaze::	drawMaze()const			//have to edit this function in own way = i
 			{
 				for(k = 0;k <= 10; k++)
 				{
-					 (*output)((i+1)*10,j*10+k)->red=0;
-					 (*output)((i+1)*10,j*10+k)->green=0;
-					 (*output)((i+1)*10,j*10+k)->blue=0;
+					 (*temp)((i+1)*10,j*10+k)->red=0;
+					 (*temp)((i+1)*10,j*10+k)->green=0;
+					 (*temp)((i+1)*10,j*10+k)->blue=0;
 				}
 			}
 			if(maze[i][j].bottomWalls)
 			{
 				for(k=0;k<=10;k++)
 				{
-					 (*output)(i*10+k,(j+1)*10)->red=0;
-					 (*output)(i*10+k,(j+1)*10)->green=0;
-					 (*output)(i*10+k,(j+1)*10)->blue=0;
+					 (*temp)(i*10+k,(j+1)*10)->red=0;
+					 (*temp)(i*10+k,(j+1)*10)->green=0;
+					 (*temp)(i*10+k,(j+1)*10)->blue=0;
 				}
 			}
 		}
 	}
 	
-	return output;
+	return temp;
 }
 
 /*
@@ -427,8 +441,12 @@ PNG * SquareMaze::drawMazeWithSolution()
 //=====================================================================
 void SquareMaze::clear()
 {
-	delete []maze;
-}
+	for(int i = 0 ; i < w; i++)
+ 	{
+ 		delete[] maze[i];
+ 	}	 
+ 	delete[] maze;
+}	
 
 
 //=================================================================================
