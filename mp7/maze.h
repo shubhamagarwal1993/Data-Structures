@@ -30,7 +30,7 @@ class SquareMaze
 				dualBool();
 				bool rightWalls;
 				bool bottomWalls;
-				
+				bool haveVisited;
 		};	
 		
 		DisjointSets a;
@@ -38,10 +38,10 @@ class SquareMaze
 		int w;
 		int h;
 		dualBool** maze;
-		
+		int maximum;
 	//helper functions are declaration here
 		void clear();
-
+		void travel_maze(int &x, int &y, int &length);
 };
 
 //#include "maze.cpp"

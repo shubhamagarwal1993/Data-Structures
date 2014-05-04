@@ -10,7 +10,8 @@
 #include <vector>
 #include <stdlib.h>
 #include <time.h>
-
+#include <queue>
+#include <map>
 using namespace std;
 
 //=================== NO PARAMETER CONSTRUCTOR =============================
@@ -21,7 +22,7 @@ SquareMaze::SquareMaze()
 }
 //==========================================================================
 SquareMaze::dualBool::dualBool()
-	: rightWalls(true), bottomWalls(true)
+	: rightWalls(true), bottomWalls(true), haveVisited(false)
 {}
 
 //=========================== MAKE MAZE ====================================
@@ -50,8 +51,6 @@ void SquareMaze::makeMaze(int width, int height)
 	
 	int x, y;
 	srand(time(NULL));
-	
-
 	
 	while(counter != (size-1))
 	{
@@ -137,7 +136,6 @@ void SquareMaze::setWall(int x, int y, int dir, bool exists)
 //	exists	-	true	-	setting the wall to exist	
 //	exists	-	false	-	setting the wall to not exist
 
-
 	if(dir == 0)
 		maze[x][y].rightWalls = exists;
 	
@@ -146,27 +144,125 @@ void SquareMaze::setWall(int x, int y, int dir, bool exists)
 }		
 
 //==========================  SOLVE MAZE ====================================		
+
 vector< int > SquareMaze::solveMaze()
 {
-	/*
-	int length = 0;							//counts the number of steps
-	int final_length = 0;					//keeps the final lengh
-	int x = 0;								//stores the x coordinate of the e;;
-	for(int i = 0; i < width; i++)			//checks all the bottom cells
+	vector < int > pred(w*h, -1);
+	vector < int > dist(w*h, 0);
+	
+	queue < int > temp;
+	temp.push(0);
+	
+	maze[0][0].haveVisited = true;
+		int x = 0;
+		int y = 0;
+	 
+	cout << "start of loop" <<endl;
+	 
+	 
+	while(!temp.empty())
 	{
-		maze[i][height-1];
-		
-	}
-	*/
-	
-	vector< int > temp;
-	return temp;
-}	
+		int front = temp.front();
+		x = front/h;									//check
+		y = front%h;									//check
+		temp.pop();	
 
-//==========================  DRAW MAZE ====================================
-PNG * SquareMaze::drawMaze()const			//have to edit this function in own way = in the end
-{
+		if(/*(x < w-1)*/ canTravel(x, y, 0) && maze[x+1][y].haveVisited==0)				//if there is a right path
+		{
+			pred[front+1] = front;		
+			dist[front+1] = dist[front]+1;
+
+			maze[x+1][y].haveVisited = true;
+
+			temp.push(front+1);						
+		}	
 	
+		if(/*(y < h-1)*/ canTravel(x, y, 1) && maze[x][y+1].haveVisited == 0)			//if there is a down path
+		{
+			pred[h+front] = front;		
+			dist[h+front] = dist[front]+1;
+			maze[x][y+1].haveVisited = true;
+			temp.push(front+h);	
+		}
+		
+		
+		if(/*(x > 0)*/ canTravel(x, y, 2) && maze[x-1][y].haveVisited == 0)				//if there is a left path
+		{
+			pred[front-1] = front;		
+			dist[front-1] = dist[front]+1;
+			maze[x-1][y].haveVisited = true;
+			temp.push(front-1);						
+		}
+
+		if(/*(y > 0)*/ canTravel(x, y, 3) && maze[x][y-1].haveVisited == 0)				//if there is a up path
+		{
+			pred[front-h] = front;		
+			dist[front-h] = dist[front]+1;
+			maze[x][y-1].haveVisited = true;
+			temp.push(front-h);						
+		}
+	}
+	
+	cout << " i am out" << endl;  
+	
+	int max = dist[(w*h)-w];
+	for(int i = 1; i < w; i++)
+	{
+		if(dist[(w*h)-w + i] > max)
+			max = dist[(w*h)- w + i];
+	}
+	
+	int new_x;
+	for(int i = (w*h)-w; i <= w*h-1; i++)
+	{
+		if(dist[i] == max)
+		{
+			new_x = i;
+			break;
+		}
+	}	
+	
+		
+	int follow = new_x + h*w - w;
+	vector<int> direction;
+	while(pred[follow] != -1)
+	{
+		if(pred[follow] == follow+1)						//+1
+		{
+			direction.insert(direction.begin(), 2);
+			follow = pred[follow];
+			continue;
+		}
+		
+		if(pred[follow] == follow-1)						//-1
+		{
+			direction.insert(direction.begin(), 0);
+			follow = pred[follow];
+			continue;
+		}
+		
+		if(pred[follow] == follow + h)						//+w
+		{
+			direction.insert(direction.begin(), 3);
+			follow = pred[follow];
+			continue;
+		}
+		
+		if(pred[follow] == follow - h)						//-w
+		{
+			direction.insert(direction.begin(), 1);
+			follow = pred[follow];
+			continue;
+		}
+	}
+	maximum = max;
+	
+	cout << "end of loop" << endl;		
+	return direction;
+}
+//==========================  DRAW MAZE ====================================
+PNG * SquareMaze::	drawMaze()const			//have to edit this function in own way = in the end
+{
 	PNG * output = new PNG();
 	output->resize(w*10+1,h*10+1);
 
@@ -235,15 +331,62 @@ PNG * SquareMaze::drawMaze()const			//have to edit this function in own way = in
 
 */
 
-
-
-
 //==========================  DRAW MAZE WITH SOLUTION =============================
-PNG * SquareMaze::drawMazeWithSolution()
-{
-	PNG * temp;
-	return temp;
-}	
+
+PNG * SquareMaze::drawMazeWithSolution(){
+    vector<int> sol=solveMaze();
+    PNG * ret=drawMaze();
+    int x=5;
+    int y=5;
+    for(int i=0;i<sol.size();i++)
+    {
+        if(sol[i]==0){
+        for (int k=0;k<11;k++)
+        {
+            (*ret)(x+k,y)->red=255;
+            (*ret)(x+k,y)->blue=0;
+            (*ret)(x+k,y)->green=0;
+        }
+        x+=10;
+        }
+        else if(sol[i]==1){
+        for (int k=0;k<11;k++)
+        {
+            (*ret)(x,y+k)->red=255;
+            (*ret)(x,y+k)->blue=0;
+            (*ret)(x,y+k)->green=0;
+        }
+        y+=10;
+        }
+        else if(sol[i]==2){
+        for (int k=0;k<11;k++)
+        {
+            (*ret)(x-k,y)->red=255;
+            (*ret)(x-k,y)->blue=0;
+            (*ret)(x-k,y)->green=0;
+        }
+        x-=10;
+        }
+        else{
+        for (int k=0;k<11;k++)
+        {
+            (*ret)(x,y-k)->red=255;
+            (*ret)(x,y-k)->blue=0;
+            (*ret)(x,y-k)->green=0;
+        }
+        y-=10;
+        }   
+    }
+    int exitX=(maximum%w)*10;
+    int exitY=((maximum/w)+1)*10;
+    for(int i=1;i<10;i++){
+        (*ret)(exitX+i,exitY)->red=255;
+        (*ret)(exitX+i,exitY)->blue=255;
+        (*ret)(exitX+i,exitY)->green=255;
+    }
+    return ret;
+}
+
 
 
 //=====================================================================
@@ -255,26 +398,6 @@ void SquareMaze::clear()
 }
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+//=================================================================================
 
 
