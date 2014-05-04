@@ -147,6 +147,17 @@ void SquareMaze::setWall(int x, int y, int dir, bool exists)
 
 vector< int > SquareMaze::solveMaze()
 {
+
+	for(int m = 0; m < w; m++)
+		for(int n = 0; n < h; n++)
+			maze[m][n].haveVisited = false;
+
+
+
+
+
+
+
 	vector<int> pred(w*h, -1);
 	vector<int> dist(w*h, 0);
 	
@@ -157,7 +168,7 @@ vector< int > SquareMaze::solveMaze()
 		int x = 0;
 		int y = 0;
 	 
-	cout << "start of loop" <<endl;
+//	cout << "start of loop" <<endl;
 	 
 	int front; 
 	while(!temp.empty())
@@ -275,8 +286,8 @@ vector< int > SquareMaze::solveMaze()
 	}
 	maximum = max;
 	
-	cout << "size of vector: " << direction.size() <<endl;
-	cout << "end of loop" << endl;		
+//	cout << "size of vector: " << direction.size() <<endl;
+//	cout << "end of loop" << endl;		
 	return direction;
 }
 //==========================  DRAW MAZE ====================================
@@ -325,6 +336,7 @@ PNG * SquareMaze::	drawMaze()const			//have to edit this function in own way = i
 			}
 		}
 	}
+	
 	return output;
 }
 
@@ -351,11 +363,64 @@ PNG * SquareMaze::	drawMaze()const			//have to edit this function in own way = i
 */
 
 //==========================  DRAW MAZE WITH SOLUTION =============================
+PNG * SquareMaze::drawMazeWithSolution()
+{
+	PNG* out = drawMaze();
 
-PNG * SquareMaze::drawMazeWithSolution(){
-  PNG * temp5;
-  return temp5;
-}   
+	vector<int> path = solveMaze();
+
+//	cout << "size of path:  " <<path.size() << endl;
+
+	int x, y, i, j;
+	x = y = 5;
+
+//	cout << "size of path: " << path.size() << "\n";
+//	cout << "before while\n";
+
+	while(!path.empty())
+	{
+		switch (path[0])
+		{
+			case 0://right
+				for(i = 0; i < 11; i++)
+				{
+					(*out)(x+i, y)->red = 255;
+					(*out)(x+i, y)->green = (*out)(x+i, y)->blue  = 0;
+				}
+//								cout << "value of i: " << i << '\n';
+				x += (i-1);
+				break;
+			case 1://down
+				for(j = 0; j < 11; j++){
+					(*out)(x, y+j)->red = 255;
+					(*out)(x, y+j)->green = (*out)(x, y+j)->blue  = 0;
+				}
+				y += (j-1);
+				break;
+			case 2://left
+				for(i = 0; i < 11; i++){
+					(*out)(x-i, y)->red = 255;
+					(*out)(x-i, y)->green = (*out)(x-i, y)->blue  = 0;
+				}
+				x -= (i-1);
+				break;
+			case 3://up
+				for(j = 0; j < 11; j++){
+					(*out)(x, y-j)->red = 255;
+					(*out)(x, y-j)->green = (*out)(x, y-j)->blue  = 0;
+				}
+				y -= (j-1);
+				break;
+			default:
+				break;
+		}
+		path.erase(path.begin());
+	}
+//	cout << "after while\n";
+	for(int k = 0; k < 9; k++)
+		(*out)(x-4+k,y+5)->red = (*out)(x-4+k,y+5)->green = (*out)(x-4+k,y+5)->blue = 255;
+	return out;
+}
 
 //=====================================================================
 //				HELPER FUNCTIONS
