@@ -30,7 +30,7 @@ void SquareMaze::makeMaze(int width, int height)
 {
 
 	//we have to clear all that was present;
-	//	clear();
+	//clear();
 
 	w = width;
 	h = height;	
@@ -159,13 +159,16 @@ vector< int > SquareMaze::solveMaze()
 	 
 	cout << "start of loop" <<endl;
 	 
-	 
+	int front; 
 	while(!temp.empty())
 	{
-		int front = temp.front();
-		x = front/h;									//check
-		y = front%h;									//check
+		front = temp.front();
 		temp.pop();	
+
+		//x = front/h;									//check
+		//y = front%h;									//check
+		x = front%h;									//check
+		y = front/h;									//check
 
 		if(/*(x < w-1)*/ canTravel(x, y, 0) && maze[x+1][y].haveVisited==0)				//if there is a right path
 		{
@@ -203,7 +206,7 @@ vector< int > SquareMaze::solveMaze()
 		}
 	}
 	
-	for(int i = 0; i < w*h; i++)
+/*	for(int i = 0; i < w*h; i++)
 	{
 		cout <<" "<< dist[i];
 	}
@@ -212,7 +215,7 @@ vector< int > SquareMaze::solveMaze()
 	{
 		cout <<" "<< pred[i];
 	}
-	
+*/	
 	
 	int max = w*h-w;
 	
@@ -247,6 +250,8 @@ vector< int > SquareMaze::solveMaze()
 			continue;
 		}
 		
+		x = front/h;									//check
+		y = front%h;									//check
 		if(pred[follow] == follow-1)						//-1
 		{
 			direction.insert(direction.begin(), 0);
@@ -348,67 +353,16 @@ PNG * SquareMaze::	drawMaze()const			//have to edit this function in own way = i
 //==========================  DRAW MAZE WITH SOLUTION =============================
 
 PNG * SquareMaze::drawMazeWithSolution(){
-    vector<int> sol=solveMaze();
-    PNG * ret=drawMaze();
-    int x=5;
-    int y=5;
-    for(int i=0;i<sol.size();i++)
-    {
-        if(sol[i]==0){
-        for (int k=0;k<11;k++)
-        {
-            (*ret)(x+k,y)->red=255;
-            (*ret)(x+k,y)->blue=0;
-            (*ret)(x+k,y)->green=0;
-        }
-        x+=10;
-        }
-        else if(sol[i]==1){
-        for (int k=0;k<11;k++)
-        {
-            (*ret)(x,y+k)->red=255;
-            (*ret)(x,y+k)->blue=0;
-            (*ret)(x,y+k)->green=0;
-        }
-        y+=10;
-        }
-        else if(sol[i]==2){
-        for (int k=0;k<11;k++)
-        {
-            (*ret)(x-k,y)->red=255;
-            (*ret)(x-k,y)->blue=0;
-            (*ret)(x-k,y)->green=0;
-        }
-        x-=10;
-        }
-        else{
-        for (int k=0;k<11;k++)
-        {
-            (*ret)(x,y-k)->red=255;
-            (*ret)(x,y-k)->blue=0;
-            (*ret)(x,y-k)->green=0;
-        }
-        y-=10;
-        }   
-    }
-    int exitX=(maximum%w)*10;
-    int exitY=((maximum/w)+1)*10;
-    for(int i=1;i<10;i++){
-        (*ret)(exitX+i,exitY)->red=255;
-        (*ret)(exitX+i,exitY)->blue=255;
-        (*ret)(exitX+i,exitY)->green=255;
-    }
-    return ret;
-}
-
-
+  PNG * temp5;
+  return temp5;
+}   
 
 //=====================================================================
 //				HELPER FUNCTIONS
 //=====================================================================
 void SquareMaze::clear()
 {
-
+	delete []maze;
 }
 
 
