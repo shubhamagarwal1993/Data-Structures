@@ -147,10 +147,10 @@ void SquareMaze::setWall(int x, int y, int dir, bool exists)
 
 vector< int > SquareMaze::solveMaze()
 {
-	vector < int > pred(w*h, -1);
-	vector < int > dist(w*h, 0);
+	vector<int> pred(w*h, -1);
+	vector<int> dist(w*h, 0);
 	
-	queue < int > temp;
+	queue<int> temp;
 	temp.push(0);
 	
 	maze[0][0].haveVisited = true;
@@ -203,27 +203,40 @@ vector< int > SquareMaze::solveMaze()
 		}
 	}
 	
-	cout << " i am out" << endl;  
-	
-	int max = dist[(w*h)-w];
-	for(int i = 1; i < w; i++)
+	for(int i = 0; i < w*h; i++)
 	{
-		if(dist[(w*h)-w + i] > max)
-			max = dist[(w*h)- w + i];
+		cout <<" "<< dist[i];
+	}
+	cout << endl;
+	for(int i = 0; i < w*h; i++)
+	{
+		cout <<" "<< pred[i];
 	}
 	
-	int new_x;
-	for(int i = (w*h)-w; i <= w*h-1; i++)
-	{
-		if(dist[i] == max)
-		{
-			new_x = i;
-			break;
-		}
-	}	
 	
+	int max = w*h-w;
+	
+	for(int i = 1; i < w; i++)
+	{
+		if(dist[(w*h)-w + i] > dist[max])
+		{
+			max = (w*h)- w + i;
+		}	
+	}
+	
+//	int new_x;
+//	for(int i = (w*h)-w; i <= w*h-1; i++)
+//	{
+//		if(dist[i] == max)
+//		{
+//			new_x = i;
+//			break;
+//		}
+//	}	
+	
+//	cout << " end " << endl;  
 		
-	int follow = new_x + h*w - w;
+	int follow = max;
 	vector<int> direction;
 	while(pred[follow] != -1)
 	{
@@ -257,6 +270,7 @@ vector< int > SquareMaze::solveMaze()
 	}
 	maximum = max;
 	
+	cout << "size of vector: " << direction.size() <<endl;
 	cout << "end of loop" << endl;		
 	return direction;
 }
