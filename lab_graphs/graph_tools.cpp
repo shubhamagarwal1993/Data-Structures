@@ -6,7 +6,10 @@
  */
 
 #include "graph_tools.h"
-
+#include <vector>
+#include <map>
+#include <queue>
+#include <algorithm>
 /**
  * Returns the shortest distance (in edges) between the Vertices
  *  start and end.
@@ -26,59 +29,53 @@
  *  to solve this problem without it.
  *
  * @hint In order to draw (and correctly count) the edges between two
- *  vertices, you'll have to remember each vertex's parent somehow.
+ *  	vertices, you'll have to remember each vertex's parent somehow.
  */
 int GraphTools::findShortestPath(Graph & graph, Vertex start, Vertex end)
 {
-	             if(graph.getEdges().size() == 0) return 0;
- 
-        vector<Vertex> allV = graph.getVertices();
-        vector<Edge> allE = graph.getEdges();
-        for(int i = 0; i < allV.size(); i++)
-                graph.setVertexLabel(allV[i], "UNEXPLORED");
-        for(int i = 0; i < allE.size(); i++)
-                graph.setEdgeLabel(allE[i].source,allE[i].dest, "UNEXPLORED");
- 
-        queue<Vertex> vertexes;
-        Vertex v = start;
-        graph.setVertexLabel(v, "VISITED");
-        vertexes.push(v);
-        unordered_map<Vertex, Vertex> plot;
- 
-        vector<Vertex> adjacent;
-        bool done = false;
- 
-        while(!vertexes.empty() && !done){
-                v = vertexes.front();
-                vertexes.pop();
-                adjacent = graph.getAdjacent(v);
-                for(int i = 0; i < adjacent.size() && !done; i++){             
-                        if(adjacent[i] == end){
-                                done = true;
-                        }
-                        else if(graph.getVertexLabel(adjacent[i]) == "UNEXPLORED"){
-                                graph.setEdgeLabel(v,adjacent[i], "DISCOVERY");
-                                graph.setVertexLabel(adjacent[i], "VISITED");
-                                vertexes.push(adjacent[i]);
-                                plot[adjacent[i]] = v;
-                        }
-                        else if(graph.getEdgeLabel(v,adjacent[i]) == "UNEXPLORED")
-                                graph.setEdgeLabel(v,adjacent[i], "CROSS");
-                }
-        }
- 
-        graph.setEdgeLabel(v,end, "CROSS");
-        int c = 1;
-        graph.setEdgeLabel(v, end, "MINPATH");
-        while(v != start){
-                Vertex u = plot[v];
-                graph.setEdgeLabel(v, u, "MINPATH");
-                v = u;
-                c++;
-        }
- 
-        return c;
- 
+  if(graph.getEdges().size()==0) return 0;
+  
+    queue<Vertex> vq;
+    Vertex v = start;
+
+    graph.setVertexLabel(v, "VISTED");
+    vq.push(v);
+
+    std::map <Vertex, Vertex> gmap;
+    std::vector<Vertex> adj;
+
+    while(!vq.empty())
+    {
+    	v=vq.front();
+    	vq.pop();
+
+    	adj=graph.getAdjacent(v);
+
+    	for(int i=0; i<adj.size(); i++)
+    	{
+    		Vertex w = adj[i];
+    		if(graph.getVertexLabel(w).compare("")==0)
+    		{
+    			gmap[w]=v;
+    			graph.setEdgeLabel(v,w, "DISCOVERY");
+    			graph.setVertexLabel(w, "VISTED");
+    			vq.push(w);
+    		}
+    		else if(graph.getEdgeLabel(v,w).compare("")==0)
+    		{
+    			graph.setEdgeLabel(v,w,"CROSS");
+    		}
+    	}
+    }
+    int counter=0;
+    while(end!=start)
+    {
+    	graph.setEdgeLabel(end, gmap[end], "MINPATH");
+    	end = gmap[end];
+    	counter++;
+    }
+
+    return counter;
 }
 
 /**
@@ -99,36 +96,51 @@ int GraphTools::findShortestPath(Graph & graph, Vertex start, Vertex end)
  */
 int GraphTools::findMinWeight(Graph & graph)
 {
-	  set< pair<Vertex, Vertex> > seen;
-    vector<Vertex> vs = graph.getVertices();
- 
-        int min = 999999;
-        Vertex su, sv;
-   
-    for(int j = 0; j < vs.size(); j++)
+	Vertex start = graph.getStartingVertex();
+	
+	queue<Vertex> vq;
+    Vertex v = start;
+    int min = 99999999;
+    
+    graph.setVertexLabel(v, "VISTED");
+    vq.push(v);
+    
+    std::map <Vertex, Vertex> gmap;
+    std::vector<Vertex> adj;
+    
+    Vertex min1, min2;
+    
+    while(!vq.empty())
     {
-                Vertex u = vs[j];
-        vector<Vertex> adj = graph.getAdjacent(u);
-        for(size_t i = 0; i < adj.size(); ++i)
-        {
-            Vertex v = adj[i];
-            if(seen.find(make_pair(u, v)) == seen.end())
-            {
-                                Edge e = graph.getEdge(u, v);
-                                if(e.weight < min) {
-                                        min = e.weight;
-                                        su = u;
-                                        sv = v;
-                                }
- 
-                seen.insert(make_pair(u, v));
-                seen.insert(make_pair(v, u));
-            }
-        }
+    	v=vq.front();
+    	vq.pop();
+
+    	adj=graph.getAdjacent(v);
+
+    	for(int i=0; i<adj.size(); i++)
+    	{
+    		Vertex w = adj[i];
+    		if(graph.getVertexLabel(w).compare("")==0)
+    		{
+    			gmap[w]=v;
+    			graph.setEdgeLabel(v,w, "DISCOVERY");
+    			graph.setVertexLabel(w, "VISTED");
+    			vq.push(w);
+    		}
+    		else if(graph.getEdgeLabel(v,w).compare("")==0)
+    		{
+    			graph.setEdgeLabel(v,w,"CROSS");
+    		}
+    		if(graph.getEdgeWeight(v,w)<=min)
+    		{
+    			min=graph.getEdgeWeight(v,w);
+    			min1=v;
+    			min2=w;
+    		}
+    	}
     }
- 
-        graph.setEdgeLabel(su, sv, "MIN");
-        return min;
+    graph.setEdgeLabel(min1,min2, "MIN");
+    return min;
 }
 
 /**
@@ -147,17 +159,23 @@ int GraphTools::findMinWeight(Graph & graph)
  */
 void GraphTools::findMST(Graph & graph)
 {
-	 int pu, pv;
-        DisjointSets set;
-        set.addelements(graph.getVertices().size());
-        vector<Edge> edges = graph.getEdges();
-        sort(edges.begin(), edges.end());
-        for(int i = 0; i < edges.size(); i++) {
-                pu = set.find(edges[i].source);
-                pv = set.find(edges[i].dest);
-                if(pu != pv) {
-                        graph.setEdgeLabel(edges[i].source, edges[i].dest, "MST");
-                        set.setunion(pu, pv);
-                }
-        }
+	int a, b;
+	DisjointSets x;
+	
+	x.addelements(graph.getVertices().size());
+	
+	std::vector<Edge> edges=graph.getEdges();
+	sort(edges.begin(), edges.end());
+	
+	for (int i = 0; i < edges.size(); i++)
+	{
+		a=x.find(edges[i].source);
+		b=x.find(edges[i].dest);
+
+		if(a!=b)
+		{
+			graph.setEdgeLabel(edges[i].source, edges[i].dest, "MST");
+			x.setunion(a,b);
+		}
+	}
 }
