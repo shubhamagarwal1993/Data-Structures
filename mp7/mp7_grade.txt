@@ -1,7 +1,7 @@
 Monad Autograder
-Testing mp7 at 2014-05-04 01:15:27
+Testing mp7 at 2014-05-05 01:28:29
 
-"When you say 'You suck', I think 'I win'." ~ Michael Lopp
+"One day I will shoot you with this bullet. Can you still say that you love me?" ~ Re-l Mayer
 
 Setting up test environment...
 Compiling...
