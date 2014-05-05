@@ -389,9 +389,9 @@ PNG * SquareMaze::drawMazeWithSolution()
 	int y = 5;			//start
 
 	
-	while(!path.empty())
+	for(int m =0; m < path.size(); m++)
 	{
-		if(path[0] == 0)						//right
+		if(path[m] == 0)						//right
 		{
 			for(int i = 0; i < 11; i++)
 			{
@@ -402,7 +402,7 @@ PNG * SquareMaze::drawMazeWithSolution()
 			x = x + 10;
 		}
 		
-		else if(path[0] == 1)					//down
+		else if(path[m] == 1)					//down
 		{
 			for(int i = 0; i < 11; i++)
 			{
@@ -413,7 +413,7 @@ PNG * SquareMaze::drawMazeWithSolution()
 			y = y + 10;
 		}
 		
-		else if(path[0] == 2)					//left
+		else if(path[m] == 2)					//left
 		{
 			for(int i = 0; i < 11; i++)
 			{
@@ -424,7 +424,7 @@ PNG * SquareMaze::drawMazeWithSolution()
 			x = x - 10;
 		}	
 		
-		else if(path[0] == 3)					//up
+		else if(path[m] == 3)					//up
 		{
 			for(int i = 0; i < 11; i++)
 			{
@@ -435,7 +435,7 @@ PNG * SquareMaze::drawMazeWithSolution()
 			y = y - 10;
 		}
 		
-		path.erase(path.begin());		
+//		path.erase(path.begin());		
 	}
 	
 	
