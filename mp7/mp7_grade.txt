@@ -1,7 +1,7 @@
 Monad Autograder
-Testing mp7 at 2014-05-05 01:28:29
+Testing mp7 at 2014-05-06 02:02:11
 
-"One day I will shoot you with this bullet. Can you still say that you love me?" ~ Re-l Mayer
+"I don't try to be a threat to Microsoft, mainly because I don't really see them as competition. Especially not Windows -- the goals of Linux and Windows are simply so different." ~ Linus Torvalds
 
 Setting up test environment...
 Compiling...
